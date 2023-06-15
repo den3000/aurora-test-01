@@ -1,7 +1,7 @@
 #ifndef ROOTCOORDINATOR_H
 #define ROOTCOORDINATOR_H
 
-#include "auroraapp.h"
+#include <auroraapp.h>
 
 #include <QObject>
 #include <QtQuick>
@@ -12,7 +12,7 @@ class RootCoordinator : public QObject
 public:
     explicit RootCoordinator(QObject *parent = nullptr);
 
-    QUrl appRootUrl();
+    QSharedPointer<QQuickView> appRoot();
 signals:
 
 };

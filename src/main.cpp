@@ -48,11 +48,8 @@ int main(int argc, char *argv[])
     application->setOrganizationName(QStringLiteral("ru.auroraos"));
     application->setApplicationName(QStringLiteral("DiAndNavExample"));
 
-    QScopedPointer<RootCoordinator> rootCoordinator (new RootCoordinator());
-
-    QScopedPointer<QQuickView> view(Aurora::Application::createView());
-    view->setSource(rootCoordinator->appRootUrl());
-    view->show();
+    QScopedPointer<RootCoordinator> rootCoordinator(new RootCoordinator());
+    QSharedPointer<QQuickView> view = rootCoordinator->appRoot();
 
     return application->exec();
 }
