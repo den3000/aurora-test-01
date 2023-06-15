@@ -13,6 +13,7 @@ RootCoordinator::RootCoordinator(QObject *parent) : QObject(parent)
 QSharedPointer<QQuickView> RootCoordinator::appRoot() {
     QSharedPointer<QQuickView> view(Aurora::Application::createView());
     view->setSource(Aurora::Application::pathTo("qml/DiAndNavExample.qml"));
+    view->rootObject()->setProperty("myStr", "AppWindow_strFromCpp");
     view->show();
 
     //    QVariant navStack = view->rootObject()->property("pageStack");
@@ -32,9 +33,16 @@ QSharedPointer<QQuickView> RootCoordinator::appRoot() {
                 Aurora::Application::pathTo("qml/pages/MainPage.qml"),
                 view->rootObject()
                 );
+//    component.setProperty("myStr", "MainPage_strFromCpp");
 
-    QMetaObject::invokeMethod(view->rootObject(), "push",
-            Q_ARG(QVariant, QVariant::fromValue(&component)));
+    QMap<QString, QVariant> properties;
+    properties["myStr"] = "MainPage_strFromCpp";
+    QMetaObject::invokeMethod(
+                view->rootObject(),
+                "push",
+                Q_ARG(QVariant, QVariant::fromValue(&component)),
+                Q_ARG(QVariant, QVariant::fromValue(properties))
+                );
 
     return view;
 }

@@ -40,7 +40,7 @@ import Sailfish.Silica 1.0
 
 
 Page {
-    property string myStr: "MainPage_strFromQml"
+    property string myStr
 
     objectName: "mainPage"
     allowedOrientations: Orientation.All
@@ -61,9 +61,9 @@ Page {
     onStatusChanged: {
         switch (status) {
         case PageStatus.Inactive:
-//            return console.log("Inactive " + myStr);
+            return console.log("Inactive " + myStr);
         case PageStatus.Activating:
-//            return console.log("Activating" + myStr);
+            return console.log("Activating " + myStr);
         case PageStatus.Active:
             return console.log("Active " + myStr);
         case PageStatus.Deactivating:

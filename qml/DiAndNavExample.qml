@@ -49,7 +49,7 @@ ApplicationWindow {
 
     onVisibleChanged: { console.log(myStr) }
 
-    function push(pageUrl) {
-        pageStack.push(pageUrl)
+    function push(page, properties) {
+        pageStack.push(page, properties)
     }
 }
