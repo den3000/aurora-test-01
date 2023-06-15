@@ -1,4 +1,3 @@
-/*******************************************************************************
 **
 ** Copyright (C) 2022 ru.auroraos
 **
@@ -35,11 +34,12 @@
 **
 *******************************************************************************/
 
-// https://www.freecodecamp.org/news/gitignore-what-is-it-and-how-to-add-to-repo/
-// https://github.com/github/gitignore/blob/main/Qt.gitignore
-
 #include <auroraapp.h>
 #include <QtQuick>
+#include "rootcoordinator.h"
+
+// https://www.freecodecamp.org/news/gitignore-what-is-it-and-how-to-add-to-repo/
+// https://github.com/github/gitignore/blob/main/Qt.gitignore
 
 int main(int argc, char *argv[])
 {
@@ -47,8 +47,10 @@ int main(int argc, char *argv[])
     application->setOrganizationName(QStringLiteral("ru.auroraos"));
     application->setApplicationName(QStringLiteral("DiAndNavExample"));
 
+    QScopedPointer<RootCoordinator> rootCoordinator (new RootCoordinator());
+
     QScopedPointer<QQuickView> view(Aurora::Application::createView());
-    view->setSource(Aurora::Application::pathTo(QStringLiteral("qml/DiAndNavExample.qml")));
+    view->setSource(rootCoordinator->appRootUrl());
     view->show();
 
     return application->exec();

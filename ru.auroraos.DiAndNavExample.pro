@@ -44,8 +44,10 @@ PKGCONFIG += \
 
 SOURCES += \
     src/main.cpp \
+    src/rootcoordinator.cpp
 
 HEADERS += \
+    src/rootcoordinator.h
 
 DISTFILES += \
     rpm/ru.auroraos.DiAndNavExample.spec \
