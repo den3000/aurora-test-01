@@ -27,14 +27,14 @@ QSharedPointer<QQuickView> RootCoordinator::appRoot() {
     //    }
     //    qDebug() << thatFackingStack;
 
-    QQmlComponent splitComp(
+    QQmlComponent component(
                 view->engine(),
                 Aurora::Application::pathTo("qml/pages/MainPage.qml"),
                 view->rootObject()
                 );
 
     QMetaObject::invokeMethod(view->rootObject(), "push",
-            Q_ARG(QVariant, QVariant::fromValue(&splitComp)));
+            Q_ARG(QVariant, QVariant::fromValue(&component)));
 
     return view;
 }
