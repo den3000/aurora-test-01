@@ -39,6 +39,8 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 Page {
+    property string myStr: "MainPage_strFromQml"
+
     objectName: "mainPage"
     allowedOrientations: Orientation.All
 
@@ -54,5 +56,17 @@ Page {
                 onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
             }
         ]
+    }
+    onStatusChanged: {
+        switch (status) {
+        case PageStatus.Inactive:
+//            return console.log("Inactive " + myStr);
+        case PageStatus.Activating:
+//            return console.log("Activating" + myStr);
+        case PageStatus.Active:
+            return console.log("Active " + myStr);
+        case PageStatus.Deactivating:
+            return console.log("Deactivating " + myStr);
+        }
     }
 }

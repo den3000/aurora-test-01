@@ -42,7 +42,7 @@
 <context>
     <name>MainPage</name>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="47"/>
+        <location filename="../qml/pages/MainPage.qml" line="49"/>
         <source>DI and Navigation example</source>
         <translation>Пример DI и навигации</translation>
     </message>

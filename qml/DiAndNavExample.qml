@@ -39,8 +39,17 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 ApplicationWindow {
+    property string myStr: "ApplicationWindow_strFromQml"
+
     objectName: "applicationWindow"
-    initialPage: Qt.resolvedUrl("pages/MainPage.qml")
+    // instead push function will be called from coordinator
+//    initialPage: Qt.resolvedUrl("pages/MainPage.qml")
     cover: Qt.resolvedUrl("cover/DefaultCoverPage.qml")
     allowedOrientations: defaultAllowedOrientations
+
+    onVisibleChanged: { console.log(myStr) }
+
+    function push(pageUrl) {
+        pageStack.push(pageUrl)
+    }
 }
