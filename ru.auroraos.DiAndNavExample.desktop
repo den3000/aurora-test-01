@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+X-Nemo-Application-Type=silica-qt5
+Icon=ru.auroraos.DiAndNavExample
+Exec=/usr/bin/ru.auroraos.DiAndNavExample
+Name=DI and Navigation example
+Name[ru]=Пример DI и навигации
+
+[X-Application]
+Permissions=
+OrganizationName=ru.auroraos
+ApplicationName=DiAndNavExample
+ExecDBus=/usr/bin/ru.auroraos.DiAndNavExample
