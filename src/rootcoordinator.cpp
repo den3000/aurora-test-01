@@ -33,7 +33,6 @@ QSharedPointer<QQuickView> RootCoordinator::appRoot() {
                 Aurora::Application::pathTo("qml/pages/MainPage.qml"),
                 view->rootObject()
                 );
-//    component.setProperty("myStr", "MainPage_strFromCpp");
 
     QMap<QString, QVariant> properties;
     properties["myStr"] = "MainPage_strFromCpp";
