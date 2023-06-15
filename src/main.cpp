@@ -35,6 +35,9 @@
 **
 *******************************************************************************/
 
+// https://www.freecodecamp.org/news/gitignore-what-is-it-and-how-to-add-to-repo/
+// https://github.com/github/gitignore/blob/main/Qt.gitignore
+
 #include <auroraapp.h>
 #include <QtQuick>
 
