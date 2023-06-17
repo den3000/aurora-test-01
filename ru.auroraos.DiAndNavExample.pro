@@ -50,6 +50,7 @@ HEADERS += \
     src/rootcoordinator.h
 
 DISTFILES += \
+    qml/RootCoordinatorQml.qml \
     rpm/ru.auroraos.DiAndNavExample.spec \
     AUTHORS.md \
     CODE_OF_CONDUCT.md \

@@ -16,19 +16,7 @@ QSharedPointer<QQuickView> RootCoordinator::appRoot() {
     view->rootObject()->setProperty("myStr", "AppWindow_strFromCpp");
     view->show();
 
-    //    QVariant navStack = view->rootObject()->property("pageStack");
-    //    QObject * navStackObject = qvariant_cast<QObject *>(navStack);
-    //    qDebug() << navStackObject->children();
-    //    QQmlComponent * thatFackingStack = nullptr;
-    //    for(const QObject * obj : navStackObject->children()) {
-    //        if (qobject_cast<QQmlComponent*>(obj)) {
-    ////            thatFackingStack = qobject_cast<QQmlComponent*>(obj);
-    ////            break;
-    //        }
-    //    }
-    //    qDebug() << thatFackingStack;
-
-    QQmlComponent component(
+    QQmlComponent mainPage(
                 view->engine(),
                 Aurora::Application::pathTo("qml/pages/MainPage.qml"),
                 view->rootObject()
@@ -36,13 +24,28 @@ QSharedPointer<QQuickView> RootCoordinator::appRoot() {
 
     QMap<QString, QVariant> properties;
     properties["myStr"] = "MainPage_strFromCpp";
+
+    QQuickItem * rootCoordinator = findQuickViewChildByObjectName(view.data(), "rootCoordinatorQml");
     QMetaObject::invokeMethod(
-                view->rootObject(),
+                rootCoordinator,
                 "push",
-                Q_ARG(QVariant, QVariant::fromValue(&component)),
+                Q_ARG(QVariant, QVariant::fromValue(&mainPage)),
                 Q_ARG(QVariant, QVariant::fromValue(properties))
                 );
 
     return view;
 }
+
+QQuickItem *RootCoordinator::findQuickViewChildByObjectName(QQuickView *quickView, const char *objectName)
+{
+    return quickView->rootObject()->findChild<QQuickItem *>(objectName);
+}
+
+QQuickItem *RootCoordinator::findQuickViewPropertyByPropertyName(QQuickView *quickView, const char *propertyName)
+{
+    QVariant propertyVariant = quickView->rootObject()->property(propertyName);
+    QObject * propertyObject = qvariant_cast<QObject *>(propertyVariant);
+    return qobject_cast<QQuickItem *>(propertyObject);
+}
+
 
