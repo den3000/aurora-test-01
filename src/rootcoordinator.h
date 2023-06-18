@@ -15,9 +15,6 @@ public:
     void start();
 
 private:
-    QQuickItem * findQuickViewChildByObjectName(QQuickView * quickView, const char * objectName);
-    QQuickItem * findQuickViewPropertyByPropertyName(QQuickView * quickView, const char * propertyName);
-
     QSharedPointer<QQuickView> rootView;
     QSharedPointer<QQuickItem> qmlCoordinatorInstance;
 

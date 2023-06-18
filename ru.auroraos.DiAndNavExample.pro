@@ -49,6 +49,7 @@ SOURCES += \
 
 HEADERS += \
     src/customcppclasses.h \
+    src/easyutils.h \
     src/mainvm.h \
     src/rootcoordinator.h
 
