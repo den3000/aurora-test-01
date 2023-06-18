@@ -43,10 +43,13 @@ CONFIG += \
 PKGCONFIG += \
 
 SOURCES += \
+    src/mainvm.cpp \
     src/main.cpp \
     src/rootcoordinator.cpp
 
 HEADERS += \
+    src/customcppclasses.h \
+    src/mainvm.h \
     src/rootcoordinator.h
 
 DISTFILES += \

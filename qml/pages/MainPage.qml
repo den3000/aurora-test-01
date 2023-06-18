@@ -37,13 +37,17 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-
+import CustomCppClasses.Module 1.0
 
 Page {
     property string myStr
 
     objectName: "mainPage"
     allowedOrientations: Orientation.All
+
+    MainVM {
+        id: model
+    }
 
     PageHeader {
         objectName: "pageHeader"
@@ -58,6 +62,7 @@ Page {
             }
         ]
     }
+
     onStatusChanged: {
         switch (status) {
         case PageStatus.Inactive:

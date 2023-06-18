@@ -23,6 +23,7 @@ QSharedPointer<QQuickView> RootCoordinator::appRoot() {
                 );
 
     QMap<QString, QVariant> properties;
+    // TODO: Assign MainPage VM here
     properties["myStr"] = "MainPage_strFromCpp";
 
     QQuickItem * rootCoordinator = findQuickViewChildByObjectName(view.data(), "rootCoordinatorQml");
