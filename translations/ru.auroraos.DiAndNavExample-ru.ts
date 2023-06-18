@@ -39,12 +39,4 @@
         <translation>Пример DI и навигации</translation>
     </message>
 </context>
-<context>
-    <name>MainPage</name>
-    <message>
-        <location filename="../qml/pages/MainPage.qml" line="54"/>
-        <source>DI and Navigation example</source>
-        <translation>Пример DI и навигации</translation>
-    </message>
-</context>
 </TS>

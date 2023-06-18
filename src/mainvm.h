@@ -9,6 +9,7 @@ class MainVM : public QObject
 public:
     explicit MainVM(QObject *parent = nullptr);
 
+    Q_INVOKABLE void foo() const;
 signals:
 
 };

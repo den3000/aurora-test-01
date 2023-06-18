@@ -5,6 +5,8 @@
 
 #include <QtQuick>
 
+#include "mainvm.h"
+
 RootCoordinator::RootCoordinator(QObject *parent) : QObject(parent)
 {
 
@@ -23,8 +25,7 @@ QSharedPointer<QQuickView> RootCoordinator::appRoot() {
                 );
 
     QMap<QString, QVariant> properties;
-    // TODO: Assign MainPage VM here
-    properties["myStr"] = "MainPage_strFromCpp";
+    properties["model"] = QVariant::fromValue<MainVM *>(new MainVM());
 
     QQuickItem * rootCoordinator = findQuickViewChildByObjectName(view.data(), "rootCoordinatorQml");
     QMetaObject::invokeMethod(

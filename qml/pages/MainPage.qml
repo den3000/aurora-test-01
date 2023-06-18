@@ -40,14 +40,14 @@ import Sailfish.Silica 1.0
 import CustomCppClasses.Module 1.0
 
 Page {
-    property string myStr
+    required property MainVM model
 
     objectName: "mainPage"
     allowedOrientations: Orientation.All
 
-    MainVM {
-        id: model
-    }
+//    MainVM {
+//        id: model
+//    }
 
     PageHeader {
         objectName: "pageHeader"
@@ -61,6 +61,14 @@ Page {
                 onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
             }
         ]
+    }
+
+    Button {
+        id: customQuickItem
+        anchors.centerIn: parent
+        anchors.verticalCenterOffset: -150
+        text: "Next Page"
+        onClicked: model.foo()
     }
 
     onStatusChanged: {
