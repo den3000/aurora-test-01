@@ -1,12 +1,12 @@
-#ifndef EASYUTILS_H
-#define EASYUTILS_H
+#ifndef SMOOZYUTILS_H
+#define SMOOZYUTILS_H
 
 #include <QObject>
 #include <QtQuick>
 
 #include <auroraapp.h>
 
-namespace Easy
+namespace Smoozy
 {
     inline QQuickItem * findQuickViewChildByObjectName(QQuickView * quickView, const char * objectName) {
         return quickView->rootObject()->findChild<QQuickItem *>(objectName);
@@ -32,8 +32,8 @@ namespace Easy
                     "push",
                     Q_ARG(QVariant, QVariant::fromValue(page)),
                     Q_ARG(QVariant, QVariant::fromValue(properties))
-                    );;
+                    );
     }
 }
 
-#endif // EASYUTILS_H
+#endif // SMOOZYUTILS_H

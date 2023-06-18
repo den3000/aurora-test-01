@@ -39,8 +39,6 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 ApplicationWindow {
-    property string myStr: "ApplicationWindow_strFromQml"
-
     /*
         instead of default initial page setup
             initialPage: Qt.resolvedUrl("pages/MainPage.qml")

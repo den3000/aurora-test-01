@@ -49,9 +49,9 @@ SOURCES += \
 
 HEADERS += \
     src/customcppclasses.h \
-    src/easyutils.h \
     src/mainvm.h \
-    src/rootcoordinator.h
+    src/rootcoordinator.h \
+    src/smoozyutils.h
 
 DISTFILES += \
     qml/RootCoordinatorQml.qml \
