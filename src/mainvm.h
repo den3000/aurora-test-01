@@ -13,6 +13,7 @@ public:
 
 signals:
     void gotoAboutPage();
+    void gotoAboutPageWithInt(int value);
 
 };
 

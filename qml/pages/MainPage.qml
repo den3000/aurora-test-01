@@ -60,12 +60,31 @@ Page {
     }
 
     Button {
-        id: customQuickItem
+        id: btAboutInt
         anchors.centerIn: parent
         anchors.verticalCenterOffset: -150
-        text: "Next Page"
+        text: "About with Int"
+        onClicked: model.gotoAboutPageWithInt(100)
+    }
+
+    Button {
+        id: btAboutString
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: btAboutInt.bottom
+        anchors.topMargin: 16
+        text: "About with Str"
         onClicked: model.foo()
     }
+
+    Button {
+        id: btFoo
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: btAboutString.bottom
+        anchors.topMargin: 16
+        text: "Foo"
+        onClicked: model.foo()
+    }
+
 
     onStatusChanged: {
         switch (status) {
