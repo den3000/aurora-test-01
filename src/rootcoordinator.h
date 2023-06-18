@@ -12,11 +12,14 @@ class RootCoordinator : public QObject
 public:
     explicit RootCoordinator(QObject *parent = nullptr);
 
-    QSharedPointer<QQuickView> appRoot();
+    void start();
 
 private:
     QQuickItem * findQuickViewChildByObjectName(QQuickView * quickView, const char * objectName);
     QQuickItem * findQuickViewPropertyByPropertyName(QQuickView * quickView, const char * propertyName);
+
+    QSharedPointer<QQuickView> rootView;
+    QSharedPointer<QQuickItem> qmlCoordinatorInstance;
 
 signals:
 };

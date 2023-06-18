@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
     application->setApplicationName(QStringLiteral("DiAndNavExample"));
 
     QScopedPointer<RootCoordinator> rootCoordinator(new RootCoordinator());
-    QSharedPointer<QQuickView> view = rootCoordinator->appRoot();
+    rootCoordinator->start();
 
     return application->exec();
 }

@@ -9,33 +9,31 @@
 
 RootCoordinator::RootCoordinator(QObject *parent) : QObject(parent)
 {
+    rootView = QSharedPointer<QQuickView>(Aurora::Application::createView());
+    rootView->setSource(Aurora::Application::pathTo("qml/DiAndNavExample.qml"));
 
+    qmlCoordinatorInstance = QSharedPointer<QQuickItem>(findQuickViewChildByObjectName(rootView.data(), "rootCoordinatorQml"));
 }
 
-QSharedPointer<QQuickView> RootCoordinator::appRoot() {
-    QSharedPointer<QQuickView> view(Aurora::Application::createView());
-    view->setSource(Aurora::Application::pathTo("qml/DiAndNavExample.qml"));
-    view->rootObject()->setProperty("myStr", "AppWindow_strFromCpp");
-    view->show();
+void RootCoordinator::start() {
+
+    rootView->show();
 
     QQmlComponent mainPage(
-                view->engine(),
+                rootView->engine(),
                 Aurora::Application::pathTo("qml/pages/MainPage.qml"),
-                view->rootObject()
+                rootView->rootObject()
                 );
 
     QMap<QString, QVariant> properties;
     properties["model"] = QVariant::fromValue<MainVM *>(new MainVM());
 
-    QQuickItem * rootCoordinator = findQuickViewChildByObjectName(view.data(), "rootCoordinatorQml");
     QMetaObject::invokeMethod(
-                rootCoordinator,
+                qmlCoordinatorInstance.data(),
                 "push",
                 Q_ARG(QVariant, QVariant::fromValue(&mainPage)),
                 Q_ARG(QVariant, QVariant::fromValue(properties))
                 );
-
-    return view;
 }
 
 QQuickItem *RootCoordinator::findQuickViewChildByObjectName(QQuickView *quickView, const char *objectName)
