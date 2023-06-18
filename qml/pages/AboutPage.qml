@@ -37,8 +37,11 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import CustomCppClasses.Module 1.0
 
 Page {
+    property AboutVM model
+
     objectName: "aboutPage"
     allowedOrientations: Orientation.All
 
@@ -51,10 +54,30 @@ Page {
             id: layout
             objectName: "layout"
             width: parent.width
+            spacing: 16
 
             PageHeader {
                 objectName: "pageHeader"
                 title: qsTr("About Application")
+            }
+
+            Button {
+                id: btInvoke
+                anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
+                text: "Foo"
+                onClicked: model.foo()
+            }
+
+            Button {
+                id: btEmit
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                    leftMargin: Theme.horizontalPageMargin
+                    rightMargin: Theme.horizontalPageMargin
+                }
+                text: "Emit"
+                onClicked: model.bar()
             }
 
             Label {

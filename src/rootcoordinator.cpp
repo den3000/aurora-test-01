@@ -7,6 +7,7 @@
 
 #include "smoozyutils.h"
 #include "mainvm.h"
+#include "aboutvm.h"
 
 RootCoordinator::RootCoordinator(QObject *parent) : QObject(parent)
 {
@@ -22,11 +23,11 @@ void RootCoordinator::start() {
 
     auto page = Smoozy::createPage(rootView.data(), "qml/pages/MainPage.qml");
 
-    QMap<QString, QVariant> properties;
     auto vm = new MainVM();
     QObject::connect(vm, &MainVM::gotoAboutPage, this, &RootCoordinator::showAboutPage);
-    properties["model"] = QVariant::fromValue<MainVM *>(vm);
 
+    QMap<QString, QVariant> properties;
+    properties["model"] = QVariant::fromValue<MainVM *>(vm);
     Smoozy::pushPage(qmlCoordinatorInstance.data(), page, properties);
 }
 
@@ -34,9 +35,13 @@ void RootCoordinator::showAboutPage()
 {
     auto page = Smoozy::createPage(rootView.data(), "qml/pages/AboutPage.qml");
 
-    QMap<QString, QVariant> properties;
-//    properties["model"] = QVariant::fromValue<MainVM *>(new MainVM());
+    auto vm = new AboutVM();
+    QObject::connect(vm, &AboutVM::bar, this, [=]() {
+        qDebug() << "lambda bar";
+    });
 
+    QMap<QString, QVariant> properties;
+    properties["model"] = QVariant::fromValue<AboutVM*>(vm);
     Smoozy::pushPage(qmlCoordinatorInstance.data(), page, properties);
 }
 
