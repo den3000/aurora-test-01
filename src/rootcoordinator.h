@@ -18,7 +18,8 @@ private:
     QSharedPointer<QQuickView> rootView;
     QSharedPointer<QQuickItem> qmlCoordinatorInstance;
 
-signals:
+public slots:
+    void showAboutPage();
 };
 
 #endif // ROOTCOORDINATOR_H

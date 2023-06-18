@@ -10,7 +10,9 @@ public:
     explicit MainVM(QObject *parent = nullptr);
 
     Q_INVOKABLE void foo() const;
+
 signals:
+    void gotoAboutPage();
 
 };
 

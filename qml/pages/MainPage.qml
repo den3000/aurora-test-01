@@ -54,7 +54,7 @@ Page {
                 icon.source: "image://theme/icon-m-about"
                 anchors.verticalCenter: parent.verticalCenter
 
-                onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
+                onClicked: model.gotoAboutPage();
             }
         ]
     }
@@ -70,13 +70,13 @@ Page {
     onStatusChanged: {
         switch (status) {
         case PageStatus.Inactive:
-            return console.log("Inactive " + myStr);
+            return console.log("Inactive");
         case PageStatus.Activating:
-            return console.log("Activating " + myStr);
+            return console.log("Activating");
         case PageStatus.Active:
-            return console.log("Active " + myStr);
+            return console.log("Active");
         case PageStatus.Deactivating:
-            return console.log("Deactivating " + myStr);
+            return console.log("Deactivating");
         }
     }
 }
