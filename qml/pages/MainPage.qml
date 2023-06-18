@@ -40,14 +40,10 @@ import Sailfish.Silica 1.0
 import CustomCppClasses.Module 1.0
 
 Page {
-    required property MainVM model
+    property MainVM model
 
     objectName: "mainPage"
     allowedOrientations: Orientation.All
-
-//    MainVM {
-//        id: model
-//    }
 
     PageHeader {
         objectName: "pageHeader"
