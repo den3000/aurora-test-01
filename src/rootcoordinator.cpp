@@ -26,6 +26,7 @@ void RootCoordinator::start() {
     auto vm = new MainVM();
     QObject::connect(vm, &MainVM::gotoAboutPage, this, &RootCoordinator::showAboutPage);
     QObject::connect(vm, &MainVM::gotoAboutPageWithInt, this, &RootCoordinator::showAboutPageWithInt);
+    QObject::connect(vm, &MainVM::gotoAboutPageWithString, this, &RootCoordinator::showAboutPageWithString);
 
     QMap<QString, QVariant> properties;
     properties["model"] = QVariant::fromValue<MainVM *>(vm);
@@ -60,3 +61,16 @@ void RootCoordinator::showAboutPageWithInt(int value)
     Smoozy::pushPage(qmlCoordinatorInstance.data(), page, properties);
 }
 
+void RootCoordinator::showAboutPageWithString(QString value)
+{
+    auto page = Smoozy::createPage(rootView.data(), "qml/pages/AboutPage.qml");
+
+    auto vm = new AboutVM(value);
+    QObject::connect(vm, &AboutVM::bar, this, [=]() {
+        qDebug() << "lambda bar";
+    });
+
+    QMap<QString, QVariant> properties;
+    properties["model"] = QVariant::fromValue<AboutVM*>(vm);
+    Smoozy::pushPage(qmlCoordinatorInstance.data(), page, properties);
+}

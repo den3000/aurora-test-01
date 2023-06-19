@@ -9,6 +9,7 @@ class AboutVM : public QObject
 public:
     explicit AboutVM(QObject *parent = nullptr);
     explicit AboutVM(int value);
+    explicit AboutVM(QString value);
 
     Q_INVOKABLE void foo() const;
 

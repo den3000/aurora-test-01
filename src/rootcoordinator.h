@@ -21,6 +21,7 @@ private:
 public slots:
     void showAboutPage();
     void showAboutPageWithInt(int value);
+    void showAboutPageWithString(QString value);
 };
 
 #endif // ROOTCOORDINATOR_H

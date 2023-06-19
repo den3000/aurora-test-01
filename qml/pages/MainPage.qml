@@ -73,7 +73,7 @@ Page {
         anchors.top: btAboutInt.bottom
         anchors.topMargin: 16
         text: "About with Str"
-        onClicked: model.foo()
+        onClicked: model.gotoAboutPageWithString("some string param")
     }
 
     Button {

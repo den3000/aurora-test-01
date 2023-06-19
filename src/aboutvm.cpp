@@ -11,6 +11,11 @@ AboutVM::AboutVM(int value)
     qDebug() << "int value " << value;
 }
 
+AboutVM::AboutVM(QString value)
+{
+    qDebug() << "string value " << value;
+}
+
 void AboutVM::foo() const
 {
     qDebug() << "foo invoked ";

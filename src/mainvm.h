@@ -2,6 +2,7 @@
 #define MAINVM_H
 
 #include <QObject>
+#include <QString>
 
 class MainVM : public QObject
 {
@@ -14,6 +15,7 @@ public:
 signals:
     void gotoAboutPage();
     void gotoAboutPageWithInt(int value);
+    void gotoAboutPageWithString(QString value);
 
 };
 
