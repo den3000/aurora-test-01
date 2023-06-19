@@ -6,6 +6,10 @@
 #include <QObject>
 #include <QtQuick>
 
+#include "smoozyutils.h"
+#include "mainvm.h"
+#include "aboutvm.h"
+
 class RootCoordinator : public QObject
 {
     Q_OBJECT
@@ -22,6 +26,7 @@ public slots:
     void showAboutPage();
     void showAboutPageWithInt(int value);
     void showAboutPageWithString(QString value);
+    void showAboutPageWithModel(CustomModel value);
 };
 
 #endif // ROOTCOORDINATOR_H

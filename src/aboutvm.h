@@ -3,6 +3,8 @@
 
 #include <QObject>
 
+#include "mainvm.h"
+
 class AboutVM : public QObject
 {
     Q_OBJECT
@@ -10,6 +12,7 @@ public:
     explicit AboutVM(QObject *parent = nullptr);
     explicit AboutVM(int value);
     explicit AboutVM(QString value);
+    explicit AboutVM(CustomModel value);
 
     Q_INVOKABLE void foo() const;
 

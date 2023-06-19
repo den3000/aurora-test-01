@@ -77,9 +77,18 @@ Page {
     }
 
     Button {
-        id: btFoo
+        id: btAboutModel
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: btAboutString.bottom
+        anchors.topMargin: 16
+        text: "About with Model"
+        onClicked: model.openAboutPageWithModel(1)
+    }
+
+    Button {
+        id: btFoo
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: btAboutModel.bottom
         anchors.topMargin: 16
         text: "Foo"
         onClicked: model.foo()

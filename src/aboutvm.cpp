@@ -16,6 +16,15 @@ AboutVM::AboutVM(QString value)
     qDebug() << "string value " << value;
 }
 
+AboutVM::AboutVM(CustomModel value)
+{
+    qDebug()
+            << "model name: " << value.name
+            << " model desc: " << value.description
+            << " model amount: " << value.amount;
+
+}
+
 void AboutVM::foo() const
 {
     qDebug() << "foo invoked ";
