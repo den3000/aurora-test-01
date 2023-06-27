@@ -41,11 +41,11 @@ import CustomCppClasses.Module 1.0
 
 Page {
     // Declaring AboutVM property and then reparating
-    // it to reach proper memofy management since
-    // VM might be created and injected before page
-    // creation (from qml or c++)
+    // it to make sure that VM will be deleted when page
+    // is closed since VM might be created and injected
+    // before page creation (from qml or c++)
     property AboutVM viewModel
-    onViewModelChanged: viewModel.updateParent(this)
+    onViewModelChanged: viewModel.parent = this
 
     objectName: "aboutPage"
     allowedOrientations: Orientation.All

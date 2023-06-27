@@ -32,7 +32,3 @@ void AboutVM::foo() const
     qDebug() << "foo invoked ";
 }
 
-void AboutVM::updateParent(QObject * value)
-{
-    setParent(value);
-}
