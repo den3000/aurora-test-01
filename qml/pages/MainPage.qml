@@ -59,89 +59,78 @@ Page {
         ]
     }
 
-    Button {
-        id: btAboutVmFromQml
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottom: btAboutInt.top
-        anchors.bottomMargin: 16
-        text: "Create AboutVM from QML"
-        onClicked: {
-            // Use this to push page directly, for example
-            // if VM is already defined in page explicitly
-            // pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
-
-            /*
-             Use this to push page and assign custom property like vm
-             The problem here is that such VM will be parented to this
-             page (the page from which new page will be pushed) and not
-             to pushed page. This need to be changed on new page side.
-            */
-            // var aboutVm = Qt.createQmlObject('import CustomCppClasses.Module 1.0; AboutVM {}', this, "errorLog")
-            // pageStack.push(Qt.resolvedUrl("AboutPage.qml"), { "viewModel": aboutVm })
-
-            /*
-             Use this to push page and assign custom property like vm
-             The problem here is that such VM will be parented to `pageComponent`
-             object, which is not a page, but might be called page builder.
-             So this parenting need to be changed on new page side.
-            */
-            var pageComponent = Qt.createComponent("AboutPage.qml")
-            var aboutVm = Qt.createQmlObject('import CustomCppClasses.Module 1.0; AboutVM {}', pageComponent, "errorLog")
-            pageStack.push(pageComponent, { "viewModel": aboutVm })
-
-            // All such approaches seems unreliable as in fact
-            // uses magic strings that will be hard to maintain and refactor
-        }
-    }
-
-    Button {
-        id: btAboutInt
+    Column {
+        id: layout
+        width: parent.width
+        spacing: 16
         anchors.centerIn: parent
-        anchors.verticalCenterOffset: -150
-        text: "About with Int"
-        onClicked: model.gotoAboutPageWithInt(100)
-    }
 
-    Button {
-        id: btAboutString
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: btAboutInt.bottom
-        anchors.topMargin: 16
-        text: "About with Str"
-        onClicked: model.gotoAboutPageWithString("some string param")
-    }
+        Button {
+            anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
+            text: "Create AboutVM from QML"
+            onClicked: {
+                // Use this to push page directly, for example
+                // if VM is already defined in page explicitly
+                // pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
 
-    Button {
-        id: btAboutModel
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: btAboutString.bottom
-        anchors.topMargin: 16
-        text: "About with Model"
-        onClicked: model.openAboutPageWithModel(1)
-    }
+                /*
+                 Use this to push page and assign custom property like vm
+                 The problem here is that such VM will be parented to this
+                 page (the page from which new page will be pushed) and not
+                 to pushed page. This need to be changed on new page side.
+                */
+                // var aboutVm = Qt.createQmlObject('import CustomCppClasses.Module 1.0; AboutVM {}', this, "errorLog")
+                // pageStack.push(Qt.resolvedUrl("AboutPage.qml"), { "viewModel": aboutVm })
 
-    Button {
-        id: btLogContextProperty
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: btAboutModel.bottom
-        anchors.topMargin: 16
-        text: "Log Context Property"
-        onClicked: {
-            // Since cppContextProperty was injected into QML context
-            // it is available here directly
-            console.log(cppContextProperty)
+                /*
+                 Use this to push page and assign custom property like vm
+                 The problem here is that such VM will be parented to `pageComponent`
+                 object, which is not a page, but might be called page builder.
+                 So this parenting need to be changed on new page side.
+                */
+                var pageComponent = Qt.createComponent("AboutPage.qml")
+                var aboutVm = Qt.createQmlObject('import CustomCppClasses.Module 1.0; AboutVM {}', pageComponent, "errorLog")
+                pageStack.push(pageComponent, { "viewModel": aboutVm })
+
+                // All such approaches seems unreliable as in fact
+                // uses magic strings that will be hard to maintain and refactor
+            }
+        }
+
+        Button {
+            anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
+            text: "AboutVM with Int"
+            onClicked: model.gotoAboutPageWithInt(100)
+        }
+
+        Button {
+            anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
+            text: "AboutVM with Str"
+            onClicked: model.gotoAboutPageWithString("some string param")
+        }
+
+        Button {
+            anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
+            text: "AboutVM with Model"
+            onClicked: model.openAboutPageWithModel(1)
+        }
+
+        Button {
+            anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
+            text: "Log Context Property"
+            onClicked: {
+                // Since cppContextProperty was injected into QML context
+                // it is available here directly
+                console.log(cppContextProperty)
+            }
+        }
+
+        Button {
+            anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
+            text: "Invoke model.foo()"
+            onClicked: model.foo()
         }
     }
-
-    Button {
-        id: btFoo
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: btLogContextProperty.bottom
-        anchors.topMargin: 16
-        text: "Foo"
-        onClicked: model.foo()
-    }
-
 
     onStatusChanged: {
         switch (status) {
