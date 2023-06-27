@@ -37,56 +37,40 @@ void RootCoordinator::start() {
 
 void RootCoordinator::showAboutPage()
 {
-    auto page = Smoozy::createPage(rootView.data(), "qml/pages/AboutPage.qml");
-
     auto vm = new AboutVM();
-    QObject::connect(vm, &AboutVM::bar, this, [=]() {
-        qDebug() << "lambda bar";
-    });
+    QObject::connect(vm, &AboutVM::bar, this, [=]() { qDebug() << "lambda bar"; });
 
     QMap<QString, QVariant> properties;
-    properties["model"] = QVariant::fromValue<AboutVM*>(vm);
-    Smoozy::pushPage(qmlCoordinatorInstance.data(), page, properties);
+    properties["viewModel"] = QVariant::fromValue<AboutVM*>(vm);
+    Smoozy::pushNamedPage(qmlCoordinatorInstance.data(), Aurora::Application::pathTo("qml/pages/AboutPage.qml"), properties);
 }
 
 void RootCoordinator::showAboutPageWithInt(int value)
 {
-    auto page = Smoozy::createPage(rootView.data(), "qml/pages/AboutPage.qml");
-
     auto vm = new AboutVM(value);
-    QObject::connect(vm, &AboutVM::bar, this, [=]() {
-        qDebug() << "lambda bar";
-    });
+    QObject::connect(vm, &AboutVM::bar, this, []() { qDebug() << "lambda bar"; });
 
     QMap<QString, QVariant> properties;
-    properties["model"] = QVariant::fromValue<AboutVM*>(vm);
-    Smoozy::pushPage(qmlCoordinatorInstance.data(), page, properties);
+    properties["viewModel"] = QVariant::fromValue<AboutVM*>(vm);
+    Smoozy::pushNamedPage(qmlCoordinatorInstance.data(), Aurora::Application::pathTo("qml/pages/AboutPage.qml"), properties);
 }
 
 void RootCoordinator::showAboutPageWithString(QString value)
 {
-    auto page = Smoozy::createPage(rootView.data(), "qml/pages/AboutPage.qml");
-
     auto vm = new AboutVM(value);
-    QObject::connect(vm, &AboutVM::bar, this, [=]() {
-        qDebug() << "lambda bar";
-    });
+    QObject::connect(vm, &AboutVM::bar, this, [=]() { qDebug() << "lambda bar"; });
 
     QMap<QString, QVariant> properties;
-    properties["model"] = QVariant::fromValue<AboutVM*>(vm);
-    Smoozy::pushPage(qmlCoordinatorInstance.data(), page, properties);
+    properties["viewModel"] = QVariant::fromValue<AboutVM*>(vm);
+    Smoozy::pushNamedPage(qmlCoordinatorInstance.data(), Aurora::Application::pathTo("qml/pages/AboutPage.qml"), properties);
 }
 
 void RootCoordinator::showAboutPageWithModel(CustomModel value)
 {
-    auto page = Smoozy::createPage(rootView.data(), "qml/pages/AboutPage.qml");
-
     auto vm = new AboutVM(value);
-    QObject::connect(vm, &AboutVM::bar, this, [=]() {
-        qDebug() << "lambda bar";
-    });
+    QObject::connect(vm, &AboutVM::bar, this, [=]() { qDebug() << "lambda bar"; });
 
     QMap<QString, QVariant> properties;
-    properties["model"] = QVariant::fromValue<AboutVM*>(vm);
-    Smoozy::pushPage(qmlCoordinatorInstance.data(), page, properties);
+    properties["viewModel"] = QVariant::fromValue<AboutVM*>(vm);
+    Smoozy::pushNamedPage(qmlCoordinatorInstance.data(), Aurora::Application::pathTo("qml/pages/AboutPage.qml"), properties);
 }

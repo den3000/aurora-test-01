@@ -127,7 +127,7 @@ Page {
 
         Button {
             anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
-            text: "Invoke model.foo()"
+            text: "Invoke MainVM.foo()"
             onClicked: model.foo()
         }
     }

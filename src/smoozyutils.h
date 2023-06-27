@@ -34,6 +34,15 @@ namespace Smoozy
                     Q_ARG(QVariant, QVariant::fromValue(properties))
                     );
     }
+
+    inline bool pushNamedPage(QQuickItem * qmlCoordinatorInstance, QUrl pageName, QMap<QString, QVariant> properties){
+        return QMetaObject::invokeMethod(
+                    qmlCoordinatorInstance,
+                    "push",
+                    Q_ARG(QVariant, QVariant::fromValue(pageName)),
+                    Q_ARG(QVariant, QVariant::fromValue(properties))
+                    );
+    }
 }
 
 #endif // SMOOZYUTILS_H
