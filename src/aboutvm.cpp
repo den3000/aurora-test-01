@@ -25,7 +25,14 @@ AboutVM::AboutVM(CustomModel value)
 
 }
 
+AboutVM::~AboutVM() { qDebug() << "AboutVM destroyed"; }
+
 void AboutVM::foo() const
 {
     qDebug() << "foo invoked ";
+}
+
+void AboutVM::updateParent(QObject * value)
+{
+    setParent(value);
 }

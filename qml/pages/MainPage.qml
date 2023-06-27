@@ -60,6 +60,44 @@ Page {
     }
 
     Button {
+        id: btAboutVmFromQml
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom: btAboutInt.top
+        anchors.bottomMargin: 16
+        text: "Create AboutVM from QML"
+        onClicked: {
+            // Use this to push page directly, for example
+            // if VM is already defined in page explicitly
+            // pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
+
+
+            /*
+             Use this to push page and assign custom property like vm
+             The problem here is that such VM will be parented to this
+             page (the page from which new page will be pushed) and not
+             to pushed page. This need to be changed on new page side.
+            */
+            // var aboutVm = Qt.createQmlObject('import CustomCppClasses.Module 1.0; AboutVM {}', this, "errorLog")
+            // pageStack.push(Qt.resolvedUrl("AboutPage.qml"), { "viewModel": aboutVm })
+
+            /*
+             Use this to push page and assign custom property like vm
+             The problem here is that such VM will be parented to `pageComponent`
+             object, which is not a page, but might be called page builder.
+             So this parenting need to be changed on new page side.
+            */
+            var pageComponent = Qt.createComponent("AboutPage.qml")
+            var aboutVm = Qt.createQmlObject('import CustomCppClasses.Module 1.0; AboutVM {}', pageComponent, "errorLog")
+            pageStack.push(page, { "viewModel": aboutVm })
+
+            // All such approaches seems unreliable as in fact
+            // uses magic strings that will be hard to maintain and refactor
+        }
+
+
+    }
+
+    Button {
         id: btAboutInt
         anchors.centerIn: parent
         anchors.verticalCenterOffset: -150

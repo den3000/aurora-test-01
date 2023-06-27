@@ -8,13 +8,16 @@
 class AboutVM : public QObject
 {
     Q_OBJECT
+
 public:
     explicit AboutVM(QObject *parent = nullptr);
     explicit AboutVM(int value);
     explicit AboutVM(QString value);
     explicit AboutVM(CustomModel value);
+    ~AboutVM();
 
     Q_INVOKABLE void foo() const;
+    Q_INVOKABLE void updateParent(QObject * value);
 
 signals:
     void bar();

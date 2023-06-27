@@ -40,7 +40,12 @@ import Sailfish.Silica 1.0
 import CustomCppClasses.Module 1.0
 
 Page {
-    property AboutVM model
+    // Declaring AboutVM property and then reparating
+    // it to reach proper memofy management since
+    // VM might be created and injected before page
+    // creation (from qml or c++)
+    property AboutVM viewModel
+    onViewModelChanged: viewModel.updateParent(this)
 
     objectName: "aboutPage"
     allowedOrientations: Orientation.All
@@ -65,7 +70,7 @@ Page {
                 id: btInvoke
                 anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
                 text: "Foo"
-                onClicked: model.foo()
+                onClicked: viewModel.foo()
             }
 
             Button {
@@ -77,7 +82,7 @@ Page {
                     rightMargin: Theme.horizontalPageMargin
                 }
                 text: "Emit"
-                onClicked: model.bar()
+                onClicked: viewModel.bar()
             }
 
             Label {
