@@ -70,7 +70,6 @@ Page {
             // if VM is already defined in page explicitly
             // pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
 
-
             /*
              Use this to push page and assign custom property like vm
              The problem here is that such VM will be parented to this
@@ -88,13 +87,11 @@ Page {
             */
             var pageComponent = Qt.createComponent("AboutPage.qml")
             var aboutVm = Qt.createQmlObject('import CustomCppClasses.Module 1.0; AboutVM {}', pageComponent, "errorLog")
-            pageStack.push(page, { "viewModel": aboutVm })
+            pageStack.push(pageComponent, { "viewModel": aboutVm })
 
             // All such approaches seems unreliable as in fact
             // uses magic strings that will be hard to maintain and refactor
         }
-
-
     }
 
     Button {
