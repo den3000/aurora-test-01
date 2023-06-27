@@ -86,9 +86,22 @@ Page {
     }
 
     Button {
-        id: btFoo
+        id: btLogContextProperty
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: btAboutModel.bottom
+        anchors.topMargin: 16
+        text: "Log Context Property"
+        onClicked: {
+            // Since cppContextProperty was injected into QML context
+            // it is available here directly
+            console.log(cppContextProperty)
+        }
+    }
+
+    Button {
+        id: btFoo
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: btLogContextProperty.bottom
         anchors.topMargin: 16
         text: "Foo"
         onClicked: model.foo()

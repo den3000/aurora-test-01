@@ -10,8 +10,13 @@ RootCoordinator::RootCoordinator(QObject *parent) : QObject(parent)
     rootView = QSharedPointer<QQuickView>(Aurora::Application::createView());
     rootView->setSource(Aurora::Application::pathTo("qml/DiAndNavExample.qml"));
 
-    auto qi = Smoozy::findQuickViewChildByObjectName(rootView.data(), "rootCoordinatorQml");
-    qmlCoordinatorInstance = QSharedPointer<QQuickItem>(qi);
+    // Use this to inject anything, including C++ models, into qml context
+    // to make this model available directly in qml, probably something like
+    // singletons or any other widely used objects is a good examplke for this
+    // But this might create hard-coupling in code
+    rootView->engine()->rootContext()->setContextProperty("cppContextProperty", "cppContextProperty value from c++");
+
+    qmlCoordinatorInstance = QSharedPointer<QQuickItem>(Smoozy::findQuickViewChildByObjectName(rootView.data(), "rootCoordinatorQml"));
 }
 
 void RootCoordinator::start() {
