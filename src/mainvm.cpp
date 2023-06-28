@@ -15,6 +15,8 @@ MainVM::MainVM(QObject *parent) : QObject(parent)
             << CustomModel("pitahui" , "desc5", 50);
 }
 
+MainVM::~MainVM() { qDebug() << "MainVM destroyed"; }
+
 void MainVM::foo() const
 {
     qDebug() << "foo invoked";

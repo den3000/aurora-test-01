@@ -24,8 +24,6 @@ RootCoordinator::~RootCoordinator() { qDebug() << "RootCoordinator destroyed"; }
 void RootCoordinator::start() {
     rootView->show();
 
-    auto page = Smoozy::createPage(rootView.data(), "qml/pages/MainPage.qml");
-
     auto vm = new MainVM();
     QObject::connect(vm, &MainVM::gotoAboutPage, this, &RootCoordinator::showAboutPage);
     QObject::connect(vm, &MainVM::gotoAboutPageWithInt, this, &RootCoordinator::showAboutPageWithInt);
