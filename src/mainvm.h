@@ -17,9 +17,11 @@ public:
 class MainVM : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QObject * parent READ parent WRITE setParent)
+
 public:
     explicit MainVM(QObject *parent = nullptr);
-
+    ~MainVM();
     Q_INVOKABLE void foo() const;
     Q_INVOKABLE void openAboutPageWithModel(int idx);
 

@@ -40,7 +40,8 @@ import Sailfish.Silica 1.0
 import CustomCppClasses.Module 1.0
 
 Page {
-    property MainVM model
+    property MainVM viewModel
+    onViewModelChanged: viewModel.parent = this
 
     objectName: "mainPage"
     allowedOrientations: Orientation.All
@@ -100,19 +101,19 @@ Page {
         Button {
             anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
             text: "AboutVM with Int"
-            onClicked: model.gotoAboutPageWithInt(100)
+            onClicked: viewModel.gotoAboutPageWithInt(100)
         }
 
         Button {
             anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
             text: "AboutVM with Str"
-            onClicked: model.gotoAboutPageWithString("some string param")
+            onClicked: viewModel.gotoAboutPageWithString("some string param")
         }
 
         Button {
             anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
             text: "AboutVM with Model"
-            onClicked: model.openAboutPageWithModel(1)
+            onClicked: viewModel.openAboutPageWithModel(1)
         }
 
         Button {
@@ -128,7 +129,7 @@ Page {
         Button {
             anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
             text: "Invoke MainVM.foo()"
-            onClicked: model.foo()
+            onClicked: viewModel.foo()
         }
     }
 

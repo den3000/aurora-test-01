@@ -15,6 +15,7 @@ class RootCoordinator : public QObject
     Q_OBJECT
 public:
     explicit RootCoordinator(QObject *parent = nullptr);
+    ~RootCoordinator();
 
     void start();
 

@@ -19,6 +19,8 @@ RootCoordinator::RootCoordinator(QObject *parent) : QObject(parent)
     qmlCoordinatorInstance = QSharedPointer<QQuickItem>(Smoozy::findQuickViewChildByObjectName(rootView.data(), "rootCoordinatorQml"));
 }
 
+RootCoordinator::~RootCoordinator() { qDebug() << "RootCoordinator destroyed"; }
+
 void RootCoordinator::start() {
     rootView->show();
 
@@ -31,8 +33,8 @@ void RootCoordinator::start() {
     QObject::connect(vm, &MainVM::gotoAboutPageWithModel, this, &RootCoordinator::showAboutPageWithModel);
 
     QMap<QString, QVariant> properties;
-    properties["model"] = QVariant::fromValue<MainVM *>(vm);
-    Smoozy::pushPage(qmlCoordinatorInstance.data(), page, properties);
+    properties["viewModel"] = QVariant::fromValue<MainVM *>(vm);
+    Smoozy::pushNamedPage(qmlCoordinatorInstance.data(), Aurora::Application::pathTo("qml/pages/MainPage.qml"), properties);
 }
 
 void RootCoordinator::showAboutPage()
