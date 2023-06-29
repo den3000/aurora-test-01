@@ -52,6 +52,7 @@ HEADERS += \
     src/aboutvm.h \
     src/customcppclasses.h \
     src/mainvm.h \
+    src/pagepaths.h \
     src/rootcoordinator.h \
     src/smoozyutils.h
 

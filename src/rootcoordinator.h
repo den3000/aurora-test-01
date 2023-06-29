@@ -1,12 +1,9 @@
 #ifndef ROOTCOORDINATOR_H
 #define ROOTCOORDINATOR_H
 
-#include <auroraapp.h>
-
 #include <QObject>
 #include <QtQuick>
 
-#include "smoozyutils.h"
 #include "mainvm.h"
 #include "aboutvm.h"
 

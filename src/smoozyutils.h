@@ -43,6 +43,13 @@ namespace Smoozy
                     Q_ARG(QVariant, QVariant::fromValue(properties))
                     );
     }
+
+    template<typename T>
+    inline QMap<QString, QVariant> wrapInProperties(T * vm){
+        QMap<QString, QVariant> properties;
+        properties["viewModel"] = QVariant::fromValue<T *>(vm);
+        return properties;
+    }
 }
 
 #endif // SMOOZYUTILS_H
