@@ -47,9 +47,7 @@ ApplicationWindow {
         RootCoordinatorQml through C++
     */
 
-    RootCoordinatorQml {
-        pageStack: applicationWindow.pageStack
-    }
+    RootCoordinatorQml { pageStack: applicationWindow.pageStack }
 
     id: applicationWindow
     cover: Qt.resolvedUrl("cover/DefaultCoverPage.qml")
