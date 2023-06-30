@@ -37,8 +37,12 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import CustomCppClasses.Module 1.0
 
 Page {
+    property MainVM viewModel
+    onViewModelChanged: viewModel.parent = this
+
     objectName: "mainPage"
     allowedOrientations: Orientation.All
 
@@ -51,8 +55,94 @@ Page {
                 icon.source: "image://theme/icon-m-about"
                 anchors.verticalCenter: parent.verticalCenter
 
-                onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
+                onClicked: model.gotoAboutPage();
             }
         ]
+    }
+
+    Column {
+        id: layout
+        width: parent.width
+        spacing: 16
+        anchors.centerIn: parent
+
+        Button {
+            anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
+            text: "Create AboutVM from QML"
+            onClicked: {
+                // Use this to push page directly, for example
+                // if VM is already defined in page explicitly
+                // pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
+
+                /*
+                 Use this to push page and assign custom property like vm
+                 The problem here is that such VM will be parented to this
+                 page (the page from which new page will be pushed) and not
+                 to pushed page. This need to be changed on new page side.
+                */
+                // var aboutVm = Qt.createQmlObject('import CustomCppClasses.Module 1.0; AboutVM {}', this, "errorLog")
+                // pageStack.push(Qt.resolvedUrl("AboutPage.qml"), { "viewModel": aboutVm })
+
+                /*
+                 Use this to push page and assign custom property like vm
+                 The problem here is that such VM will be parented to `pageComponent`
+                 object, which is not a page, but might be called page builder.
+                 So this parenting need to be changed on new page side.
+                */
+                var pageComponent = Qt.createComponent("AboutPage.qml")
+                var aboutVm = Qt.createQmlObject('import CustomCppClasses.Module 1.0; AboutVM {}', pageComponent, "errorLog")
+                pageStack.push(pageComponent, { "viewModel": aboutVm })
+
+                // All such approaches seems unreliable as in fact
+                // uses magic strings that will be hard to maintain and refactor
+            }
+        }
+
+        Button {
+            anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
+            text: "AboutVM with Int"
+            onClicked: viewModel.gotoAboutPageWithInt(100)
+        }
+
+        Button {
+            anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
+            text: "AboutVM with Str"
+            onClicked: viewModel.gotoAboutPageWithString("some string param")
+        }
+
+        Button {
+            anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
+            text: "AboutVM with Model"
+            onClicked: viewModel.openAboutPageWithModel(1)
+        }
+
+        Button {
+            anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
+            text: "Log Context Property"
+            onClicked: {
+                // Since cppContextProperty was injected into QML context
+                // it is available here directly
+                console.log(cppContextProperty)
+            }
+        }
+
+        Button {
+            anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
+            text: "Invoke MainVM.foo()"
+            onClicked: viewModel.foo()
+        }
+    }
+
+    onStatusChanged: {
+        switch (status) {
+        case PageStatus.Inactive:
+            return console.log("Inactive");
+        case PageStatus.Activating:
+            return console.log("Activating");
+        case PageStatus.Active:
+            return console.log("Active");
+        case PageStatus.Deactivating:
+            return console.log("Deactivating");
+        }
     }
 }

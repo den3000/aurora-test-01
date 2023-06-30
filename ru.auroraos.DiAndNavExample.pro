@@ -43,13 +43,21 @@ CONFIG += \
 PKGCONFIG += \
 
 SOURCES += \
+    src/aboutvm.cpp \
+    src/mainvm.cpp \
     src/main.cpp \
     src/rootcoordinator.cpp
 
 HEADERS += \
-    src/rootcoordinator.h
+    src/aboutvm.h \
+    src/customcppclasses.h \
+    src/mainvm.h \
+    src/pagepaths.h \
+    src/rootcoordinator.h \
+    src/smoozyutils.h
 
 DISTFILES += \
+    qml/RootCoordinatorQml.qml \
     rpm/ru.auroraos.DiAndNavExample.spec \
     AUTHORS.md \
     CODE_OF_CONDUCT.md \
