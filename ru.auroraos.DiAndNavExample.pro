@@ -37,6 +37,8 @@
 
 TARGET = ru.auroraos.DiAndNavExample
 
+QT += sql
+
 CONFIG += \
     auroraapp
 
