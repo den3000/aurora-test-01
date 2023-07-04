@@ -60,6 +60,7 @@ HEADERS += \
 
 DISTFILES += \
     qml/RootCoordinatorQml.qml \
+    qml/pages/SQLiteQmlPage.qml \
     rpm/ru.auroraos.DiAndNavExample.spec \
     AUTHORS.md \
     CODE_OF_CONDUCT.md \

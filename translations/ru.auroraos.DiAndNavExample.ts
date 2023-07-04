@@ -47,4 +47,12 @@
         <translation type="unfinished">DI and Navigation example</translation>
     </message>
 </context>
+<context>
+    <name>SQLiteQmlPage</name>
+    <message>
+        <location filename="../qml/pages/SQLiteQmlPage.qml" line="8"/>
+        <source>SQLIte QML Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 </TS>

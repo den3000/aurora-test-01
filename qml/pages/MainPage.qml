@@ -131,6 +131,12 @@ Page {
             text: "Invoke MainVM.foo()"
             onClicked: viewModel.foo()
         }
+
+        Button {
+            anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
+            text: "SQLite QML"
+            onClicked: pageStack.push(Qt.resolvedUrl("SQLiteQmlPage.qml"))
+        }
     }
 
     onStatusChanged: {
