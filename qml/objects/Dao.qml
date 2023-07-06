@@ -51,6 +51,22 @@ QtObject {
         });
     }
 
+    function retrieveBooksTotalPages(callback) {
+        db.readTransaction(function (tx) {
+            var result = tx.executeSql(
+                        "SELECT SUM(tp) AS tpSum FROM books"
+                        );
+            callback(result.rows.item(0).tpSum)
+        });
+
+//        var database = LocalStorage.openDatabaseSync("books", "1.0");
+//        database.readTransaction(function (tx) {
+//            var result = tx.executeSql(
+//                        "SELECT SUM(tp) AS tpSum FROM books");
+//            callback(result.rows.item(0).tpSum)
+//        });
+    }
+
     Component.onCompleted: {
         db = LocalStorage.openDatabaseSync("books", "1.0");
         createBooksTable();
