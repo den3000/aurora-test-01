@@ -68,14 +68,17 @@ QtObject {
     }
 
     Component.onCompleted: {
-        db = LocalStorage.openDatabaseSync("books", "1.0");
+        db = LocalStorage.openDatabaseSync("books", "1.1");
         createBooksTable();
 
-//        if (db.version === "1.0") {
-//            db.changeVersion("1.0", "1.1", function(tx) {
-//                tx.executeSql("INSERT INTO books VALUES(?, ?, ?)",
-//                              ["Leo Tolstoy","Anna Karenina", "1300"]);
-//            });
-//        }
+        if (db.version === "1.0") {
+            console.log("Updating DB from 1.0 to 1.1")
+            db.changeVersion("1.0", "1.1", function(tx) {
+                tx.executeSql("INSERT INTO books (author, title, tp) VALUES(?, ?, ?)",
+                              ["Leo Tolstoy","Anna Karenina", "1300"]);
+            });
+        } else {
+            console.log("DB version is up to date")
+        }
     }
 }
