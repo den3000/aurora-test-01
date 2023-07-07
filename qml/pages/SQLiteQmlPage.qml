@@ -4,24 +4,38 @@ import Sailfish.Silica 1.0
 Page {
     Dao { id: dao }
 
-    PageHeader {
-        id: header
-        objectName: "pageHeader"
-        title: qsTr("SQLite QML DB")
-    }
-
     SilicaListView {
-        anchors.top: header.bottom
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-        model: ListModel { id: booksListModel }
+        anchors.fill: parent
+        header: PageHeader {
+            title: qsTr("SQLite QML DB")
+        }
+
         delegate: ListItem {
+            menu: ContextMenu {
+                MenuItem {
+                    text: qsTr("Remove")
+//                    onClicked: listModel.remove(index)
+                }
+                MenuItem {
+                    text: qsTr("Add new here")
+                    onClicked: showCreateItemDialog(index)
+                }
+                MenuItem {
+                    text: qsTr("Add new below")
+                    onClicked: showCreateItemDialog(index+1)
+                }
+                MenuItem {
+                    text: qsTr("Move to top")
+//                    onClicked: listModel.moveToTop(index)
+                }
+            }
             Label {
                 x: Theme.horizontalPageMargin
                 text: title + " by " + author
             }
         }
+
+        model: ListModel { id: booksListModel }
     }
 
     function selectBooks() {
@@ -34,15 +48,29 @@ Page {
                                 id: book.id,
                                 author: book.author,
                                 title: book.title,
-//                                total pages: book.tp
                             }
                             );
             }
         });
     }
 
+    function showCreateItemDialog(position) {
+        var dialog = pageStack.push(Qt.resolvedUrl("AddItemDialog.qml"))
+        dialog.dialogTitle = qsTr("Create new item")
+        dialog.accepted.connect(function() {
+            console.log(qsTr("Accepted done"))
+//            listModel.insert(position, dialog.itemName, dialog.itemDescription, dialog.itemAmount)
+//            console.log(qsTr("Position: %1 Name: %2 Desc: %3 Amount: %4")
+//                        .arg(position)
+//                        .arg(dialog.itemName)
+//                        .arg(dialog.itemDescription)
+//                        .arg(dialog.itemAmount)
+//                        )
+        })
+    }
+
+
     Component.onCompleted: {
         selectBooks()
     }
-
 }
