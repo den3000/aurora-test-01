@@ -26,7 +26,11 @@ Page {
                 }
                 MenuItem {
                     text: qsTr("Remove")
-//                    onClicked: listModel.remove(index)
+                    onClicked: {
+                        dao.deleteBook(id)
+                        booksListModel.remove(index)
+                    }
+
                 }
                 MenuItem {
                     text: qsTr("Move to top")
@@ -72,6 +76,8 @@ Page {
                         .arg(dialog.bookTitle)
                         .arg(dialog.bookTotalPages)
                         )
+
+            dao.insertBook(dialog.bookAuthor, dialog.bookTitle, dialog.bookTotalPages)
         })
     }
 
