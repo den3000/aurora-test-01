@@ -13,7 +13,7 @@ Page {
         delegate: ListItem {
             menu: ContextMenu {
                 MenuItem {
-                    text: qsTr("Remove")
+                    text: qsTr("Edit")
 //                    onClicked: listModel.remove(index)
                 }
                 MenuItem {
@@ -25,13 +25,18 @@ Page {
                     onClicked: showCreateItemDialog(index+1)
                 }
                 MenuItem {
+                    text: qsTr("Remove")
+//                    onClicked: listModel.remove(index)
+                }
+                MenuItem {
                     text: qsTr("Move to top")
 //                    onClicked: listModel.moveToTop(index)
                 }
             }
             Label {
                 x: Theme.horizontalPageMargin
-                text: title + " by " + author
+                anchors.verticalCenter: parent.verticalCenter
+                text: title + " by " + author + ", " + totalPages + " pages"
             }
         }
 
@@ -48,6 +53,7 @@ Page {
                                 id: book.id,
                                 author: book.author,
                                 title: book.title,
+                                totalPages: book.tp
                             }
                             );
             }
@@ -60,12 +66,12 @@ Page {
         dialog.accepted.connect(function() {
             console.log(qsTr("Accepted done"))
 //            listModel.insert(position, dialog.itemName, dialog.itemDescription, dialog.itemAmount)
-//            console.log(qsTr("Position: %1 Name: %2 Desc: %3 Amount: %4")
-//                        .arg(position)
-//                        .arg(dialog.itemName)
-//                        .arg(dialog.itemDescription)
-//                        .arg(dialog.itemAmount)
-//                        )
+            console.log(qsTr("Position: %1 author: %2 title: %3 pages: %4")
+                        .arg(position)
+                        .arg(dialog.bookAuthor)
+                        .arg(dialog.bookTitle)
+                        .arg(dialog.bookTotalPages)
+                        )
         })
     }
 
