@@ -11,7 +11,8 @@ QtObject {
                             id INTEGER PRIMARY KEY AUTOINCREMENT,
                             author TEXT NOT NULL,
                             title TEXT NOT NULL,
-                            tp INTEGER NOT NULL);"
+                            tp INTEGER NOT NULL,
+                            position INTEGER NOT NULL);"
                         );
         });
     }
@@ -69,12 +70,19 @@ QtObject {
     }
 
     Component.onCompleted: {
-        db = LocalStorage.openDatabaseSync("books", "1.1");
+        db = LocalStorage.openDatabaseSync("books", "");
+        console.log("DB current version " + db.version)
+
         createBooksTable();
 
-        if (db.version === "1.0") {
+        if (db.version === "1.1") {
+            console.log("Updating DB from 1.1 to 1.2")
+            db.changeVersion("1.1", "1.2", function(tx) {
+                tx.executeSql("ALTER TABLE books ADD position INTEGER NOT NULL default '0';")
+            })
+        } else if (db.version === "1.0" || db.version === "") {
             console.log("Updating DB from 1.0 to 1.1")
-            db.changeVersion("1.0", "1.1", function(tx) {
+            db.changeVersion("", "1.1", function(tx) {
                 tx.executeSql("INSERT INTO books (author, title, tp) VALUES(?, ?, ?)",
                               ["Leo Tolstoy","Anna Karenina", "1300"]);
             });

@@ -40,7 +40,7 @@ Page {
             Label {
                 x: Theme.horizontalPageMargin
                 anchors.verticalCenter: parent.verticalCenter
-                text: title + " by " + author + ", " + totalPages + " pages"
+                 text: "#" + position + " " + title + " by " + author + ", " + totalPages + " pages"
             }
         }
 
@@ -57,7 +57,8 @@ Page {
                                 id: book.id,
                                 author: book.author,
                                 title: book.title,
-                                totalPages: book.tp
+                                totalPages: book.tp,
+                                position: book.position
                             }
                             );
             }
