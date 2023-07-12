@@ -47,7 +47,7 @@ Page {
         model: ListModel { id: booksListModel }
     }
 
-    function selectBooks() {
+    function reloadAllBooks() {
         booksListModel.clear();
         dao.retrieveBooks(function (books) {
             for (var i = 0; i < books.length; i++) {
@@ -69,20 +69,17 @@ Page {
         dialog.dialogTitle = qsTr("Create new item")
         dialog.accepted.connect(function() {
             console.log(qsTr("Accepted done"))
-//            listModel.insert(position, dialog.itemName, dialog.itemDescription, dialog.itemAmount)
-            console.log(qsTr("Position: %1 author: %2 title: %3 pages: %4")
-                        .arg(position)
-                        .arg(dialog.bookAuthor)
-                        .arg(dialog.bookTitle)
-                        .arg(dialog.bookTotalPages)
-                        )
-
-            dao.insertBook(dialog.bookAuthor, dialog.bookTitle, dialog.bookTotalPages)
+            dao.insertBook(dialog.bookAuthor, dialog.bookTitle, dialog.bookTotalPages,
+               function(insertId) {
+                   console.log("InsertedId = " + insertId);
+                   reloadAllBooks()
+               }
+            )
         })
     }
 
 
     Component.onCompleted: {
-        selectBooks()
+        reloadAllBooks()
     }
 }

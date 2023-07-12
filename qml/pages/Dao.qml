@@ -16,13 +16,16 @@ QtObject {
         });
     }
 
-    function insertBook(author, title, tp) {
+    function insertBook(author, title, tp, callback) {
         db.transaction(function (tx) {
-            tx.executeSql(
+            var result = tx.executeSql(
                         "INSERT INTO books
                             (author, title, tp) VALUES(?, ?, ?);",
                         [author, title, tp]
                         );
+
+            callback(result.insertId)
+//            console.log("InsertedId = " + result.insertId);
         });
     }
 
