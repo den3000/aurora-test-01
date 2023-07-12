@@ -71,10 +71,10 @@ Page {
             console.log(qsTr("Accepted done"))
             dao.insertBook(dialog.bookAuthor, dialog.bookTitle, dialog.bookTotalPages,
                function(insertId) {
-                   console.log("InsertedId = " + insertId);
-                   reloadAllBooks()
+                   console.log("InsertId = " + insertId)
                }
             )
+            reloadAllBooks()
         })
     }
 

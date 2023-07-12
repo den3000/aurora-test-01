@@ -23,9 +23,7 @@ QtObject {
                             (author, title, tp) VALUES(?, ?, ?);",
                         [author, title, tp]
                         );
-
             callback(result.insertId)
-//            console.log("InsertedId = " + result.insertId);
         });
     }
 
