@@ -14,7 +14,7 @@ Page {
             menu: ContextMenu {
                 MenuItem {
                     text: qsTr("Edit")
-                    onClicked: showEditItemDialog(model)
+                    onClicked: showEditItemDialog(model, index)
                 }
                 MenuItem {
                     text: qsTr("Add new here")
@@ -65,7 +65,7 @@ Page {
         })
     }
 
-    function showEditItemDialog(model) {
+    function showEditItemDialog(model, position) {
         var dialog = pageStack.push(Qt.resolvedUrl("AddItemDialog.qml"))
 
         dialog.bookAuthor = model.author
@@ -77,7 +77,14 @@ Page {
             dao.updateBook(model.id, dialog.bookAuthor, dialog.bookTitle, dialog.bookTotalPages)
 
             // TODO: Reload only updated book
-            reloadAllBooks()
+//            reloadAllBooks()
+
+            booksListModel.set(position, {
+                                   id: model.id,
+                                   author: dialog.bookAuthor,
+                                   title: dialog.bookTitle,
+                                   totalPages: dialog.bookTotalPages
+                               });
         })
     }
 
@@ -86,16 +93,13 @@ Page {
         dao.retrieveBooks(function (books) {
             for (var i = 0; i < books.length; i++) {
                 var book = books.item(i);
-                booksListModel.append(
-                            {
+                booksListModel.append({
                                 id: book.id,
                                 author: book.author,
                                 title: book.title,
                                 totalPages: book.tp,
                                 position: book.position
-                            }
-                            );
-
+                            });
             }
         });
     }
