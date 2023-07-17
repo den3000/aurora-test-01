@@ -57,11 +57,22 @@ Page {
             dao.insertBook(dialog.bookAuthor, dialog.bookTitle, dialog.bookTotalPages, position,
                function(insertId) {
                    console.log("InsertId = " + insertId)
+
+                   booksListModel.insert(position, {
+                                             id: insertId,
+                                             author: dialog.bookAuthor,
+                                             title: dialog.bookTitle,
+                                             totalPages: dialog.bookTotalPages,
+                                             position: position
+                                         })
+
+                   for (var i = position + 1; i < booksListModel.count; i++) {
+                       booksListModel.set(i, {
+                                              position: i
+                                          });
+                   }
                }
             )
-
-            // TODO: reload only books below the position
-            reloadAllBooks()
         })
     }
 
@@ -76,32 +87,29 @@ Page {
         dialog.accepted.connect(function() {
             dao.updateBook(model.id, dialog.bookAuthor, dialog.bookTitle, dialog.bookTotalPages)
 
-            // TODO: Reload only updated book
-//            reloadAllBooks()
-
             booksListModel.set(position, {
                                    id: model.id,
                                    author: dialog.bookAuthor,
                                    title: dialog.bookTitle,
                                    totalPages: dialog.bookTotalPages
-                               });
+                               })
         })
     }
 
     function reloadAllBooks() {
-        booksListModel.clear();
+        booksListModel.clear()
         dao.retrieveBooks(function (books) {
             for (var i = 0; i < books.length; i++) {
-                var book = books.item(i);
+                var book = books.item(i)
                 booksListModel.append({
                                 id: book.id,
                                 author: book.author,
                                 title: book.title,
                                 totalPages: book.tp,
                                 position: book.position
-                            });
+                            })
             }
-        });
+        })
     }
 
     Component.onCompleted: {

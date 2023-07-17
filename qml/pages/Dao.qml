@@ -55,7 +55,7 @@ QtObject {
                         ;",
                         [author, title, tp, position]
                         )
-            callback(result.insertId)
+            callback(parseInt(result.insertId, 10))
         });
     }
 
