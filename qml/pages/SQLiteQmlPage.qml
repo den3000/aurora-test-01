@@ -50,24 +50,6 @@ Page {
         model: ListModel { id: booksListModel }
     }
 
-    function reloadAllBooks() {
-        booksListModel.clear();
-        dao.retrieveBooks(function (books) {
-            for (var i = 0; i < books.length; i++) {
-                var book = books.item(i);
-                booksListModel.append(
-                            {
-                                id: book.id,
-                                author: book.author,
-                                title: book.title,
-                                totalPages: book.tp,
-                                position: book.position
-                            }
-                            );
-            }
-        });
-    }
-
     function showCreateItemDialog(position) {
         var dialog = pageStack.push(Qt.resolvedUrl("AddItemDialog.qml"))
         dialog.dialogTitle = qsTr("Create new item")
@@ -97,6 +79,25 @@ Page {
             // TODO: Reload only updated book
             reloadAllBooks()
         })
+    }
+
+    function reloadAllBooks() {
+        booksListModel.clear();
+        dao.retrieveBooks(function (books) {
+            for (var i = 0; i < books.length; i++) {
+                var book = books.item(i);
+                booksListModel.append(
+                            {
+                                id: book.id,
+                                author: book.author,
+                                title: book.title,
+                                totalPages: book.tp,
+                                position: book.position
+                            }
+                            );
+
+            }
+        });
     }
 
     Component.onCompleted: {
