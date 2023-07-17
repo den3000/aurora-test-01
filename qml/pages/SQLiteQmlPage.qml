@@ -14,7 +14,7 @@ Page {
             menu: ContextMenu {
                 MenuItem {
                     text: qsTr("Edit")
-//                    onClicked: listModel.remove(index)
+                    onClicked: showEditItemDialog(model)
                 }
                 MenuItem {
                     text: qsTr("Add new here")
@@ -35,7 +35,7 @@ Page {
                 MenuItem {
                     text: qsTr("Move to top")
                     onClicked: {
-                        dao.moveToTop(id, index)
+                        dao.moveToTop(model.id, index)
                         reloadAllBooks()
                     }
                 }
@@ -43,7 +43,7 @@ Page {
             Label {
                 x: Theme.horizontalPageMargin
                 anchors.verticalCenter: parent.verticalCenter
-                 text: "#" + position + " " + title + " by " + author + ", " + totalPages + " pages"
+                text: "#" + position + " " + title + " by " + author + ", " + totalPages + " pages"
             }
         }
 
@@ -72,17 +72,32 @@ Page {
         var dialog = pageStack.push(Qt.resolvedUrl("AddItemDialog.qml"))
         dialog.dialogTitle = qsTr("Create new item")
         dialog.accepted.connect(function() {
-            console.log(qsTr("Accepted done"))
             dao.insertBook(dialog.bookAuthor, dialog.bookTitle, dialog.bookTotalPages, position,
                function(insertId) {
                    console.log("InsertId = " + insertId)
                }
             )
+
             // TODO: reload only books below the position
             reloadAllBooks()
         })
     }
 
+    function showEditItemDialog(model) {
+        var dialog = pageStack.push(Qt.resolvedUrl("AddItemDialog.qml"))
+
+        dialog.bookAuthor = model.author
+        dialog.bookTitle = model.title
+        dialog.bookTotalPages = model.totalPages
+
+        dialog.dialogTitle = qsTr("Edit existing item")
+        dialog.accepted.connect(function() {
+            dao.updateBook(model.id, dialog.bookAuthor, dialog.bookTitle, dialog.bookTotalPages)
+
+            // TODO: Reload only updated book
+            reloadAllBooks()
+        })
+    }
 
     Component.onCompleted: {
         reloadAllBooks()

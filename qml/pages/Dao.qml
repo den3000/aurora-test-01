@@ -59,13 +59,13 @@ QtObject {
         });
     }
 
-    function updateBook(id, author, title) {
+    function updateBook(id, author, title, totalPages) {
         db.transaction(function (tx) {
             tx.executeSql(
                         "UPDATE books
-                            SET author = ?, title = ?
+                            SET author = ?, title = ?, tp = ?
                         WHERE id = ?;",
-                        [author, title, id]
+                        [author, title, totalPages, id]
                         );
         });
     }

@@ -21,7 +21,7 @@ Dialog {
         width: parent.width
         placeholderText: qsTr("Enter book author")
         label: qsTr("Book author")
-//        text: "P"
+        text: bookAuthor
     }
 
     TextField {
@@ -31,7 +31,7 @@ Dialog {
         width: parent.width
         placeholderText: qsTr("Enter book title")
         label: qsTr("Book title")
-//        text: "PP"
+        text: bookTitle
     }
 
     TextField {
@@ -41,7 +41,7 @@ Dialog {
         width: parent.width
         placeholderText: qsTr("Enter total number of pages in book")
         label: qsTr("Number of pages ")
-//        text: "10"
+        text: bookTotalPages === 0 ? "" : bookTotalPages
     }
 
     onDone: if (result == DialogResult.Accepted) {
