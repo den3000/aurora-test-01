@@ -70,7 +70,7 @@ Page {
         dialog.dialogTitle = qsTr("Create new item")
         dialog.accepted.connect(function() {
             console.log(qsTr("Accepted done"))
-            dao.insertBook(dialog.bookAuthor, dialog.bookTitle, dialog.bookTotalPages,
+            dao.insertBook(dialog.bookAuthor, dialog.bookTitle, dialog.bookTotalPages, position,
                function(insertId) {
                    console.log("InsertId = " + insertId)
                }

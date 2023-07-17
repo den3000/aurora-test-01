@@ -17,13 +17,23 @@ QtObject {
         });
     }
 
-    function insertBook(author, title, tp, callback) {
+    function insertBook(author, title, tp, position, callback) {
         db.transaction(function (tx) {
+            tx.executeSql("
+                        UPDATE books
+                        SET position = position + 1
+                        WHERE position >= ?
+                        ;",
+                        position
+                        )
             var result = tx.executeSql(
-                        "INSERT INTO books
-                            (author, title, tp) VALUES(?, ?, ?);",
-                        [author, title, tp]
-                        );
+                        "
+                        INSERT INTO books
+                        (author, title, tp, position)
+                        VALUES(?, ?, ?, ?)
+                        ;",
+                        [author, title, tp, position]
+                        )
             callback(result.insertId)
         });
     }
@@ -41,7 +51,7 @@ QtObject {
 
     function retrieveBooks(callback) {
         db.readTransaction(function (tx) {
-            var result = tx.executeSql("SELECT * FROM books;");
+            var result = tx.executeSql("SELECT * FROM books ORDER BY position ASC;");
             callback(result.rows);
         });
     }
@@ -60,13 +70,6 @@ QtObject {
                         );
             callback(result.rows.item(0).tpSum)
         });
-
-//        var database = LocalStorage.openDatabaseSync("books", "1.0");
-//        database.readTransaction(function (tx) {
-//            var result = tx.executeSql(
-//                        "SELECT SUM(tp) AS tpSum FROM books");
-//            callback(result.rows.item(0).tpSum)
-//        });
     }
 
     Component.onCompleted: {
@@ -78,7 +81,7 @@ QtObject {
         if (db.version === "1.1") {
             console.log("Updating DB from 1.1 to 1.2")
             db.changeVersion("1.1", "1.2", function(tx) {
-                tx.executeSql("ALTER TABLE books ADD position INTEGER NOT NULL default '0';")
+                tx.executeSql("ALTER TABLE books ADD position INTEGER NOT NULL default '-1';")
             })
         } else if (db.version === "1.0" || db.version === "") {
             console.log("Updating DB from 1.0 to 1.1")
