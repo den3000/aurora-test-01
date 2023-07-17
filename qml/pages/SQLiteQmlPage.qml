@@ -34,7 +34,10 @@ Page {
                 }
                 MenuItem {
                     text: qsTr("Move to top")
-//                    onClicked: listModel.moveToTop(index)
+                    onClicked: {
+                        dao.moveToTop(id, index)
+                        reloadAllBooks()
+                    }
                 }
             }
             Label {
@@ -75,6 +78,7 @@ Page {
                    console.log("InsertId = " + insertId)
                }
             )
+            // TODO: reload only books below the position
             reloadAllBooks()
         })
     }

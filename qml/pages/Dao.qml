@@ -17,6 +17,27 @@ QtObject {
         });
     }
 
+    function moveToTop(id, position) {
+        db.transaction(function (tx) {
+            tx.executeSql("
+                        UPDATE books
+                        SET position = position + 1
+                        WHERE position < ?
+                        ;",
+                        position
+                        )
+
+            tx.executeSql("
+                        UPDATE books
+                        SET position = 0
+                        WHERE id = ?
+                        ;",
+                        id
+                        )
+
+        })
+    }
+
     function insertBook(author, title, tp, position, callback) {
         db.transaction(function (tx) {
             tx.executeSql("
