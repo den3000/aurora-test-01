@@ -17,24 +17,29 @@ SQLiteCppVM::SQLiteCppVM(QObject *parent) : QAbstractListModel(parent)
         << BookModel("A9", "T9", 99, 9);
 }
 
+QHash<int, QByteArray> SQLiteCppVM::roleNames() const
+{
+    QHash<int, QByteArray> roles;
+    roles[Author] = "author";
+    roles[Title] = "title";
+    roles[TotalPages] = "totalPages";
+    roles[Position] = "position";
+    return roles;
+}
+
 QVariant SQLiteCppVM::data(const QModelIndex &index, int role) const
 {
     // Default roleNames: https://doc.qt.io/qt-5/qabstractitemmodel.html#roleNames
 
     if(!index.isValid()) return QVariant();
-    // switch (role) {
-    // case NameRole: return QVariant(_backing[index.row()].name);
-    // case DescriptionRole: return QVariant(_backing[index.row()].description);
-    // case AmountRole: return QVariant(_backing[index.row()].amount);
-    // }
+    switch (role) {
+    case Author: return QVariant(books[index.row()].author);
+    case Title: return QVariant(books[index.row()].title);
+    case TotalPages: return QVariant(books[index.row()].totalPages);
+    case Position: return QVariant(books[index.row()].position);
+    }
     
-    auto book = books[index.row()];
-    return QVariant::fromValue(QString("# %1 title: %2 author: %3 pages: %4")
-        .arg(book.position)
-        .arg(book.title)
-        .arg(book.author)
-        .arg(book.totalPages)
-    );
+    return QVariant();
 }
 
 BookModel::BookModel(const QString author, const QString title, const int totalPages, const int position) {

@@ -54,8 +54,7 @@ Page {
             Label {
                 x: Theme.horizontalPageMargin
                 anchors.verticalCenter: parent.verticalCenter
-                text: model.display
-//                text: "#" + position + " " + title + " by " + author + ", " + totalPages + " pages"
+                text: "#" + model.position + " " + model.title + " by " + model.author + ", " + model.totalPages + " pages"
             }
         }
 
