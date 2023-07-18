@@ -32,6 +32,44 @@
     </message>
 </context>
 <context>
+    <name>AddItemDialog</name>
+    <message>
+        <location filename="../qml/pages/AddItemDialog.qml" line="13"/>
+        <source>Accept</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AddItemDialog.qml" line="22"/>
+        <source>Enter book author</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AddItemDialog.qml" line="23"/>
+        <source>Book author</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AddItemDialog.qml" line="32"/>
+        <source>Enter book title</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AddItemDialog.qml" line="33"/>
+        <source>Book title</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AddItemDialog.qml" line="42"/>
+        <source>Enter total number of pages in book</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AddItemDialog.qml" line="43"/>
+        <source>Number of pages </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DefaultCoverPage</name>
     <message>
         <location filename="../qml/cover/DefaultCoverPage.qml" line="46"/>
@@ -45,6 +83,49 @@
         <location filename="../qml/pages/MainPage.qml" line="51"/>
         <source>DI and Navigation example</source>
         <translation type="unfinished">DI and Navigation example</translation>
+    </message>
+</context>
+<context>
+    <name>SQLiteQmlPage</name>
+    <message>
+        <location filename="../qml/pages/SQLiteQmlPage.qml" line="10"/>
+        <source>SQLite QML DB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SQLiteQmlPage.qml" line="28"/>
+        <source>Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SQLiteQmlPage.qml" line="20"/>
+        <source>Add new here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SQLiteQmlPage.qml" line="16"/>
+        <source>Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SQLiteQmlPage.qml" line="24"/>
+        <source>Add new below</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SQLiteQmlPage.qml" line="36"/>
+        <source>Move to top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SQLiteQmlPage.qml" line="67"/>
+        <source>Create new item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SQLiteQmlPage.qml" line="98"/>
+        <source>Edit existing item</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
