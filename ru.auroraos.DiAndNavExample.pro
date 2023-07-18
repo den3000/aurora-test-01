@@ -45,14 +45,14 @@ CONFIG += \
 PKGCONFIG += \
 
 SOURCES += \
-    sqlitecppvm.cpp \
+    src/sqlitecppvm.cpp \
     src/aboutvm.cpp \
     src/mainvm.cpp \
     src/main.cpp \
     src/rootcoordinator.cpp
 
 HEADERS += \
-    sqlitecppvm.h \
+    src/sqlitecppvm.h \
     src/aboutvm.h \
     src/customcppclasses.h \
     src/mainvm.h \
