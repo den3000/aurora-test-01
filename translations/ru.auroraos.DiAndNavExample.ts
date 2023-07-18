@@ -118,12 +118,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SQLiteQmlPage.qml" line="67"/>
+        <location filename="../qml/pages/SQLiteQmlPage.qml" line="62"/>
         <source>Create new item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SQLiteQmlPage.qml" line="98"/>
+        <location filename="../qml/pages/SQLiteQmlPage.qml" line="93"/>
         <source>Edit existing item</source>
         <translation type="unfinished"></translation>
     </message>
