@@ -92,6 +92,31 @@
         <source>SQLite CPP DB</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../qml/pages/SQLiteCppPage.qml" line="20"/>
+        <source>Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SQLiteCppPage.qml" line="24"/>
+        <source>Add new here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SQLiteCppPage.qml" line="28"/>
+        <source>Add new below</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SQLiteCppPage.qml" line="32"/>
+        <source>Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SQLiteCppPage.qml" line="40"/>
+        <source>Move to top</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SQLiteQmlPage</name>
