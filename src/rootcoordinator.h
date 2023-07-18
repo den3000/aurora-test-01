@@ -6,6 +6,7 @@
 
 #include "mainvm.h"
 #include "aboutvm.h"
+#include "sqlitecppvm.h"
 
 class RootCoordinator : public QObject
 {

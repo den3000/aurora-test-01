@@ -86,6 +86,14 @@
     </message>
 </context>
 <context>
+    <name>SQLiteCppPage</name>
+    <message>
+        <location filename="../qml/pages/SQLiteCppPage.qml" line="14"/>
+        <source>SQLite CPP DB</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SQLiteQmlPage</name>
     <message>
         <location filename="../qml/pages/SQLiteQmlPage.qml" line="10"/>

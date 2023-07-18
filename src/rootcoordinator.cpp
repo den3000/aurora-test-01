@@ -71,5 +71,8 @@ void RootCoordinator::showAboutPageWithModel(CustomModel value)
 
 void RootCoordinator::showSqliteCpp()
 {
-    qDebug() << "PAM";
+    auto vm = new SQLiteCppVM();
+    // QObject::connect(vm, &AboutVM::bar, this, [=]() { qDebug() << "lambda bar"; });
+
+    Smoozy::pushNamedPage(qmlCoordinatorInstance.data(), Aurora::Application::pathTo(PagePaths::sqliteCppPage), Smoozy::wrapInProperties(vm));
 }

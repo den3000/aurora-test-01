@@ -45,12 +45,14 @@ CONFIG += \
 PKGCONFIG += \
 
 SOURCES += \
+    sqlitecppvm.cpp \
     src/aboutvm.cpp \
     src/mainvm.cpp \
     src/main.cpp \
     src/rootcoordinator.cpp
 
 HEADERS += \
+    sqlitecppvm.h \
     src/aboutvm.h \
     src/customcppclasses.h \
     src/mainvm.h \
@@ -61,6 +63,7 @@ HEADERS += \
 DISTFILES += \
     qml/RootCoordinatorQml.qml \
     qml/pages/Dao.qml \
+    qml/pages/SQLiteCppPage.qml \
     qml/pages/SQLiteQmlPage.qml \
     rpm/ru.auroraos.DiAndNavExample.spec \
     AUTHORS.md \
