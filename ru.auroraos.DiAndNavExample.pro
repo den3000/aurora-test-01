@@ -60,7 +60,7 @@ HEADERS += \
 
 DISTFILES += \
     qml/RootCoordinatorQml.qml \
-    qml/objects/Dao.qml \
+    qml/pages/Dao.qml \
     qml/pages/SQLiteQmlPage.qml \
     rpm/ru.auroraos.DiAndNavExample.spec \
     AUTHORS.md \
