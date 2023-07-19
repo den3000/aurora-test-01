@@ -60,16 +60,15 @@ void SQLiteCppVM::openDb()
 
 void SQLiteCppVM::closeDb()
 {
-    QSqlDatabase::removeDatabase( QSqlDatabase::defaultConnection );
-//    {
+    {
         // this additional scope is necessary, because allows
         // to release db object after it was closed but before
         // removeDatabase will be called
         auto db = QSqlDatabase::database();
         db.close();
-//    }
+    }
+    QSqlDatabase::removeDatabase( QSqlDatabase::defaultConnection );
 }
-
 
 BookModel::BookModel(const QString author, const QString title, const int totalPages, const int position) {
     this->author = author;
