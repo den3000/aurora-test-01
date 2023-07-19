@@ -15,17 +15,11 @@ SQLiteCppVM::SQLiteCppVM(QObject *parent) : QAbstractListModel(parent)
         << BookModel("A7", "T7", 77, 7)
         << BookModel("A8", "T8", 88, 8)
         << BookModel("A9", "T9", 99, 9);
+
+    openDb();
 }
 
-QHash<int, QByteArray> SQLiteCppVM::roleNames() const
-{
-    QHash<int, QByteArray> roles;
-    roles[Author] = "author";
-    roles[Title] = "title";
-    roles[TotalPages] = "totalPages";
-    roles[Position] = "position";
-    return roles;
-}
+SQLiteCppVM::~SQLiteCppVM() { closeDb(); }
 
 QVariant SQLiteCppVM::data(const QModelIndex &index, int role) const
 {
@@ -41,6 +35,41 @@ QVariant SQLiteCppVM::data(const QModelIndex &index, int role) const
     
     return QVariant();
 }
+
+QHash<int, QByteArray> SQLiteCppVM::roleNames() const
+{
+    QHash<int, QByteArray> roles;
+    roles[Author] = "author";
+    roles[Title] = "title";
+    roles[TotalPages] = "totalPages";
+    roles[Position] = "position";
+    return roles;
+}
+
+void SQLiteCppVM::openDb()
+{
+    auto db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName("db.sqlite");
+
+    if (!db.open()) {
+       qDebug() << "Error: connection with database failed";
+    } else {
+       qDebug() << "Database: connection ok";
+    }
+}
+
+void SQLiteCppVM::closeDb()
+{
+    QSqlDatabase::removeDatabase( QSqlDatabase::defaultConnection );
+//    {
+        // this additional scope is necessary, because allows
+        // to release db object after it was closed but before
+        // removeDatabase will be called
+        auto db = QSqlDatabase::database();
+        db.close();
+//    }
+}
+
 
 BookModel::BookModel(const QString author, const QString title, const int totalPages, const int position) {
     this->author = author;

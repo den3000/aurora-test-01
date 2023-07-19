@@ -2,6 +2,7 @@
 #define SQLITECPPVM_H
 
 #include <QAbstractListModel>
+#include <QtSql>
 
 struct BookModel;
 
@@ -20,6 +21,7 @@ public:
     Q_ENUM(BookModelRoles)
 
     explicit SQLiteCppVM(QObject *parent = nullptr);
+    ~SQLiteCppVM();
 
     virtual int rowCount(const QModelIndex&) const { return books.size(); }
     virtual QVariant data(const QModelIndex &index, int role) const;
@@ -29,6 +31,9 @@ signals:
 
 private: 
     QList<BookModel> books;
+
+    void openDb();
+    void closeDb();
 };
 
 struct BookModel
