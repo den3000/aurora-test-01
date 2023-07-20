@@ -27,6 +27,7 @@ QVariant SQLiteCppVM::data(const QModelIndex &index, int role) const
 
     if(!index.isValid()) return QVariant();
     switch (role) {
+    case Id: return QVariant(books[index.row()].id);
     case Author: return QVariant(books[index.row()].author);
     case Title: return QVariant(books[index.row()].title);
     case TotalPages: return QVariant(books[index.row()].totalPages);
@@ -39,6 +40,7 @@ QVariant SQLiteCppVM::data(const QModelIndex &index, int role) const
 QHash<int, QByteArray> SQLiteCppVM::roleNames() const
 {
     QHash<int, QByteArray> roles;
+    roles[Id] = "id";
     roles[Author] = "author";
     roles[Title] = "title";
     roles[TotalPages] = "totalPages";

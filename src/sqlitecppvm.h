@@ -13,10 +13,11 @@ class SQLiteCppVM : public QAbstractListModel
 
 public:
     enum BookModelRoles {
-        Author = Qt::UserRole + 1,
-        Title = Qt::UserRole + 2,
-        TotalPages = Qt::UserRole + 3,
-        Position = Qt::UserRole + 4
+        Id = Qt::UserRole + 1,
+        Author = Qt::UserRole + 2,
+        Title = Qt::UserRole + 3,
+        TotalPages = Qt::UserRole + 4,
+        Position = Qt::UserRole + 5
     };
     Q_ENUM(BookModelRoles)
 
