@@ -156,7 +156,6 @@ void SQLiteCppVM::remove(const int id, const int position)
     query.addBindValue(id);
     if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
 
-
     beginRemoveRows(QModelIndex(), position, position);
     books.erase(books.begin() + position);
     endRemoveRows();
@@ -164,6 +163,35 @@ void SQLiteCppVM::remove(const int id, const int position)
     int next = position;
     int end = books.size();
     for (int i = next; i < end; i++) { books[i].position = i; }
+    emit dataChanged(createIndex(next, 0), createIndex(end, 0));
+}
+
+void SQLiteCppVM::moveToTop(const int id, const int position)
+{
+    QSqlQuery query;
+    query.prepare(
+                "UPDATE books "
+                "SET position = position + 1 "
+                "WHERE position < ?;"
+    );
+    query.addBindValue(position);
+    if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
+
+    query.prepare(
+                "UPDATE books "
+                "SET position = 0 "
+                "WHERE id = ?;"
+    );
+    query.addBindValue(id);
+    if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
+
+    beginMoveRows(QModelIndex(), position, position, QModelIndex(), 0);
+    books.move(position, 0);
+    endMoveRows();
+
+    int next = 0;
+    int end = position;
+    for (int i = next; i <= end; i++) { books[i].position = i; }
     emit dataChanged(createIndex(next, 0), createIndex(end, 0));
 }
 

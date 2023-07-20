@@ -113,12 +113,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SQLiteCppPage.qml" line="39"/>
+        <location filename="../qml/pages/SQLiteCppPage.qml" line="37"/>
         <source>Move to top</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SQLiteCppPage.qml" line="65"/>
+        <location filename="../qml/pages/SQLiteCppPage.qml" line="53"/>
         <source>Create new item</source>
         <translation type="unfinished"></translation>
     </message>

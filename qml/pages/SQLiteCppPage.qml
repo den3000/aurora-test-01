@@ -30,24 +30,12 @@ Page {
                 }
                 MenuItem {
                     text: qsTr("Remove")
-                    onClicked: {
-                        viewModel.remove(model.id, index)
-                    }
+                    onClicked: viewModel.remove(model.id, index)
 
                 }
                 MenuItem {
                     text: qsTr("Move to top")
-//                    onClicked: {
-//                        dao.moveToTop(model.id, index)
-
-//                        var from = index
-//                        booksListModel.move(from, 0, 1)
-//                        for (var i = 0; i <= from; i++) {
-//                            booksListModel.set(i, {
-//                                                   position: i
-//                                               });
-//                        }
-//                    }
+                    onClicked: viewModel.moveToTop(model.id, index)
                 }
             }
             Label {

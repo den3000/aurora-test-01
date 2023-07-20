@@ -33,6 +33,7 @@ public:
     void insert(BookModel book);
     Q_INVOKABLE void insert(const QString author, const QString title, const int totalPages, const int position);
     Q_INVOKABLE void remove(const int id, const int position);
+    Q_INVOKABLE void moveToTop(const int id, const int position);
     void closeDb();
 
 signals:
