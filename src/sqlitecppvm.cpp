@@ -103,6 +103,15 @@ QList<BookModel> SQLiteCppVM::getAllBooks()
 void SQLiteCppVM::insert(BookModel book)
 {
     QSqlQuery query;
+
+    query.prepare(
+                "UPDATE books "
+                "SET position = position + 1 "
+                "WHERE position >= ?;"
+    );
+    query.addBindValue(book.position);
+    if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
+
     query.prepare(
                 "INSERT INTO books "
                 "(author, title, tp, position) "
@@ -112,7 +121,6 @@ void SQLiteCppVM::insert(BookModel book)
     query.addBindValue(book.title);
     query.addBindValue(book.totalPages);
     query.addBindValue(book.position);
-
     if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
 
     auto insertId = query.lastInsertId().toInt();
@@ -121,6 +129,14 @@ void SQLiteCppVM::insert(BookModel book)
     beginInsertRows(QModelIndex(), book.position, book.position);
     books.insert(book.position, book);
     endInsertRows();
+
+    for (int i = book.position + 1; i < books.size(); i++) {
+        books[i].position = i;
+    }
+
+    QModelIndex topLeft = createIndex(book.position + 1, 0);
+    QModelIndex btmRight = createIndex(books.size(), 0);
+    emit dataChanged(topLeft, btmRight);
 }
 
 void SQLiteCppVM::insert(const QString author, const QString title, const int totalPages, const int position)
