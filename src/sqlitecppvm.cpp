@@ -11,16 +11,16 @@ SQLiteCppVM::SQLiteCppVM(QObject *parent) : QAbstractListModel(parent)
 
     
     books
-        << BookModel("A0", "T0", 00, 0)
-        << BookModel("A1", "T1", 11, 1)
-        << BookModel("A2", "T2", 22, 2)
-        << BookModel("A3", "T3", 33, 3)
-        << BookModel("A4", "T4", 44, 4)
-        << BookModel("A5", "T5", 55, 5)
-        << BookModel("A6", "T6", 66, 6)
-        << BookModel("A7", "T7", 77, 7)
-        << BookModel("A8", "T8", 88, 8)
-        << BookModel("A9", "T9", 99, 9);
+        << BookModel(0, "A0", "T0", 00, 0)
+        << BookModel(1, "A1", "T1", 11, 1)
+        << BookModel(2, "A2", "T2", 22, 2)
+        << BookModel(3, "A3", "T3", 33, 3)
+        << BookModel(4, "A4", "T4", 44, 4)
+        << BookModel(5, "A5", "T5", 55, 5)
+        << BookModel(6, "A6", "T6", 66, 6)
+        << BookModel(7, "A7", "T7", 77, 7)
+        << BookModel(8, "A8", "T8", 88, 8)
+        << BookModel(9, "A9", "T9", 99, 9);
 
     openDb();
     auto l = getAllBooks();
@@ -100,7 +100,7 @@ QList<BookModel> SQLiteCppVM::getAllBooks()
         auto tp = query.value(idxTp).toInt();
         auto position = query.value(idxPosition).toInt();
 
-        result.append(BookModel(author, title, tp, position));
+        result.append(BookModel(id, author, title, tp, position));
     }
     
     return result;
@@ -118,7 +118,8 @@ void SQLiteCppVM::closeDb()
     QSqlDatabase::removeDatabase( QSqlDatabase::defaultConnection );
 }
 
-BookModel::BookModel(const QString author, const QString title, const int totalPages, const int position) {
+BookModel::BookModel(const int id, const QString author, const QString title, const int totalPages, const int position) {
+    this->id = id;
     this->author = author;
     this->title = title;
     this->totalPages = totalPages;
