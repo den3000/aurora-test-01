@@ -122,6 +122,11 @@
         <source>Create new item</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../qml/pages/SQLiteCppPage.qml" line="66"/>
+        <source>Edit existing item</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SQLiteQmlPage</name>

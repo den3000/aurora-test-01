@@ -18,7 +18,7 @@ Page {
             menu: ContextMenu {
                 MenuItem {
                     text: qsTr("Edit")
-//                    onClicked: showEditItemDialog(model, index)
+                    onClicked: showEditItemDialog(model, index)
                 }
                 MenuItem {
                     text: qsTr("Add new here")
@@ -53,6 +53,19 @@ Page {
         dialog.dialogTitle = qsTr("Create new item")
         dialog.accepted.connect(function() {
             viewModel.insert(dialog.bookAuthor, dialog.bookTitle, dialog.bookTotalPages, position)
+        })
+    }
+
+    function showEditItemDialog(model, position) {
+        var dialog = pageStack.push(Qt.resolvedUrl("AddItemDialog.qml"))
+
+        dialog.bookAuthor = model.author
+        dialog.bookTitle = model.title
+        dialog.bookTotalPages = model.totalPages
+
+        dialog.dialogTitle = qsTr("Edit existing item")
+        dialog.accepted.connect(function() {
+            viewModel.update(model.id, dialog.bookAuthor, dialog.bookTitle, dialog.bookTotalPages, position)
         })
     }
 
