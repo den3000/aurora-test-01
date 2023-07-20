@@ -17,10 +17,6 @@ Page {
         delegate: ListItem {
             menu: ContextMenu {
                 MenuItem {
-                    text: qsTr("Edit")
-                    onClicked: showEditItemDialog(model, index)
-                }
-                MenuItem {
                     text: qsTr("Add new here")
                     onClicked: showCreateItemDialog(index)
                 }
@@ -39,10 +35,17 @@ Page {
                 }
             }
             Label {
-                x: Theme.horizontalPageMargin
                 anchors.verticalCenter: parent.verticalCenter
+                anchors.left: parent.left
+                anchors.right: parent.right
+                leftPadding: 8
+                rightPadding: 8
+                truncationMode: TruncationMode.Elide
+                maximumLineCount: 1
                 text: "#" + model.position + " id:" + model.id + " " + model.title + " by " + model.author + ", " + model.totalPages + " pages"
             }
+
+            onClicked: showEditItemDialog(model, index)
         }
 
         model: viewModel

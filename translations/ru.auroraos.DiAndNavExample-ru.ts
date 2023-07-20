@@ -94,36 +94,31 @@
     </message>
     <message>
         <location filename="../qml/pages/SQLiteCppPage.qml" line="20"/>
-        <source>Edit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/SQLiteCppPage.qml" line="24"/>
         <source>Add new here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SQLiteCppPage.qml" line="28"/>
+        <location filename="../qml/pages/SQLiteCppPage.qml" line="24"/>
         <source>Add new below</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SQLiteCppPage.qml" line="32"/>
+        <location filename="../qml/pages/SQLiteCppPage.qml" line="28"/>
         <source>Remove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SQLiteCppPage.qml" line="37"/>
+        <location filename="../qml/pages/SQLiteCppPage.qml" line="33"/>
         <source>Move to top</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SQLiteCppPage.qml" line="53"/>
+        <location filename="../qml/pages/SQLiteCppPage.qml" line="57"/>
         <source>Create new item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SQLiteCppPage.qml" line="66"/>
+        <location filename="../qml/pages/SQLiteCppPage.qml" line="70"/>
         <source>Edit existing item</source>
         <translation type="unfinished"></translation>
     </message>
