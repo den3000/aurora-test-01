@@ -130,13 +130,10 @@ void SQLiteCppVM::insert(BookModel book)
     books.insert(book.position, book);
     endInsertRows();
 
-    for (int i = book.position + 1; i < books.size(); i++) {
-        books[i].position = i;
-    }
-
-    QModelIndex topLeft = createIndex(book.position + 1, 0);
-    QModelIndex btmRight = createIndex(books.size(), 0);
-    emit dataChanged(topLeft, btmRight);
+    int next = book.position + 1;
+    int end = books.size();
+    for (int i = next; i < end; i++) { books[i].position = i; }
+    emit dataChanged(createIndex(next, 0), createIndex(end, 0));
 }
 
 void SQLiteCppVM::insert(const QString author, const QString title, const int totalPages, const int position)
@@ -147,13 +144,27 @@ void SQLiteCppVM::insert(const QString author, const QString title, const int to
 void SQLiteCppVM::remove(const int id, const int position)
 {
     QSqlQuery query;
+    query.prepare(
+                "UPDATE books "
+                "SET position = position - 1 "
+                "WHERE position >= ?;"
+    );
+    query.addBindValue(position);
+    if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
+
     query.prepare("DELETE FROM books WHERE id = ?;");
     query.addBindValue(id);
     if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
 
+
     beginRemoveRows(QModelIndex(), position, position);
     books.erase(books.begin() + position);
     endRemoveRows();
+
+    int next = position;
+    int end = books.size();
+    for (int i = next; i < end; i++) { books[i].position = i; }
+    emit dataChanged(createIndex(next, 0), createIndex(end, 0));
 }
 
 void SQLiteCppVM::closeDb()
