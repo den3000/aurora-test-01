@@ -45,6 +45,7 @@ CONFIG += \
 PKGCONFIG += \
 
 SOURCES += \
+    src/bookdao.cpp \
     src/sqlitecppvm.cpp \
     src/aboutvm.cpp \
     src/mainvm.cpp \
@@ -52,6 +53,7 @@ SOURCES += \
     src/rootcoordinator.cpp
 
 HEADERS += \
+    src/bookdao.h \
     src/sqlitecppvm.h \
     src/aboutvm.h \
     src/customcppclasses.h \

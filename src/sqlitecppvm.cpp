@@ -5,9 +5,8 @@
 SQLiteCppVM::SQLiteCppVM(QObject *parent) : QAbstractListModel(parent)
 {
     // TODO: 
-    // 1. Define DB here and use it
+    // 1. Extract DB into separate class and inject it in VM with DI
     // 2. Use https://doc.qt.io/qt-5/model-view-programming.html
-    // 3. Extract DB into separate class and inject it in VM with DI
     
     openDb();
     books = getAllBooks();
@@ -230,12 +229,4 @@ void SQLiteCppVM::closeDb()
         db.close();
     }
     QSqlDatabase::removeDatabase( QSqlDatabase::defaultConnection );
-}
-
-BookModel::BookModel(const int id, const QString author, const QString title, const int totalPages, const int position) {
-    this->id = id;
-    this->author = author;
-    this->title = title;
-    this->totalPages = totalPages;
-    this->position = position;
 }

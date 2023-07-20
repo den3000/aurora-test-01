@@ -2,9 +2,7 @@
 #define SQLITECPPVM_H
 
 #include <QAbstractListModel>
-#include <QtSql>
-
-struct BookModel;
+#include "bookdao.h"
 
 class SQLiteCppVM : public QAbstractListModel
 {
@@ -41,17 +39,6 @@ signals:
 
 private: 
     QList<BookModel> books;
-};
-
-struct BookModel
-{
-    explicit BookModel(const int id, const QString author, const QString title, const int totalPages, const int position);
-
-    int id;
-    QString author;
-    QString title;
-    int totalPages;
-    int position;
 };
 
 #endif // SQLITECPPVM_H
