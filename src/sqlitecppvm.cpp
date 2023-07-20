@@ -105,17 +105,17 @@ void SQLiteCppVM::insert(BookModel book)
     QSqlQuery query;
 
     query.prepare(
-                "UPDATE books "
-                "SET position = position + 1 "
-                "WHERE position >= ?;"
+        "UPDATE books "
+        "SET position = position + 1 "
+        "WHERE position >= ?;"
     );
     query.addBindValue(book.position);
     if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
 
     query.prepare(
-                "INSERT INTO books "
-                "(author, title, tp, position) "
-                "VALUES(?, ?, ?, ?);"
+        "INSERT INTO books "
+        "(author, title, tp, position) "
+        "VALUES(?, ?, ?, ?);"
     );
     query.addBindValue(book.author);
     query.addBindValue(book.title);
@@ -145,9 +145,9 @@ void SQLiteCppVM::remove(const int id, const int position)
 {
     QSqlQuery query;
     query.prepare(
-                "UPDATE books "
-                "SET position = position - 1 "
-                "WHERE position >= ?;"
+        "UPDATE books "
+        "SET position = position - 1 "
+        "WHERE position >= ?;"
     );
     query.addBindValue(position);
     if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
@@ -170,17 +170,17 @@ void SQLiteCppVM::moveToTop(const int id, const int position)
 {
     QSqlQuery query;
     query.prepare(
-                "UPDATE books "
-                "SET position = position + 1 "
-                "WHERE position < ?;"
+        "UPDATE books "
+        "SET position = position + 1 "
+        "WHERE position < ?;"
     );
     query.addBindValue(position);
     if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
 
     query.prepare(
-                "UPDATE books "
-                "SET position = 0 "
-                "WHERE id = ?;"
+        "UPDATE books "
+        "SET position = 0 "
+        "WHERE id = ?;"
     );
     query.addBindValue(id);
     if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
