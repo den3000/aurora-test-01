@@ -33,6 +33,7 @@ private:
     QList<BookModel> books;
 
     void openDb();
+    QList<BookModel> getAllBooks();
     void closeDb();
 };
 

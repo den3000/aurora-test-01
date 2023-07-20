@@ -4,6 +4,12 @@
 
 SQLiteCppVM::SQLiteCppVM(QObject *parent) : QAbstractListModel(parent)
 {
+    // TODO: 
+    // 1. Define DB here and use it
+    // 2. Use https://doc.qt.io/qt-5/model-view-programming.html
+    // 3. Extract DB into separate class and inject it in VM with DI
+
+    
     books
         << BookModel("A0", "T0", 00, 0)
         << BookModel("A1", "T1", 11, 1)
@@ -17,6 +23,8 @@ SQLiteCppVM::SQLiteCppVM(QObject *parent) : QAbstractListModel(parent)
         << BookModel("A9", "T9", 99, 9);
 
     openDb();
+    auto l = getAllBooks();
+    qDebug() << "Loaded books count: " << l.size();
 }
 
 SQLiteCppVM::~SQLiteCppVM() { closeDb(); }
@@ -56,6 +64,46 @@ void SQLiteCppVM::openDb()
     } else {
        qDebug() << "Database: connection ok";
     }
+
+    QSqlQuery query;
+    query.prepare("CREATE TABLE IF NOT EXISTS books ("
+        "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+        "author TEXT NOT NULL,"
+        "title TEXT NOT NULL,"
+        "tp INTEGER NOT NULL,"
+        "position INTEGER NOT NULL);"
+    );
+    
+    if (!query.exec()) { qDebug() << "Create table error:" << query.lastError(); }
+}
+
+QList<BookModel> SQLiteCppVM::getAllBooks()
+{
+    QSqlQuery query;
+    query.prepare("SELECT * FROM books ORDER BY position ASC;");
+
+    if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
+
+    int idxId = query.record().indexOf("id");
+    int idxAuthor = query.record().indexOf("author");
+    int idxTitle = query.record().indexOf("title");
+    int idxTp = query.record().indexOf("tp");
+    int idxPosition = query.record().indexOf("position");
+
+    auto result = QList<BookModel>();
+
+    while (query.next()) 
+    {
+        auto id = query.value(idxId).toInt();
+        auto author = query.value(idxAuthor).toString();
+        auto title = query.value(idxTitle).toString();
+        auto tp = query.value(idxTp).toInt();
+        auto position = query.value(idxPosition).toInt();
+
+        result.append(BookModel(author, title, tp, position));
+    }
+    
+    return result;
 }
 
 void SQLiteCppVM::closeDb()
