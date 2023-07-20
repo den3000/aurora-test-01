@@ -22,11 +22,11 @@ Page {
                 }
                 MenuItem {
                     text: qsTr("Add new here")
-//                    onClicked: showCreateItemDialog(index)
+                    onClicked: showCreateItemDialog(index)
                 }
                 MenuItem {
                     text: qsTr("Add new below")
-//                    onClicked: showCreateItemDialog(index+1)
+                    onClicked: showCreateItemDialog(index+1)
                 }
                 MenuItem {
                     text: qsTr("Remove")
@@ -58,6 +58,14 @@ Page {
         }
 
         model: viewModel
+    }
+
+    function showCreateItemDialog(position) {
+        var dialog = pageStack.push(Qt.resolvedUrl("AddItemDialog.qml"))
+        dialog.dialogTitle = qsTr("Create new item")
+        dialog.accepted.connect(function() {
+            viewModel.insert(dialog.bookAuthor, dialog.bookTitle, dialog.bookTotalPages, position)
+        })
     }
 
 }

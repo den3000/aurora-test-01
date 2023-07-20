@@ -117,6 +117,11 @@
         <source>Move to top</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../qml/pages/SQLiteCppPage.qml" line="65"/>
+        <source>Create new item</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SQLiteQmlPage</name>

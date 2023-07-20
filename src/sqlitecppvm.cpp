@@ -121,6 +121,11 @@ void SQLiteCppVM::insert(BookModel book)
     endInsertRows();
 }
 
+void SQLiteCppVM::insert(const QString author, const QString title, const int totalPages, const int position)
+{
+    insert(BookModel(0, author, title, totalPages, position));
+}
+
 void SQLiteCppVM::remove(const int id, const int position)
 {
     QSqlQuery query;
