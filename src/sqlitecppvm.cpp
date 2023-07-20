@@ -8,23 +8,15 @@ SQLiteCppVM::SQLiteCppVM(QObject *parent) : QAbstractListModel(parent)
     // 1. Define DB here and use it
     // 2. Use https://doc.qt.io/qt-5/model-view-programming.html
     // 3. Extract DB into separate class and inject it in VM with DI
-
     
-    books
-        << BookModel(0, "A0", "T0", 00, 0)
-        << BookModel(1, "A1", "T1", 11, 1)
-        << BookModel(2, "A2", "T2", 22, 2)
-        << BookModel(3, "A3", "T3", 33, 3)
-        << BookModel(4, "A4", "T4", 44, 4)
-        << BookModel(5, "A5", "T5", 55, 5)
-        << BookModel(6, "A6", "T6", 66, 6)
-        << BookModel(7, "A7", "T7", 77, 7)
-        << BookModel(8, "A8", "T8", 88, 8)
-        << BookModel(9, "A9", "T9", 99, 9);
-
     openDb();
-    auto l = getAllBooks();
-    qDebug() << "Loaded books count: " << l.size();
+    books = getAllBooks();
+    qDebug() << "Loaded books count: " << books.size();
+
+    if (books.size() == 0) {
+        insert(BookModel(0, "Leo Tolstoy", "Anna Karenina", 1300, 0));
+        qDebug() << "Default book inserted";
+    }
 }
 
 SQLiteCppVM::~SQLiteCppVM() { closeDb(); }
@@ -104,6 +96,41 @@ QList<BookModel> SQLiteCppVM::getAllBooks()
     }
     
     return result;
+}
+
+void SQLiteCppVM::insert(BookModel book)
+{
+    QSqlQuery query;
+    query.prepare(
+                "INSERT INTO books "
+                "(author, title, tp, position) "
+                "VALUES(?, ?, ?, ?);"
+    );
+    query.addBindValue(book.author);
+    query.addBindValue(book.title);
+    query.addBindValue(book.totalPages);
+    query.addBindValue(book.position);
+
+    if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
+
+    auto insertId = query.lastInsertId().toInt();
+    book.id = insertId;
+
+    beginInsertRows(QModelIndex(), book.position, book.position);
+    books.insert(book.position, book);
+    endInsertRows();
+}
+
+void SQLiteCppVM::remove(const int id, const int position)
+{
+    QSqlQuery query;
+    query.prepare("DELETE FROM books WHERE id = ?;");
+    query.addBindValue(id);
+    if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
+
+    beginRemoveRows(QModelIndex(), position, position);
+    books.erase(books.begin() + position);
+    endRemoveRows();
 }
 
 void SQLiteCppVM::closeDb()

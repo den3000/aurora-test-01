@@ -30,10 +30,9 @@ Page {
                 }
                 MenuItem {
                     text: qsTr("Remove")
-//                    onClicked: {
-//                        dao.deleteBook(id)
-//                        booksListModel.remove(index)
-//                    }
+                    onClicked: {
+                        viewModel.remove(model.id, index)
+                    }
 
                 }
                 MenuItem {

@@ -27,14 +27,16 @@ public:
     virtual QVariant data(const QModelIndex &index, int role) const;
     QHash<int, QByteArray> roleNames() const;
     
+    void openDb();
+    QList<BookModel> getAllBooks();
+    void insert(BookModel book);
+    Q_INVOKABLE void remove(const int id, const int position);
+    void closeDb();
+
 signals:
 
 private: 
     QList<BookModel> books;
-
-    void openDb();
-    QList<BookModel> getAllBooks();
-    void closeDb();
 };
 
 struct BookModel
