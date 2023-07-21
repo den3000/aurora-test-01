@@ -79,22 +79,7 @@ void SQLiteCppVM::remove(const int id, const int position)
 
 void SQLiteCppVM::moveToTop(const int id, const int position)
 {
-    QSqlQuery query;
-    query.prepare(
-        "UPDATE books "
-        "SET position = position + 1 "
-        "WHERE position < ?;"
-    );
-    query.addBindValue(position);
-    if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
-
-    query.prepare(
-        "UPDATE books "
-        "SET position = 0 "
-        "WHERE id = ?;"
-    );
-    query.addBindValue(id);
-    if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
+    dao.moveToTop(id, position);
 
     beginMoveRows(QModelIndex(), position, position, QModelIndex(), 0);
     books.move(position, 0);
