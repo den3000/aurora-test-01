@@ -26,19 +26,18 @@ public:
     virtual QVariant data(const QModelIndex &index, int role) const;
     QHash<int, QByteArray> roleNames() const;
     
-    void openDb();
     QList<BookModel> getAllBooks();
     void insert(BookModel book);
     Q_INVOKABLE void insert(const QString author, const QString title, const int totalPages, const int position);
     Q_INVOKABLE void remove(const int id, const int position);
     Q_INVOKABLE void moveToTop(const int id, const int position);
     Q_INVOKABLE void update(const int id, const QString author, const QString title, const int totalPages, const int position);
-    void closeDb();
 
 signals:
 
 private: 
     QList<BookModel> books;
+    BookDao dao;
 };
 
 #endif // SQLITECPPVM_H
