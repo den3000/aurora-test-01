@@ -97,15 +97,6 @@ void BookDao::remove(const int id, const int position)
     query.prepare("DELETE FROM books WHERE id = ?;");
     query.addBindValue(id);
     if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
-
-    // beginRemoveRows(QModelIndex(), position, position);
-    // books.erase(books.begin() + position);
-    // endRemoveRows();
-
-    // int next = position;
-    // int end = books.size();
-    // for (int i = next; i < end; i++) { books[i].position = i; }
-    // emit dataChanged(createIndex(next, 0), createIndex(end, 0));
 }
 
 void BookDao::moveToTop(const int id, const int position)

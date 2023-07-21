@@ -65,18 +65,7 @@ void SQLiteCppVM::insert(const QString author, const QString title, const int to
 
 void SQLiteCppVM::remove(const int id, const int position)
 {
-    QSqlQuery query;
-    query.prepare(
-        "UPDATE books "
-        "SET position = position - 1 "
-        "WHERE position >= ?;"
-    );
-    query.addBindValue(position);
-    if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
-
-    query.prepare("DELETE FROM books WHERE id = ?;");
-    query.addBindValue(id);
-    if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
+    dao.remove(id, position);
 
     beginRemoveRows(QModelIndex(), position, position);
     books.erase(books.begin() + position);
