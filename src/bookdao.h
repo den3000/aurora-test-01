@@ -9,7 +9,8 @@ class BookDao
 {
 public:
     BookDao();
-
+    ~BookDao();
+    
     void openDb();
     QList<BookModel> getAllBooks();
     int insert(BookModel book);

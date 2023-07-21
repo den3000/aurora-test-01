@@ -5,6 +5,11 @@ BookDao::BookDao()
 
 }
 
+BookDao::~BookDao()
+{
+     qDebug() << "BookDao released";
+}
+
 void BookDao::openDb()
 {
     auto db = QSqlDatabase::addDatabase("QSQLITE");

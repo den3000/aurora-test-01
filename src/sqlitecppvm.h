@@ -35,7 +35,7 @@ signals:
 
 private: 
     QList<BookModel> books;
-    BookDao dao;
+    BookDao * dao;
 };
 
 #endif // SQLITECPPVM_H

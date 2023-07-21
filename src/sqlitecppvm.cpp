@@ -5,22 +5,24 @@
 SQLiteCppVM::SQLiteCppVM(QObject *parent) : QAbstractListModel(parent)
 {
     // TODO: 
-    // 1. Extract DB into separate class \
     // 2. Inject it in VM with DI
-    // 2. Use https://doc.qt.io/qt-5/model-view-programming.html
-    dao = BookDao();
+    // 3. Use https://doc.qt.io/qt-5/model-view-programming.html
+    dao = new BookDao();
 
-    dao.openDb();
-    books = dao.getAllBooks();
+    dao->openDb();
+    books = dao->getAllBooks();
     qDebug() << "Loaded books count: " << books.size();
 
     if (books.size() == 0) {
-        dao.insert(BookModel(0, "Leo Tolstoy", "Anna Karenina", 1300, 0));
+        dao->insert(BookModel(0, "Leo Tolstoy", "Anna Karenina", 1300, 0));
         qDebug() << "Default book inserted";
     }
 }
 
-SQLiteCppVM::~SQLiteCppVM() { dao.closeDb(); }
+SQLiteCppVM::~SQLiteCppVM() { 
+    dao->closeDb(); 
+    delete dao;
+}
 
 QVariant SQLiteCppVM::data(const QModelIndex &index, int role) const
 {
@@ -52,7 +54,7 @@ QHash<int, QByteArray> SQLiteCppVM::roleNames() const
 void SQLiteCppVM::insert(const QString author, const QString title, const int totalPages, const int position)
 {
     auto book = BookModel(0, author, title, totalPages, position);
-    book.id = dao.insert(book);
+    book.id = dao->insert(book);
 
     beginInsertRows(QModelIndex(), position, position);
     books.insert(position, book);
@@ -66,7 +68,7 @@ void SQLiteCppVM::insert(const QString author, const QString title, const int to
 
 void SQLiteCppVM::remove(const int id, const int position)
 {
-    dao.remove(id, position);
+    dao->remove(id, position);
 
     beginRemoveRows(QModelIndex(), position, position);
     books.erase(books.begin() + position);
@@ -80,7 +82,7 @@ void SQLiteCppVM::remove(const int id, const int position)
 
 void SQLiteCppVM::moveToTop(const int id, const int position)
 {
-    dao.moveToTop(id, position);
+    dao->moveToTop(id, position);
 
     beginMoveRows(QModelIndex(), position, position, QModelIndex(), 0);
     books.move(position, 0);
@@ -94,7 +96,7 @@ void SQLiteCppVM::moveToTop(const int id, const int position)
 
 void SQLiteCppVM::update(const int id, const QString author, const QString title, const int totalPages, const int position)
 {
-    dao.update(id, author, title, totalPages);
+    dao->update(id, author, title, totalPages);
 
     books[position].author = author;
     books[position].title = title;
