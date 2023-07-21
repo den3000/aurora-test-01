@@ -57,7 +57,7 @@ QList<BookModel> BookDao::getAllBooks()
     return result;
 }
 
-void BookDao::insert(BookModel book)
+int BookDao::insert(BookModel book)
 {
     QSqlQuery query;
 
@@ -80,17 +80,7 @@ void BookDao::insert(BookModel book)
     query.addBindValue(book.position);
     if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
 
-    auto insertId = query.lastInsertId().toInt();
-    book.id = insertId;
-
-    // beginInsertRows(QModelIndex(), book.position, book.position);
-    // books.insert(book.position, book);
-    // endInsertRows();
-
-    // int next = book.position + 1;
-    // int end = books.size();
-    // for (int i = next; i < end; i++) { books[i].position = i; }
-    // emit dataChanged(createIndex(next, 0), createIndex(end, 0));
+    return query.lastInsertId().toInt();
 }
 
 void BookDao::remove(const int id, const int position)

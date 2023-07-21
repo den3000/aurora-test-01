@@ -48,45 +48,19 @@ QHash<int, QByteArray> SQLiteCppVM::roleNames() const
     return roles;
 }
 
-void SQLiteCppVM::insert(BookModel book)
+void SQLiteCppVM::insert(const QString author, const QString title, const int totalPages, const int position)
 {
-    QSqlQuery query;
+    auto book = BookModel(0, author, title, totalPages, position);
+    book.id = dao.insert(book);
 
-    query.prepare(
-        "UPDATE books "
-        "SET position = position + 1 "
-        "WHERE position >= ?;"
-    );
-    query.addBindValue(book.position);
-    if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
-
-    query.prepare(
-        "INSERT INTO books "
-        "(author, title, tp, position) "
-        "VALUES(?, ?, ?, ?);"
-    );
-    query.addBindValue(book.author);
-    query.addBindValue(book.title);
-    query.addBindValue(book.totalPages);
-    query.addBindValue(book.position);
-    if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
-
-    auto insertId = query.lastInsertId().toInt();
-    book.id = insertId;
-
-    beginInsertRows(QModelIndex(), book.position, book.position);
-    books.insert(book.position, book);
+    beginInsertRows(QModelIndex(), position, position);
+    books.insert(position, book);
     endInsertRows();
 
-    int next = book.position + 1;
+    int next = position + 1;
     int end = books.size();
     for (int i = next; i < end; i++) { books[i].position = i; }
     emit dataChanged(createIndex(next, 0), createIndex(end, 0));
-}
-
-void SQLiteCppVM::insert(const QString author, const QString title, const int totalPages, const int position)
-{
-    insert(BookModel(0, author, title, totalPages, position));
 }
 
 void SQLiteCppVM::remove(const int id, const int position)
