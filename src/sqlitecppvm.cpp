@@ -5,7 +5,8 @@
 SQLiteCppVM::SQLiteCppVM(QObject *parent) : QAbstractListModel(parent)
 {
     // TODO: 
-    // 1. Extract DB into separate class and inject it in VM with DI
+    // 1. Extract DB into separate class \
+    // 2. Inject it in VM with DI
     // 2. Use https://doc.qt.io/qt-5/model-view-programming.html
     dao = BookDao();
 
@@ -93,19 +94,7 @@ void SQLiteCppVM::moveToTop(const int id, const int position)
 
 void SQLiteCppVM::update(const int id, const QString author, const QString title, const int totalPages, const int position)
 {
-    qDebug() << "Position: " << position;
-    QSqlQuery query;
-
-    query.prepare(
-        "UPDATE books "
-        "SET author = ?, title = ?, tp = ? "
-        "WHERE id = ?;"
-    );
-    query.addBindValue(author);
-    query.addBindValue(title);
-    query.addBindValue(totalPages);
-    query.addBindValue(id);
-    if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
+    dao.update(id, author, title, totalPages);
 
     books[position].author = author;
     books[position].title = title;

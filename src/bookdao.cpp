@@ -119,9 +119,8 @@ void BookDao::moveToTop(const int id, const int position)
     if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
 }
 
-void BookDao::update(const int id, const QString author, const QString title, const int totalPages, const int position)
+void BookDao::update(const int id, const QString author, const QString title, const int totalPages)
 {
-    qDebug() << "Position: " << position;
     QSqlQuery query;
 
     query.prepare(
@@ -134,14 +133,6 @@ void BookDao::update(const int id, const QString author, const QString title, co
     query.addBindValue(totalPages);
     query.addBindValue(id);
     if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
-
-    // books[position].author = author;
-    // books[position].title = title;
-    // books[position].totalPages = totalPages;
-
-    // int next = position;
-    // int end = position;
-    // emit dataChanged(createIndex(next, 0), createIndex(end, 0));
 }
 
 void BookDao::closeDb()
