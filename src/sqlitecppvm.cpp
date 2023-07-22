@@ -2,12 +2,11 @@
 
 #include <QString>
 
-SQLiteCppVM::SQLiteCppVM(QObject *parent) : QAbstractListModel(parent)
+SQLiteCppVM::SQLiteCppVM(BookDao * bookDao, QObject *parent): QAbstractListModel(parent)
 {
     // TODO: 
-    // 2. Inject it in VM with DI
     // 3. Use https://doc.qt.io/qt-5/model-view-programming.html
-    dao = new BookDao();
+    dao = bookDao;
 
     dao->openDb();
     books = dao->getAllBooks();
@@ -19,9 +18,9 @@ SQLiteCppVM::SQLiteCppVM(QObject *parent) : QAbstractListModel(parent)
     }
 }
 
-SQLiteCppVM::~SQLiteCppVM() { 
+SQLiteCppVM::~SQLiteCppVM()
+{
     dao->closeDb(); 
-    delete dao;
 }
 
 QVariant SQLiteCppVM::data(const QModelIndex &index, int role) const

@@ -2,12 +2,12 @@
 
 BookDao::BookDao()
 {
-
+    qDebug() << "Created";
 }
 
 BookDao::~BookDao()
 {
-     qDebug() << "BookDao released";
+     qDebug() << "Released";
 }
 
 void BookDao::openDb()
