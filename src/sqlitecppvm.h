@@ -3,6 +3,7 @@
 
 #include <QAbstractListModel>
 #include "bookdao.h"
+#include "functional"
 
 class SQLiteCppVM : public QAbstractListModel
 {
@@ -37,6 +38,19 @@ signals:
 private: 
     QList<BookModel> books;
     BookDao *dao;
-};
 
+    // TODO what about lambda by ref?
+    //      https://stackoverflow.com/questions/5481539/what-does-t-double-ampersand-mean-in-c11
+    // TODO what about lambda with template?
+
+    template<typename F>
+    inline void updateData(const int start, const int end, F && lambda);
+
+    // alternative lambda useage for a case when function
+    // can't be defined in a header. Potential problems here
+    // related to move semantics and unique ptr sharing or something
+    // like that
+    // #include "functional" is required to use this
+    inline void updateDataAlt(const int start, const int end, std::function<void(int, BookModel &)> && lambda);
+};
 #endif // SQLITECPPVM_H

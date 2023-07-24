@@ -4,7 +4,7 @@
 
 SQLiteCppVM::SQLiteCppVM(BookDao * bookDao, QObject *parent): QAbstractListModel(parent)
 {
-    // TODO: 
+    // TODO:
     // 3. Use https://doc.qt.io/qt-5/model-view-programming.html
     dao = bookDao;
 
@@ -20,7 +20,7 @@ SQLiteCppVM::SQLiteCppVM(BookDao * bookDao, QObject *parent): QAbstractListModel
 
 SQLiteCppVM::~SQLiteCppVM()
 {
-    dao->closeDb(); 
+    dao->closeDb();
 }
 
 QVariant SQLiteCppVM::data(const QModelIndex &index, int role) const
@@ -35,7 +35,7 @@ QVariant SQLiteCppVM::data(const QModelIndex &index, int role) const
     case TotalPages: return QVariant(books[index.row()].totalPages);
     case Position: return QVariant(books[index.row()].position);
     }
-    
+
     return QVariant();
 }
 
@@ -59,10 +59,9 @@ void SQLiteCppVM::insert(const QString author, const QString title, const int to
     books.insert(position, book);
     endInsertRows();
 
-    int next = position + 1;
-    int end = books.size();
-    for (int i = next; i < end; i++) { books[i].position = i; }
-    emit dataChanged(createIndex(next, 0), createIndex(end, 0));
+    updateData(position + 1, books.size(), [](int idx, BookModel &book) {
+        book.position = idx;
+    });
 }
 
 void SQLiteCppVM::remove(const int id, const int position)
@@ -73,10 +72,9 @@ void SQLiteCppVM::remove(const int id, const int position)
     books.erase(books.begin() + position);
     endRemoveRows();
 
-    int next = position;
-    int end = books.size();
-    for (int i = next; i < end; i++) { books[i].position = i; }
-    emit dataChanged(createIndex(next, 0), createIndex(end, 0));
+    updateData(position, books.size(), [](int idx, BookModel &book) {
+        book.position = idx;
+    });
 }
 
 void SQLiteCppVM::moveToTop(const int id, const int position)
@@ -87,21 +85,38 @@ void SQLiteCppVM::moveToTop(const int id, const int position)
     books.move(position, 0);
     endMoveRows();
 
-    int next = 0;
-    int end = position;
-    for (int i = next; i <= end; i++) { books[i].position = i; }
-    emit dataChanged(createIndex(next, 0), createIndex(end, 0));
+    updateData(0, position+1, [](int idx, BookModel &book) {
+        book.position = idx;
+    });
 }
 
 void SQLiteCppVM::update(const int id, const QString author, const QString title, const int totalPages, const int position)
 {
     dao->update(id, author, title, totalPages);
 
-    books[position].author = author;
-    books[position].title = title;
-    books[position].totalPages = totalPages;
+    updateData(position, position+1, [author, title, totalPages](int idx, BookModel &book) {
+        Q_UNUSED(idx)
+        book.author = author;
+        book.title = title;
+        book.totalPages = totalPages;
+    });
+}
 
-    int next = position;
-    int end = position;
-    emit dataChanged(createIndex(next, 0), createIndex(end, 0));
+template<typename F> inline
+void SQLiteCppVM::updateData(const int start, const int end, F && lambda) {
+    for (int i = start; i < end; i++) {
+        lambda(i, books[i]);
+    }
+    // interesting that index value might be out of
+    // data range and this will not break anything
+    emit dataChanged(createIndex(start, 0), createIndex(end, 0));
+}
+
+inline
+void SQLiteCppVM::updateDataAlt(const int start, const int end, std::function<void(int, BookModel &)> && lambda)
+{
+    for (int i = start; i < end; i++) {
+        lambda(i, books[i]);
+    }
+    emit dataChanged(createIndex(start, 0), createIndex(end, 0));
 }
