@@ -5,6 +5,7 @@
 #include "mainvm.h"
 #include "aboutvm.h"
 #include "sqlitecppvm.h"
+#include "sqlqueryvm.h"
 
 class CustomCppClasses {
 public:
@@ -12,6 +13,7 @@ public:
         qmlRegisterType<MainVM>("CustomCppClasses.Module", 1, 0, "MainVM");
         qmlRegisterType<AboutVM>("CustomCppClasses.Module", 1, 0, "AboutVM");
         qmlRegisterType<SQLiteCppVM>("CustomCppClasses.Module", 1, 0, "SqliteCppVM");
+        qmlRegisterType<SqlQueryVM>("CustomCppClasses.Module", 1, 0, "SqlQueryVM");
     }
 };
 

@@ -166,4 +166,42 @@
         <translation type="unfinished"></translation>
     </message>
 </context>
+<context>
+    <name>SqlQueryModelPage</name>
+    <message>
+        <location filename="../qml/pages/SqlQueryModelPage.qml" line="14"/>
+        <source>Sql Query Model</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SqlQueryModelPage.qml" line="20"/>
+        <source>Add new here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SqlQueryModelPage.qml" line="24"/>
+        <source>Add new below</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SqlQueryModelPage.qml" line="28"/>
+        <source>Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SqlQueryModelPage.qml" line="33"/>
+        <source>Move to top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SqlQueryModelPage.qml" line="56"/>
+        <source>Create new item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SqlQueryModelPage.qml" line="69"/>
+        <source>Edit existing item</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 </TS>

@@ -50,7 +50,8 @@ SOURCES += \
     src/aboutvm.cpp \
     src/mainvm.cpp \
     src/main.cpp \
-    src/rootcoordinator.cpp
+    src/rootcoordinator.cpp \
+    src/sqlqueryvm.cpp
 
 HEADERS += \
     src/bookdao.h \
@@ -60,13 +61,15 @@ HEADERS += \
     src/mainvm.h \
     src/pagepaths.h \
     src/rootcoordinator.h \
-    src/smoozyutils.h
+    src/smoozyutils.h \
+    src/sqlqueryvm.h
 
 DISTFILES += \
     qml/RootCoordinatorQml.qml \
     qml/pages/Dao.qml \
     qml/pages/SQLiteCppPage.qml \
     qml/pages/SQLiteQmlPage.qml \
+    qml/pages/SqlQueryModelPage.qml \
     rpm/ru.auroraos.DiAndNavExample.spec \
     AUTHORS.md \
     CODE_OF_CONDUCT.md \
