@@ -81,7 +81,7 @@ void RootCoordinator::showSqliteCpp()
 
 void RootCoordinator::showSqliteQueryModelCpp()
 {
-    auto vm = new SqlQueryVM();
+    auto vm = new SqlQueryVM(bookDao.data(), nullptr);
 
     Smoozy::pushNamedPage(qmlCoordinatorInstance.data(), Aurora::Application::pathTo(PagePaths::sqlQueryModelPage), Smoozy::wrapInProperties(vm));
 }
