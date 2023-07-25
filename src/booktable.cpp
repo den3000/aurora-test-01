@@ -33,7 +33,7 @@ void BookTable::openDb()
     if (!query.exec()) { qDebug() << "Create table error:" << query.lastError(); }
 }
 
-QList<BookModel> BookTable::getAllBooks()
+QList<BookDao> BookTable::getAllBooks()
 {
     QSqlQuery query;
     query.prepare("SELECT * FROM books ORDER BY position ASC;");
@@ -46,7 +46,7 @@ QList<BookModel> BookTable::getAllBooks()
     int idxTp = query.record().indexOf("tp");
     int idxPosition = query.record().indexOf("position");
 
-    auto result = QList<BookModel>();
+    auto result = QList<BookDao>();
 
     while (query.next()) 
     {
@@ -56,13 +56,13 @@ QList<BookModel> BookTable::getAllBooks()
         auto tp = query.value(idxTp).toInt();
         auto position = query.value(idxPosition).toInt();
 
-        result.append(BookModel(id, author, title, tp, position));
+        result.append(BookDao(id, author, title, tp, position));
     }
     
     return result;
 }
 
-int BookTable::insert(BookModel book)
+int BookTable::insert(BookDao book)
 {
     QSqlQuery query;
 

@@ -54,7 +54,7 @@ SOURCES += \
     src/sqlqueryvm.cpp
 
 HEADERS += \
-    src/bookmodel.h \
+    src/bookdao.h \
     src/booktable.h \
     src/sqlitecppvm.h \
     src/aboutvm.h \

@@ -13,7 +13,7 @@ SQLiteCppVM::SQLiteCppVM(BookTable * bookTable, QObject *parent): QAbstractListM
     qDebug() << "Loaded books count: " << books.size();
 
     if (books.size() == 0) {
-        dao->insert(BookModel(0, "Leo Tolstoy", "Anna Karenina", 1300, 0));
+        dao->insert(BookDao(0, "Leo Tolstoy", "Anna Karenina", 1300, 0));
         qDebug() << "Default book inserted";
     }
 }
@@ -52,14 +52,14 @@ QHash<int, QByteArray> SQLiteCppVM::roleNames() const
 
 void SQLiteCppVM::insert(const QString author, const QString title, const int totalPages, const int position)
 {
-    auto book = BookModel(0, author, title, totalPages, position);
+    auto book = BookDao(0, author, title, totalPages, position);
     book.id = dao->insert(book);
 
     beginInsertRows(QModelIndex(), position, position);
     books.insert(position, book);
     endInsertRows();
 
-    updateData(position + 1, books.size(), [](int idx, BookModel &book) {
+    updateData(position + 1, books.size(), [](int idx, BookDao &book) {
         book.position = idx;
     });
 }
@@ -72,7 +72,7 @@ void SQLiteCppVM::remove(const int id, const int position)
     books.erase(books.begin() + position);
     endRemoveRows();
 
-    updateData(position, books.size(), [](int idx, BookModel &book) {
+    updateData(position, books.size(), [](int idx, BookDao &book) {
         book.position = idx;
     });
 }
@@ -85,7 +85,7 @@ void SQLiteCppVM::moveToTop(const int id, const int position)
     books.move(position, 0);
     endMoveRows();
 
-    updateData(0, position+1, [](int idx, BookModel &book) {
+    updateData(0, position+1, [](int idx, BookDao &book) {
         book.position = idx;
     });
 }
@@ -94,7 +94,7 @@ void SQLiteCppVM::update(const int id, const QString author, const QString title
 {
     dao->update(id, author, title, totalPages);
 
-    updateData(position, position+1, [author, title, totalPages](int idx, BookModel &book) {
+    updateData(position, position+1, [author, title, totalPages](int idx, BookDao &book) {
         Q_UNUSED(idx)
         book.author = author;
         book.title = title;
@@ -113,7 +113,7 @@ void SQLiteCppVM::updateData(const int start, const int end, F && lambda) {
 }
 
 inline
-void SQLiteCppVM::updateDataAlt(const int start, const int end, std::function<void(int, BookModel &)> && lambda)
+void SQLiteCppVM::updateDataAlt(const int start, const int end, std::function<void(int, BookDao &)> && lambda)
 {
     for (int i = start; i < end; i++) {
         lambda(i, books[i]);

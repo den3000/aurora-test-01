@@ -1,11 +1,11 @@
-#ifndef BOOKMODEL_H
-#define BOOKMODEL_H
+#ifndef BOOKDAO_H
+#define BOOKDAO_H
 
 #include <QString>
 
-struct BookModel
+struct BookDao
 {
-    explicit BookModel(const int id, const QString author, const QString title, const int totalPages, const int position){
+    explicit BookDao(const int id, const QString author, const QString title, const int totalPages, const int position){
         this->id = id;
         this->author = author;
         this->title = title;
@@ -20,4 +20,4 @@ struct BookModel
     int position;
 };
 
-#endif // BOOKMODEL_H
+#endif // BOOKDAO_H

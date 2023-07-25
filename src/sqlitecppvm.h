@@ -36,7 +36,7 @@ public:
 signals:
 
 private: 
-    QList<BookModel> books;
+    QList<BookDao> books;
     BookTable *dao;
 
     template<typename F>
@@ -47,6 +47,6 @@ private:
     // related to move semantics and unique ptr sharing or something
     // like that
     // #include "functional" is required to use this
-    inline void updateDataAlt(const int start, const int end, std::function<void(int, BookModel &)> && lambda);
+    inline void updateDataAlt(const int start, const int end, std::function<void(int, BookDao &)> && lambda);
 };
 #endif // SQLITECPPVM_H
