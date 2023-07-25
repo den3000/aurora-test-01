@@ -35,6 +35,7 @@ void RootCoordinator::start() {
     QObject::connect(vm, &MainVM::gotoAboutPageWithString, this, &RootCoordinator::showAboutPageWithString);
     QObject::connect(vm, &MainVM::gotoAboutPageWithModel, this, &RootCoordinator::showAboutPageWithModel);
     QObject::connect(vm, &MainVM::gotoSqliteCpp, this, &RootCoordinator::showSqliteCpp);
+    QObject::connect(vm, &MainVM::gotoSqliteQueryModelCpp, this, &RootCoordinator::showSqliteQueryModelCpp);
 
     Smoozy::pushNamedPage(qmlCoordinatorInstance.data(), Aurora::Application::pathTo(PagePaths::mainPage), Smoozy::wrapInProperties(vm));
 }
@@ -74,7 +75,11 @@ void RootCoordinator::showAboutPageWithModel(CustomModel value)
 void RootCoordinator::showSqliteCpp()
 {
     auto vm = new SQLiteCppVM(bookDao.data(), nullptr);
-    // QObject::connect(vm, &AboutVM::bar, this, [=]() { qDebug() << "lambda bar"; });
 
     Smoozy::pushNamedPage(qmlCoordinatorInstance.data(), Aurora::Application::pathTo(PagePaths::sqliteCppPage), Smoozy::wrapInProperties(vm));
+}
+
+void RootCoordinator::showSqliteQueryModelCpp()
+{
+    qDebug() << "PAM";
 }

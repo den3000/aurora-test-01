@@ -29,6 +29,7 @@ public slots:
     void showAboutPageWithString(QString value);
     void showAboutPageWithModel(CustomModel value);
     void showSqliteCpp();
+    void showSqliteQueryModelCpp();
 };
 
 #endif // ROOTCOORDINATOR_H

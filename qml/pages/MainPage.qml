@@ -143,6 +143,12 @@ Page {
             text: "SQLite CPP"
             onClicked: viewModel.gotoSqliteCpp()
         }
+
+        Button {
+            anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
+            text: "SQLite Query Model CPP"
+            onClicked: viewModel.gotoSqliteQueryModelCpp()
+        }
     }
 
     onStatusChanged: {

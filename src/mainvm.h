@@ -31,6 +31,7 @@ signals:
     void gotoAboutPageWithString(QString value);
     void gotoAboutPageWithModel(CustomModel model);
     void gotoSqliteCpp();
+    void gotoSqliteQueryModelCpp();
 
 private:
     QList<CustomModel> models;
