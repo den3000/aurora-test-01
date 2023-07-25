@@ -137,6 +137,12 @@ Page {
             text: "SQLite QML"
             onClicked: pageStack.push(Qt.resolvedUrl("SQLiteQmlPage.qml"))
         }
+
+        Button {
+            anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
+            text: "SQLite CPP"
+            onClicked: viewModel.gotoSqliteCpp()
+        }
     }
 
     onStatusChanged: {

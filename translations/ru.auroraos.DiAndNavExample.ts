@@ -86,6 +86,44 @@
     </message>
 </context>
 <context>
+    <name>SQLiteCppPage</name>
+    <message>
+        <location filename="../qml/pages/SQLiteCppPage.qml" line="14"/>
+        <source>SQLite CPP DB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SQLiteCppPage.qml" line="20"/>
+        <source>Add new here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SQLiteCppPage.qml" line="24"/>
+        <source>Add new below</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SQLiteCppPage.qml" line="28"/>
+        <source>Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SQLiteCppPage.qml" line="33"/>
+        <source>Move to top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SQLiteCppPage.qml" line="56"/>
+        <source>Create new item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SQLiteCppPage.qml" line="69"/>
+        <source>Edit existing item</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SQLiteQmlPage</name>
     <message>
         <location filename="../qml/pages/SQLiteQmlPage.qml" line="10"/>
@@ -118,12 +156,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SQLiteQmlPage.qml" line="67"/>
+        <location filename="../qml/pages/SQLiteQmlPage.qml" line="62"/>
         <source>Create new item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SQLiteQmlPage.qml" line="98"/>
+        <location filename="../qml/pages/SQLiteQmlPage.qml" line="93"/>
         <source>Edit existing item</source>
         <translation type="unfinished"></translation>
     </message>
