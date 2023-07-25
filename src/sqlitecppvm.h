@@ -39,10 +39,6 @@ private:
     QList<BookModel> books;
     BookDao *dao;
 
-    // TODO what about lambda by ref?
-    //      https://stackoverflow.com/questions/5481539/what-does-t-double-ampersand-mean-in-c11
-    // TODO what about lambda with template?
-
     template<typename F>
     inline void updateData(const int start, const int end, F && lambda);
 
