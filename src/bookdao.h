@@ -3,7 +3,7 @@
 
 #include <QtSql>
 
-struct BookModel;
+#include "bookmodel.h"
 
 class BookDao
 {
@@ -18,17 +18,6 @@ public:
     void moveToTop(const int id, const int position);
     void update(const int id, const QString author, const QString title, const int totalPages);
     void closeDb();
-};
-
-struct BookModel
-{
-    explicit BookModel(const int id, const QString author, const QString title, const int totalPages, const int position);
-
-    int id;
-    QString author;
-    QString title;
-    int totalPages;
-    int position;
 };
 
 #endif // BOOKDAO_H

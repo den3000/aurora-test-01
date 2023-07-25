@@ -55,6 +55,7 @@ SOURCES += \
 
 HEADERS += \
     src/bookdao.h \
+    src/bookmodel.h \
     src/sqlitecppvm.h \
     src/aboutvm.h \
     src/customcppclasses.h \
