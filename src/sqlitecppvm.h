@@ -2,7 +2,7 @@
 #define SQLITECPPVM_H
 
 #include <QAbstractListModel>
-#include "bookdao.h"
+#include "booktable.h"
 #include "functional"
 
 class SQLiteCppVM : public QAbstractListModel
@@ -21,7 +21,7 @@ public:
     Q_ENUM(BookModelRoles)
 
     explicit SQLiteCppVM(QObject *parent = nullptr) : QAbstractListModel(parent) { };
-    explicit SQLiteCppVM(BookDao * bookDao, QObject *parent = nullptr);
+    explicit SQLiteCppVM(BookTable * bookTable, QObject *parent = nullptr);
     ~SQLiteCppVM();
 
     virtual int rowCount(const QModelIndex&) const { return books.size(); }
@@ -37,7 +37,7 @@ signals:
 
 private: 
     QList<BookModel> books;
-    BookDao *dao;
+    BookTable *dao;
 
     template<typename F>
     inline void updateData(const int start, const int end, F && lambda);

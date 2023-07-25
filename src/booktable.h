@@ -1,15 +1,15 @@
-#ifndef BOOKDAO_H
-#define BOOKDAO_H
+#ifndef BOOKTABLE_H
+#define BOOKTABLE_H
 
 #include <QtSql>
 
 #include "bookmodel.h"
 
-class BookDao
+class BookTable
 {
 public:
-    BookDao();
-    ~BookDao();
+    BookTable();
+    ~BookTable();
     
     void openDb();
     QList<BookModel> getAllBooks();
@@ -20,4 +20,4 @@ public:
     void closeDb();
 };
 
-#endif // BOOKDAO_H
+#endif // BOOKTABLE_H

@@ -2,11 +2,11 @@
 
 #include <QString>
 
-SQLiteCppVM::SQLiteCppVM(BookDao * bookDao, QObject *parent): QAbstractListModel(parent)
+SQLiteCppVM::SQLiteCppVM(BookTable * bookTable, QObject *parent): QAbstractListModel(parent)
 {
     // TODO:
     // 3. Use https://doc.qt.io/qt-5/model-view-programming.html
-    dao = bookDao;
+    dao = bookTable;
 
     dao->openDb();
     books = dao->getAllBooks();

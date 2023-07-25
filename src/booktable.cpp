@@ -1,16 +1,16 @@
-#include "bookdao.h"
+#include "booktable.h"
 
-BookDao::BookDao()
+BookTable::BookTable()
 {
     qDebug() << "Created";
 }
 
-BookDao::~BookDao()
+BookTable::~BookTable()
 {
      qDebug() << "Released";
 }
 
-void BookDao::openDb()
+void BookTable::openDb()
 {
     auto db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName("db.sqlite");
@@ -33,7 +33,7 @@ void BookDao::openDb()
     if (!query.exec()) { qDebug() << "Create table error:" << query.lastError(); }
 }
 
-QList<BookModel> BookDao::getAllBooks()
+QList<BookModel> BookTable::getAllBooks()
 {
     QSqlQuery query;
     query.prepare("SELECT * FROM books ORDER BY position ASC;");
@@ -62,7 +62,7 @@ QList<BookModel> BookDao::getAllBooks()
     return result;
 }
 
-int BookDao::insert(BookModel book)
+int BookTable::insert(BookModel book)
 {
     QSqlQuery query;
 
@@ -88,7 +88,7 @@ int BookDao::insert(BookModel book)
     return query.lastInsertId().toInt();
 }
 
-void BookDao::remove(const int id, const int position)
+void BookTable::remove(const int id, const int position)
 {
     QSqlQuery query;
     query.prepare(
@@ -104,7 +104,7 @@ void BookDao::remove(const int id, const int position)
     if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
 }
 
-void BookDao::moveToTop(const int id, const int position)
+void BookTable::moveToTop(const int id, const int position)
 {
     QSqlQuery query;
     query.prepare(
@@ -124,7 +124,7 @@ void BookDao::moveToTop(const int id, const int position)
     if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
 }
 
-void BookDao::update(const int id, const QString author, const QString title, const int totalPages)
+void BookTable::update(const int id, const QString author, const QString title, const int totalPages)
 {
     QSqlQuery query;
 
@@ -140,7 +140,7 @@ void BookDao::update(const int id, const QString author, const QString title, co
     if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
 }
 
-void BookDao::closeDb()
+void BookTable::closeDb()
 {
     {
         // this additional scope is necessary, because allows

@@ -8,7 +8,7 @@
 #include "aboutvm.h"
 #include "sqlitecppvm.h"
 #include "sqlqueryvm.h"
-#include "bookdao.h"
+#include "booktable.h"
 
 class RootCoordinator : public QObject
 {
@@ -22,7 +22,7 @@ public:
 private:
     QSharedPointer<QQuickView> rootView;
     QSharedPointer<QQuickItem> qmlCoordinatorInstance;
-    QSharedPointer<BookDao> bookDao;
+    QSharedPointer<BookTable> bookTable;
 
 public slots:
     void showAboutPage();

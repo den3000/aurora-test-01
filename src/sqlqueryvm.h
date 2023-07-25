@@ -3,20 +3,20 @@
 
 #include <QObject>
 
-#include "bookdao.h"
+#include "booktable.h"
 
 class SqlQueryVM : public QObject
 {
     Q_OBJECT
 public:
     explicit SqlQueryVM(QObject *parent = nullptr) : QObject(parent) { };
-    explicit SqlQueryVM(BookDao * bookDao, QObject *parent = nullptr);
+    explicit SqlQueryVM(BookTable * bookTable, QObject *parent = nullptr);
     ~SqlQueryVM();
 
 signals:
 
 private: 
-    BookDao *dao;
+    BookTable *dao;
 };
 
 #endif // SQLQUERYVM_H

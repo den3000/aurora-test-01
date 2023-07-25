@@ -1,8 +1,8 @@
 #include "sqlqueryvm.h"
 
-SqlQueryVM::SqlQueryVM(BookDao *bookDao, QObject *parent)
+SqlQueryVM::SqlQueryVM(BookTable *bookTable, QObject *parent)
 {
-    dao = bookDao;
+    dao = bookTable;
 }
 
 SqlQueryVM::~SqlQueryVM()
