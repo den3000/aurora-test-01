@@ -8,6 +8,8 @@
 class SqlQueryVM : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QObject * parent READ parent WRITE setParent)
+
 public:
     explicit SqlQueryVM(QObject *parent = nullptr) : QObject(parent) { };
     explicit SqlQueryVM(BookTable * bookTable, QObject *parent = nullptr);
