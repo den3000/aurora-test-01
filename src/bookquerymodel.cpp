@@ -9,6 +9,7 @@
 BookQueryModel::BookQueryModel(QObject *parent, QSqlDatabase db) : QSqlTableModel(parent, db)
 {
    setTable("books");
+   setSort(4, Qt::SortOrder::AscendingOrder);
    select();
 }
 
