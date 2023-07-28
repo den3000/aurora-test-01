@@ -151,3 +151,8 @@ void BookTable::closeDb()
     }
     QSqlDatabase::removeDatabase( QSqlDatabase::defaultConnection );
 }
+
+BookQueryModel* BookTable::queryModel(QObject * parent)
+{
+    return new BookQueryModel(parent);
+}

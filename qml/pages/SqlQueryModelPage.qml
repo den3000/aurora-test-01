@@ -42,13 +42,13 @@ Page {
                 rightPadding: 8
                 truncationMode: TruncationMode.Elide
                 maximumLineCount: 1
-//                text: "#" + model.position + " id:" + model.id + " " + model.title + " by " + model.author + ", " + model.totalPages + " pages"
+                text: "#" + model.position + " id:" + model.id + " " + model.title + " by " + model.author + ", " + model.tp + " pages"
             }
 
             onClicked: showEditItemDialog(model, index)
         }
 
-//        model: viewModel
+        model: viewModel.queryModel()
     }
 
     function showCreateItemDialog(position) {
