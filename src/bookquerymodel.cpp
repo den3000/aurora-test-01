@@ -66,6 +66,12 @@ void BookQueryModel::moveToTop(const int position)
     submitAll();
 }
 
+void BookQueryModel::remove(const int position)
+{
+    removeRow(position);
+    submitAll();
+}
+
 QVariant BookQueryModel::extractValue(QString name, int row, int role) const
 {
     auto rcrd = record(row);

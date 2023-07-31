@@ -26,7 +26,7 @@ Page {
                 }
                 MenuItem {
                     text: qsTr("Remove")
-//                    onClicked: viewModel.remove(model.id, index)
+                    onClicked: viewModel.queryModel().remove(index)
 
                 }
                 MenuItem {
