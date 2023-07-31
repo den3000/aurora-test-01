@@ -25,6 +25,8 @@ public:
     QHash<int, QByteArray> roleNames() const override;
     bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
 
+    Q_INVOKABLE void moveToTop(const int position);
+
 private:
     QVariant extractValue(QString name, int row, int role) const;
 

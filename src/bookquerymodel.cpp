@@ -10,6 +10,7 @@ BookQueryModel::BookQueryModel(QObject *parent, QSqlDatabase db) : QSqlTableMode
 {
    setTable("books");
    setSort(4, Qt::SortOrder::AscendingOrder);
+   setEditStrategy(QSqlTableModel::OnManualSubmit);
    select();
 }
 
@@ -47,9 +48,22 @@ QHash<int, QByteArray> BookQueryModel::roleNames() const
 
 bool BookQueryModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    Q_UNUSED(value)
-    qDebug() << "indexRow: " << index.row() << "role: " << role;
-    return false;
+    return QSqlTableModel::setData(index, value, role);
+}
+
+void BookQueryModel::moveToTop(const int position)
+{
+    auto r = record(position);
+    r.setValue("position", QVariant(0));
+    setRecord(position, r);
+
+    for (int i = 0; i < position; i++) {
+        auto r = record(i);
+        r.setValue("position", QVariant(i + 1));
+        setRecord(i, r);
+    }
+
+    submitAll();
 }
 
 QVariant BookQueryModel::extractValue(QString name, int row, int role) const

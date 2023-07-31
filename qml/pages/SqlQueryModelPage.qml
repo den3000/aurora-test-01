@@ -31,7 +31,7 @@ Page {
                 }
                 MenuItem {
                     text: qsTr("Move to top")
-//                    onClicked: viewModel.moveToTop(model.id, index)
+                    onClicked: viewModel.queryModel().moveToTop(index)
                 }
             }
             Label {
