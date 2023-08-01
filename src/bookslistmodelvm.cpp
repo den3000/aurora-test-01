@@ -1,6 +1,6 @@
 #include "bookslistmodelvm.h"
 
-SqlQueryVM::SqlQueryVM(BookQueryTable *bookTable, QObject *parent) : QObject(parent)
+BooksListModelVM::BooksListModelVM(BookQueryTable *bookTable, QObject *parent) : QObject(parent)
 {
     bookQueryTable = bookTable;
     bookQueryTable->openDb();
@@ -8,7 +8,7 @@ SqlQueryVM::SqlQueryVM(BookQueryTable *bookTable, QObject *parent) : QObject(par
     bookModelTable = bookQueryTable->tableModel(this);
 }
 
-SqlQueryVM::~SqlQueryVM()
+BooksListModelVM::~BooksListModelVM()
 {
     // TODO: This should be improved, probably BookQueryModel
     // should be explicitly responsible for all DB stuff
@@ -17,7 +17,7 @@ SqlQueryVM::~SqlQueryVM()
     qDebug() << "released";
 }
 
-BookModelTable* SqlQueryVM::tableModel()
+BookModelTable* BooksListModelVM::tableModel()
 {
     return bookModelTable;
 }

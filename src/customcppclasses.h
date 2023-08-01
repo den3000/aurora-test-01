@@ -14,7 +14,7 @@ public:
         qmlRegisterType<MainVM>("CustomCppClasses.Module", 1, 0, "MainVM");
         qmlRegisterType<AboutVM>("CustomCppClasses.Module", 1, 0, "AboutVM");
         qmlRegisterType<BooksListQueryVM>("CustomCppClasses.Module", 1, 0, "BooksListQueryVM");
-        qmlRegisterType<SqlQueryVM>("CustomCppClasses.Module", 1, 0, "SqlQueryVM");
+        qmlRegisterType<BooksListModelVM>("CustomCppClasses.Module", 1, 0, "BooksListModelVM");
         qmlRegisterType<BookModelTable>("CustomCppClasses.Module", 1, 0, "BookModelTable");
     }
 };

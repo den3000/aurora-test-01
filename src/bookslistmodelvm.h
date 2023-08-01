@@ -5,15 +5,15 @@
 
 #include "bookquerytable.h"
 
-class SqlQueryVM : public QObject
+class BooksListModelVM : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QObject * parent READ parent WRITE setParent)
 
 public:
-    explicit SqlQueryVM(QObject *parent = nullptr) : QObject(parent) { };
-    explicit SqlQueryVM(BookQueryTable * bookTable, QObject *parent = nullptr);
-    ~SqlQueryVM();
+    explicit BooksListModelVM(QObject *parent = nullptr) : QObject(parent) { };
+    explicit BooksListModelVM(BookQueryTable * bookTable, QObject *parent = nullptr);
+    ~BooksListModelVM();
 
     Q_INVOKABLE BookModelTable* tableModel();
 signals:
