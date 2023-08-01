@@ -6,7 +6,7 @@
 #include "aboutvm.h"
 #include "sqlitecppvm.h"
 #include "sqlqueryvm.h"
-#include "bookquerymodel.h"
+#include "bookmodeltable.h"
 
 class CustomCppClasses {
 public:

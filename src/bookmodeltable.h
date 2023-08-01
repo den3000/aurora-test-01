@@ -1,5 +1,5 @@
-#ifndef BOOKQUERYMODEL_H
-#define BOOKQUERYMODEL_H
+#ifndef BOOKMODELTABLE_H
+#define BOOKMODELTABLE_H
 
 #include <QObject>
 #include <QSqlTableModel>
@@ -33,4 +33,4 @@ signals:
 
 };
 
-#endif // BOOKQUERYMODEL_H
+#endif // BOOKMODELTABLE_H
