@@ -55,7 +55,7 @@ Page {
         var dialog = pageStack.push(Qt.resolvedUrl("AddItemDialog.qml"))
         dialog.dialogTitle = qsTr("Create new item")
         dialog.accepted.connect(function() {
-//            viewModel.insert(dialog.bookAuthor, dialog.bookTitle, dialog.bookTotalPages, position)
+            viewModel.queryModel().insert(dialog.bookAuthor, dialog.bookTitle, dialog.bookTotalPages, position)
         })
     }
 

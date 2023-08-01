@@ -72,6 +72,25 @@ void BookQueryModel::remove(const int position)
     submitAll();
 }
 
+void BookQueryModel::insert(const QString author, const QString title, const int totalPages, const int position)
+{
+    QSqlRecord r = record();
+    r.setValue("author", QVariant::fromValue(author));
+    r.setValue("title", QVariant::fromValue(title));
+    r.setValue("tp", QVariant::fromValue(totalPages));
+    r.setValue("position", QVariant::fromValue(position));
+
+    if (!insertRecord(position, r)) { qDebug() << lastError(); }
+
+    for (int i = position + 1; i < rowCount(); i++) {
+        auto r = record(i);
+        r.setValue("position", QVariant(i));
+        setRecord(i, r);
+    }
+
+    submitAll();
+}
+
 QVariant BookQueryModel::extractValue(QString name, int row, int role) const
 {
     auto rcrd = record(row);
