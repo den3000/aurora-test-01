@@ -46,7 +46,7 @@ PKGCONFIG += \
 
 SOURCES += \
     src/bookquerymodel.cpp \
-    src/booktable.cpp \
+    src/bookquerytable.cpp \
     src/sqlitecppvm.cpp \
     src/aboutvm.cpp \
     src/mainvm.cpp \
@@ -57,7 +57,7 @@ SOURCES += \
 HEADERS += \
     src/bookdao.h \
     src/bookquerymodel.h \
-    src/booktable.h \
+    src/bookquerytable.h \
     src/sqlitecppvm.h \
     src/aboutvm.h \
     src/customcppclasses.h \

@@ -8,7 +8,7 @@
 #include "aboutvm.h"
 #include "sqlitecppvm.h"
 #include "sqlqueryvm.h"
-#include "booktable.h"
+#include "bookquerytable.h"
 
 class RootCoordinator : public QObject
 {

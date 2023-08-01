@@ -1,5 +1,5 @@
-#ifndef BOOKTABLE_H
-#define BOOKTABLE_H
+#ifndef BOOKQUERYTABLE_H
+#define BOOKQUERYTABLE_H
 
 #include <QtSql>
 
@@ -22,4 +22,4 @@ public:
     BookQueryModel* queryModel(QObject * parent);
 };
 
-#endif // BOOKTABLE_H
+#endif // BOOKQUERYTABLE_H

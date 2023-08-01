@@ -2,7 +2,7 @@
 #define SQLITECPPVM_H
 
 #include <QAbstractListModel>
-#include "booktable.h"
+#include "bookquerytable.h"
 #include "functional"
 
 class SQLiteCppVM : public QAbstractListModel

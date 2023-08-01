@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-#include "booktable.h"
+#include "bookquerytable.h"
 
 class SqlQueryVM : public QObject
 {

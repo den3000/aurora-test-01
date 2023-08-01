@@ -1,4 +1,4 @@
-#include "booktable.h"
+#include "bookquerytable.h"
 
 BookTable::BookTable()
 {
