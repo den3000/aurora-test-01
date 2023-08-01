@@ -48,6 +48,32 @@ QHash<int, QByteArray> BookQueryModel::roleNames() const
 
 bool BookQueryModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
+    switch (role)
+    {
+    case Id: return false;
+    case Author: {
+        auto r = record(index.row());
+        r.setValue("author", value);
+        setRecord(index.row(), r);
+        return true;
+    }
+    case Title: {
+        auto r = record(index.row());
+        r.setValue("title", value);
+        setRecord(index.row(), r);
+        return true;
+    }
+    case TotalPages: {
+        auto r = record(index.row());
+        r.setValue("tp", value);
+        setRecord(index.row(), r);
+        return true;
+    }
+    case Position: return false;
+    default: QSqlTableModel::setData(index, value, role);
+    }
+
+    qDebug() << "index " << index << " value " << value << " role " << role;
     return QSqlTableModel::setData(index, value, role);
 }
 

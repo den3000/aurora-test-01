@@ -64,11 +64,13 @@ Page {
 
         dialog.bookAuthor = model.author
         dialog.bookTitle = model.title
-        dialog.bookTotalPages = model.totalPages
+        dialog.bookTotalPages = model.tp
 
         dialog.dialogTitle = qsTr("Edit existing item")
         dialog.accepted.connect(function() {
-//            viewModel.update(model.id, dialog.bookAuthor, dialog.bookTitle, dialog.bookTotalPages, position)
+            model.author = dialog.bookAuthor
+            model.title = dialog.bookTitle
+            model.tp = dialog.bookTotalPages
         })
     }
 
