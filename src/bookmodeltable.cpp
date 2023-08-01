@@ -1,4 +1,4 @@
-#include "bookquerymodel.h"
+#include "bookmodeltable.h"
 
 // this include is required to access QSqlRecord type
 #include <QSqlRecord>
@@ -6,7 +6,7 @@
 #include <QDebug>
 #include <QSqlField>
 
-BookQueryModel::BookQueryModel(QObject *parent, QSqlDatabase db) : QSqlTableModel(parent, db)
+BookModelTable::BookModelTable(QObject *parent, QSqlDatabase db) : QSqlTableModel(parent, db)
 {
    setTable("books");
    setSort(4, Qt::SortOrder::AscendingOrder);
@@ -14,12 +14,12 @@ BookQueryModel::BookQueryModel(QObject *parent, QSqlDatabase db) : QSqlTableMode
    select();
 }
 
-BookQueryModel::~BookQueryModel()
+BookModelTable::~BookModelTable()
 {
     qDebug() << "released";
 }
 
-QVariant BookQueryModel::data(const QModelIndex &index, int role) const
+QVariant BookModelTable::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) { return QVariant(); }
     if (role < Qt::UserRole) { return QSqlTableModel::data(index, role); }
@@ -35,7 +35,7 @@ QVariant BookQueryModel::data(const QModelIndex &index, int role) const
     }
 }
 
-QHash<int, QByteArray> BookQueryModel::roleNames() const
+QHash<int, QByteArray> BookModelTable::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[Id] = "id";
@@ -46,7 +46,7 @@ QHash<int, QByteArray> BookQueryModel::roleNames() const
     return roles;
 }
 
-bool BookQueryModel::setData(const QModelIndex &index, const QVariant &value, int role)
+bool BookModelTable::setData(const QModelIndex &index, const QVariant &value, int role)
 {
     switch (role)
     {
@@ -77,7 +77,7 @@ bool BookQueryModel::setData(const QModelIndex &index, const QVariant &value, in
     return QSqlTableModel::setData(index, value, role);
 }
 
-void BookQueryModel::moveToTop(const int position)
+void BookModelTable::moveToTop(const int position)
 {
     auto r = record(position);
     r.setValue("position", QVariant(0));
@@ -92,7 +92,7 @@ void BookQueryModel::moveToTop(const int position)
     submitAll();
 }
 
-void BookQueryModel::remove(const int position)
+void BookModelTable::remove(const int position)
 {
     removeRow(position);
 
@@ -105,7 +105,7 @@ void BookQueryModel::remove(const int position)
     submitAll();
 }
 
-void BookQueryModel::insert(const QString author, const QString title, const int totalPages, const int position)
+void BookModelTable::insert(const QString author, const QString title, const int totalPages, const int position)
 {
     QSqlRecord r = record();
     r.setValue("author", QVariant::fromValue(author));

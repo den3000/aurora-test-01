@@ -15,12 +15,12 @@ public:
     explicit SqlQueryVM(BookQueryTable * bookTable, QObject *parent = nullptr);
     ~SqlQueryVM();
 
-    Q_INVOKABLE BookQueryModel* queryModel();
+    Q_INVOKABLE BookModelTable* tableModel();
 signals:
 
 private: 
-    BookQueryTable *dao;
-    BookQueryModel *qm;
+    BookQueryTable *bookQueryTable;
+    BookModelTable *bookModelTable;
 };
 
 #endif // SQLQUERYVM_H

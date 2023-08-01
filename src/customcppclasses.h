@@ -15,7 +15,7 @@ public:
         qmlRegisterType<AboutVM>("CustomCppClasses.Module", 1, 0, "AboutVM");
         qmlRegisterType<SQLiteCppVM>("CustomCppClasses.Module", 1, 0, "SqliteCppVM");
         qmlRegisterType<SqlQueryVM>("CustomCppClasses.Module", 1, 0, "SqlQueryVM");
-        qmlRegisterType<BookQueryModel>("CustomCppClasses.Module", 1, 0, "BookQueryModel");
+        qmlRegisterType<BookModelTable>("CustomCppClasses.Module", 1, 0, "BookModelTable");
     }
 };
 

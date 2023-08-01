@@ -2,22 +2,22 @@
 
 SqlQueryVM::SqlQueryVM(BookQueryTable *bookTable, QObject *parent) : QObject(parent)
 {
-    dao = bookTable;
-    dao->openDb();
+    bookQueryTable = bookTable;
+    bookQueryTable->openDb();
 
-    qm = dao->queryModel(this);
+    bookModelTable = bookQueryTable->tableModel(this);
 }
 
 SqlQueryVM::~SqlQueryVM()
 {
     // TODO: This should be improved, probably BookQueryModel
     // should be explicitly responsible for all DB stuff
-    delete qm;
-    dao->closeDb();
+    delete bookModelTable;
+    bookQueryTable->closeDb();
     qDebug() << "released";
 }
 
-BookQueryModel* SqlQueryVM::queryModel()
+BookModelTable* SqlQueryVM::tableModel()
 {
-    return qm;
+    return bookModelTable;
 }

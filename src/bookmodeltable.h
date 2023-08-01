@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QSqlTableModel>
 
-class BookQueryModel : public QSqlTableModel
+class BookModelTable : public QSqlTableModel
 {
     Q_OBJECT
 public:
@@ -18,8 +18,8 @@ public:
     };
     Q_ENUM(BookQueryRoles)
 
-    explicit BookQueryModel(QObject *parent = nullptr, QSqlDatabase db = QSqlDatabase());
-    ~BookQueryModel();
+    explicit BookModelTable(QObject *parent = nullptr, QSqlDatabase db = QSqlDatabase());
+    ~BookModelTable();
 
     virtual QVariant data(const QModelIndex &index, int role) const override;
     QHash<int, QByteArray> roleNames() const override;

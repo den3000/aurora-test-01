@@ -26,12 +26,12 @@ Page {
                 }
                 MenuItem {
                     text: qsTr("Remove")
-                    onClicked: viewModel.queryModel().remove(index)
+                    onClicked: viewModel.tableModel().remove(index)
 
                 }
                 MenuItem {
                     text: qsTr("Move to top")
-                    onClicked: viewModel.queryModel().moveToTop(index)
+                    onClicked: viewModel.tableModel().moveToTop(index)
                 }
             }
             Label {
@@ -48,14 +48,14 @@ Page {
             onClicked: showEditItemDialog(model, index)
         }
 
-        model: viewModel.queryModel()
+        model: viewModel.tableModel()
     }
 
     function showCreateItemDialog(position) {
         var dialog = pageStack.push(Qt.resolvedUrl("AddItemDialog.qml"))
         dialog.dialogTitle = qsTr("Create new item")
         dialog.accepted.connect(function() {
-            viewModel.queryModel().insert(dialog.bookAuthor, dialog.bookTitle, dialog.bookTotalPages, position)
+            viewModel.tableModel().insert(dialog.bookAuthor, dialog.bookTitle, dialog.bookTotalPages, position)
         })
     }
 
