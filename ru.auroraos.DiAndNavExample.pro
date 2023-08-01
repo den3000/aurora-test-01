@@ -52,6 +52,7 @@ SOURCES += \
     src/mainvm.cpp \
     src/main.cpp \
     src/rootcoordinator.cpp \
+    src/sqlitedb.cpp \
     src/sqlqueryvm.cpp
 
 HEADERS += \
@@ -65,6 +66,7 @@ HEADERS += \
     src/pagepaths.h \
     src/rootcoordinator.h \
     src/smoozyutils.h \
+    src/sqlitedb.h \
     src/sqlqueryvm.h
 
 DISTFILES += \
