@@ -69,6 +69,13 @@ void BookQueryModel::moveToTop(const int position)
 void BookQueryModel::remove(const int position)
 {
     removeRow(position);
+
+    for (int i = position; i < rowCount(); i++) {
+        auto r = record(i);
+        r.setValue("position", QVariant(i - 1));
+        setRecord(i, r);
+    }
+
     submitAll();
 }
 
