@@ -6,11 +6,11 @@
 #include "bookdao.h"
 #include "bookquerymodel.h"
 
-class BookTable
+class BookQueryTable
 {
 public:
-    BookTable();
-    ~BookTable();
+    BookQueryTable();
+    ~BookQueryTable();
     
     void openDb();
     QList<BookDao> getAllBooks();

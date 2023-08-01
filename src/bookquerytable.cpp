@@ -1,16 +1,16 @@
 #include "bookquerytable.h"
 
-BookTable::BookTable()
+BookQueryTable::BookQueryTable()
 {
     qDebug() << "Created";
 }
 
-BookTable::~BookTable()
+BookQueryTable::~BookQueryTable()
 {
      qDebug() << "Released";
 }
 
-void BookTable::openDb()
+void BookQueryTable::openDb()
 {
     auto db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName("db.sqlite");
@@ -33,7 +33,7 @@ void BookTable::openDb()
     if (!query.exec()) { qDebug() << "Create table error:" << query.lastError(); }
 }
 
-QList<BookDao> BookTable::getAllBooks()
+QList<BookDao> BookQueryTable::getAllBooks()
 {
     QSqlQuery query;
     query.prepare("SELECT * FROM books ORDER BY position ASC;");
@@ -62,7 +62,7 @@ QList<BookDao> BookTable::getAllBooks()
     return result;
 }
 
-int BookTable::insert(BookDao book)
+int BookQueryTable::insert(BookDao book)
 {
     QSqlQuery query;
 
@@ -88,7 +88,7 @@ int BookTable::insert(BookDao book)
     return query.lastInsertId().toInt();
 }
 
-void BookTable::remove(const int id, const int position)
+void BookQueryTable::remove(const int id, const int position)
 {
     QSqlQuery query;
     query.prepare(
@@ -104,7 +104,7 @@ void BookTable::remove(const int id, const int position)
     if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
 }
 
-void BookTable::moveToTop(const int id, const int position)
+void BookQueryTable::moveToTop(const int id, const int position)
 {
     QSqlQuery query;
     query.prepare(
@@ -124,7 +124,7 @@ void BookTable::moveToTop(const int id, const int position)
     if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
 }
 
-void BookTable::update(const int id, const QString author, const QString title, const int totalPages)
+void BookQueryTable::update(const int id, const QString author, const QString title, const int totalPages)
 {
     QSqlQuery query;
 
@@ -140,7 +140,7 @@ void BookTable::update(const int id, const QString author, const QString title, 
     if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
 }
 
-void BookTable::closeDb()
+void BookQueryTable::closeDb()
 {
     {
         // this additional scope is necessary, because allows
@@ -152,7 +152,7 @@ void BookTable::closeDb()
     QSqlDatabase::removeDatabase( QSqlDatabase::defaultConnection );
 }
 
-BookQueryModel* BookTable::queryModel(QObject * parent)
+BookQueryModel* BookQueryTable::queryModel(QObject * parent)
 {
     return new BookQueryModel(parent);
 }

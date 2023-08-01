@@ -22,7 +22,7 @@ public:
 private:
     QSharedPointer<QQuickView> rootView;
     QSharedPointer<QQuickItem> qmlCoordinatorInstance;
-    QSharedPointer<BookTable> bookTable;
+    QSharedPointer<BookQueryTable> bookQueryTable;
 
 public slots:
     void showAboutPage();

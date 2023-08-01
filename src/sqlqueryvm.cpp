@@ -1,6 +1,6 @@
 #include "sqlqueryvm.h"
 
-SqlQueryVM::SqlQueryVM(BookTable *bookTable, QObject *parent) : QObject(parent)
+SqlQueryVM::SqlQueryVM(BookQueryTable *bookTable, QObject *parent) : QObject(parent)
 {
     dao = bookTable;
     dao->openDb();

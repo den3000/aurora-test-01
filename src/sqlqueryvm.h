@@ -12,14 +12,14 @@ class SqlQueryVM : public QObject
 
 public:
     explicit SqlQueryVM(QObject *parent = nullptr) : QObject(parent) { };
-    explicit SqlQueryVM(BookTable * bookTable, QObject *parent = nullptr);
+    explicit SqlQueryVM(BookQueryTable * bookTable, QObject *parent = nullptr);
     ~SqlQueryVM();
 
     Q_INVOKABLE BookQueryModel* queryModel();
 signals:
 
 private: 
-    BookTable *dao;
+    BookQueryTable *dao;
     BookQueryModel *qm;
 };
 
