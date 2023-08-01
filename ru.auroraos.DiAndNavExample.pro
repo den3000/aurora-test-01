@@ -48,26 +48,26 @@ SOURCES += \
     src/bookmodeltable.cpp \
     src/bookquerytable.cpp \
     src/aboutvm.cpp \
+    src/bookslistmodelvm.cpp \
     src/bookslistqueryvm.cpp \
     src/mainvm.cpp \
     src/main.cpp \
     src/rootcoordinator.cpp \
-    src/sqlitedb.cpp \
-    src/sqlqueryvm.cpp
+    src/sqlitedb.cpp
 
 HEADERS += \
     src/bookdao.h \
     src/bookmodeltable.h \
     src/bookquerytable.h \
     src/aboutvm.h \
+    src/bookslistmodelvm.h \
     src/bookslistqueryvm.h \
     src/customcppclasses.h \
     src/mainvm.h \
     src/pagepaths.h \
     src/rootcoordinator.h \
     src/smoozyutils.h \
-    src/sqlitedb.h \
-    src/sqlqueryvm.h
+    src/sqlitedb.h
 
 DISTFILES += \
     qml/RootCoordinatorQml.qml \

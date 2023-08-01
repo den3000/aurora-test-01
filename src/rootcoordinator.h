@@ -7,7 +7,7 @@
 #include "mainvm.h"
 #include "aboutvm.h"
 #include "bookslistqueryvm.h"
-#include "sqlqueryvm.h"
+#include "bookslistmodelvm.h"
 #include "bookquerytable.h"
 
 class RootCoordinator : public QObject

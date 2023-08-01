@@ -1,5 +1,5 @@
-#ifndef SQLQUERYVM_H
-#define SQLQUERYVM_H
+#ifndef BOOKSLISTMODELVM_H
+#define BOOKSLISTMODELVM_H
 
 #include <QObject>
 
@@ -23,4 +23,4 @@ private:
     BookModelTable *bookModelTable;
 };
 
-#endif // SQLQUERYVM_H
+#endif // BOOKSLISTMODELVM_H

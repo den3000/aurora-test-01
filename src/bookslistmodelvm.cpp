@@ -1,4 +1,4 @@
-#include "sqlqueryvm.h"
+#include "bookslistmodelvm.h"
 
 SqlQueryVM::SqlQueryVM(BookQueryTable *bookTable, QObject *parent) : QObject(parent)
 {

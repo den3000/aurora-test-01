@@ -5,7 +5,7 @@
 #include "mainvm.h"
 #include "aboutvm.h"
 #include "bookslistqueryvm.h"
-#include "sqlqueryvm.h"
+#include "bookslistmodelvm.h"
 #include "bookmodeltable.h"
 
 class CustomCppClasses {
