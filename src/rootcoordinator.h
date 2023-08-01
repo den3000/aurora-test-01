@@ -6,7 +6,7 @@
 
 #include "mainvm.h"
 #include "aboutvm.h"
-#include "sqlitecppvm.h"
+#include "bookslistqueryvm.h"
 #include "sqlqueryvm.h"
 #include "bookquerytable.h"
 

@@ -4,7 +4,7 @@
 #include "QtQuick"
 #include "mainvm.h"
 #include "aboutvm.h"
-#include "sqlitecppvm.h"
+#include "bookslistqueryvm.h"
 #include "sqlqueryvm.h"
 #include "bookmodeltable.h"
 

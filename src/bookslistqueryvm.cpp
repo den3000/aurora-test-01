@@ -1,4 +1,4 @@
-#include "sqlitecppvm.h"
+#include "bookslistqueryvm.h"
 
 #include <QString>
 

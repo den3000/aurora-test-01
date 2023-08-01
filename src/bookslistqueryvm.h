@@ -1,5 +1,5 @@
-#ifndef SQLITECPPVM_H
-#define SQLITECPPVM_H
+#ifndef BOOKSLISTQUERYVM_H
+#define BOOKSLISTQUERYVM_H
 
 #include <QAbstractListModel>
 #include "bookquerytable.h"
@@ -49,4 +49,4 @@ private:
     // #include "functional" is required to use this
     inline void updateDataAlt(const int start, const int end, std::function<void(int, BookDao &)> && lambda);
 };
-#endif // SQLITECPPVM_H
+#endif // BOOKSLISTQUERYVM_H
