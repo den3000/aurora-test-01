@@ -26,11 +26,11 @@ QVariant BookQueryModel::data(const QModelIndex &index, int role) const
 
     switch (role)
     {
-    case Id: return extractValue("id", index.row(), role);
-    case Author: return extractValue("author", index.row(), role);
-    case Title: return extractValue("title", index.row(), role);
-    case TotalPages: return extractValue("tp", index.row(), role);
-    case Position: return extractValue("position", index.row(), role);
+    case Id: return record(index.row()).value("id");
+    case Author: return record(index.row()).value("author");
+    case Title: return record(index.row()).value("title");
+    case TotalPages: return record(index.row()).value("tp");
+    case Position: return record(index.row()).value("position");
     default: return QSqlTableModel::data(index, role);
     }
 }
@@ -122,14 +122,4 @@ void BookQueryModel::insert(const QString author, const QString title, const int
     }
 
     submitAll();
-}
-
-QVariant BookQueryModel::extractValue(QString name, int row, int role) const
-{
-    auto rcrd = record(row);
-//    qDebug() << "roleId: " << role
-//             << " idx: " << row
-//             << " value: " << rcrd.field(name).value()
-//             << " role: " << name ;
-    return rcrd.value(name);
 }
