@@ -3,7 +3,7 @@ import Sailfish.Silica 1.0
 import CustomCppClasses.Module 1.0
 
 Page {
-    property SqliteCppVM viewModel
+    property BooksListQueryVM viewModel
     onViewModelChanged: viewModel.parent = this
     objectName: "sqliteCppPage"
     allowedOrientations: Orientation.All

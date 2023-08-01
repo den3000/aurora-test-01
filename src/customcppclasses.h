@@ -13,7 +13,7 @@ public:
     static void registerModuleInQml() {
         qmlRegisterType<MainVM>("CustomCppClasses.Module", 1, 0, "MainVM");
         qmlRegisterType<AboutVM>("CustomCppClasses.Module", 1, 0, "AboutVM");
-        qmlRegisterType<SQLiteCppVM>("CustomCppClasses.Module", 1, 0, "SqliteCppVM");
+        qmlRegisterType<BooksListQueryVM>("CustomCppClasses.Module", 1, 0, "BooksListQueryVM");
         qmlRegisterType<SqlQueryVM>("CustomCppClasses.Module", 1, 0, "SqlQueryVM");
         qmlRegisterType<BookModelTable>("CustomCppClasses.Module", 1, 0, "BookModelTable");
     }

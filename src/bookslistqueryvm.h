@@ -5,7 +5,7 @@
 #include "bookquerytable.h"
 #include "functional"
 
-class SQLiteCppVM : public QAbstractListModel
+class BooksListQueryVM : public QAbstractListModel
 {
     Q_OBJECT
     Q_PROPERTY(QObject * parent READ parent WRITE setParent)
@@ -20,9 +20,9 @@ public:
     };
     Q_ENUM(BookModelRoles)
 
-    explicit SQLiteCppVM(QObject *parent = nullptr) : QAbstractListModel(parent) { };
-    explicit SQLiteCppVM(BookQueryTable * bookQueryTable, QObject *parent = nullptr);
-    ~SQLiteCppVM();
+    explicit BooksListQueryVM(QObject *parent = nullptr) : QAbstractListModel(parent) { };
+    explicit BooksListQueryVM(BookQueryTable * bookQueryTable, QObject *parent = nullptr);
+    ~BooksListQueryVM();
 
     virtual int rowCount(const QModelIndex&) const { return books.size(); }
     virtual QVariant data(const QModelIndex &index, int role) const;

@@ -2,7 +2,7 @@
 
 #include <QString>
 
-SQLiteCppVM::SQLiteCppVM(BookQueryTable * bookQueryTable, QObject *parent): QAbstractListModel(parent)
+BooksListQueryVM::BooksListQueryVM(BookQueryTable * bookQueryTable, QObject *parent): QAbstractListModel(parent)
 {
     // TODO:
     // 3. Use https://doc.qt.io/qt-5/model-view-programming.html
@@ -18,12 +18,12 @@ SQLiteCppVM::SQLiteCppVM(BookQueryTable * bookQueryTable, QObject *parent): QAbs
     }
 }
 
-SQLiteCppVM::~SQLiteCppVM()
+BooksListQueryVM::~BooksListQueryVM()
 {
     bookQueryTable->closeDb();
 }
 
-QVariant SQLiteCppVM::data(const QModelIndex &index, int role) const
+QVariant BooksListQueryVM::data(const QModelIndex &index, int role) const
 {
     // Default roleNames: https://doc.qt.io/qt-5/qabstractitemmodel.html#roleNames
 
@@ -39,7 +39,7 @@ QVariant SQLiteCppVM::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-QHash<int, QByteArray> SQLiteCppVM::roleNames() const
+QHash<int, QByteArray> BooksListQueryVM::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[Id] = "id";
@@ -50,7 +50,7 @@ QHash<int, QByteArray> SQLiteCppVM::roleNames() const
     return roles;
 }
 
-void SQLiteCppVM::insert(const QString author, const QString title, const int totalPages, const int position)
+void BooksListQueryVM::insert(const QString author, const QString title, const int totalPages, const int position)
 {
     auto book = BookDao(0, author, title, totalPages, position);
     book.id = bookQueryTable->insert(book);
@@ -64,7 +64,7 @@ void SQLiteCppVM::insert(const QString author, const QString title, const int to
     });
 }
 
-void SQLiteCppVM::remove(const int id, const int position)
+void BooksListQueryVM::remove(const int id, const int position)
 {
     bookQueryTable->remove(id, position);
 
@@ -77,7 +77,7 @@ void SQLiteCppVM::remove(const int id, const int position)
     });
 }
 
-void SQLiteCppVM::moveToTop(const int id, const int position)
+void BooksListQueryVM::moveToTop(const int id, const int position)
 {
     bookQueryTable->moveToTop(id, position);
 
@@ -90,7 +90,7 @@ void SQLiteCppVM::moveToTop(const int id, const int position)
     });
 }
 
-void SQLiteCppVM::update(const int id, const QString author, const QString title, const int totalPages, const int position)
+void BooksListQueryVM::update(const int id, const QString author, const QString title, const int totalPages, const int position)
 {
     bookQueryTable->update(id, author, title, totalPages);
 
@@ -103,7 +103,7 @@ void SQLiteCppVM::update(const int id, const QString author, const QString title
 }
 
 template<typename F> inline
-void SQLiteCppVM::updateData(const int start, const int end, F && lambda) {
+void BooksListQueryVM::updateData(const int start, const int end, F && lambda) {
     for (int i = start; i < end; i++) {
         lambda(i, books[i]);
     }
@@ -113,7 +113,7 @@ void SQLiteCppVM::updateData(const int start, const int end, F && lambda) {
 }
 
 inline
-void SQLiteCppVM::updateDataAlt(const int start, const int end, std::function<void(int, BookDao &)> && lambda)
+void BooksListQueryVM::updateDataAlt(const int start, const int end, std::function<void(int, BookDao &)> && lambda)
 {
     for (int i = start; i < end; i++) {
         lambda(i, books[i]);
