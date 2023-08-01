@@ -73,7 +73,6 @@ bool BookModelTable::setData(const QModelIndex &index, const QVariant &value, in
     default: QSqlTableModel::setData(index, value, role);
     }
 
-    qDebug() << "index " << index << " value " << value << " role " << role;
     return QSqlTableModel::setData(index, value, role);
 }
 
@@ -83,26 +82,18 @@ void BookModelTable::moveToTop(const int position)
     r.setValue("position", QVariant(0));
     setRecord(position, r);
 
-    for (int i = 0; i < position; i++) {
-        auto r = record(i);
-        r.setValue("position", QVariant(i + 1));
-        setRecord(i, r);
-    }
-
-    submitAll();
+    updateRecordsInRange(0, position, true, [](int row, QSqlRecord &record) {
+        record.setValue("position", QVariant(row + 1));
+    });
 }
 
 void BookModelTable::remove(const int position)
 {
     removeRow(position);
 
-    for (int i = position; i < rowCount(); i++) {
-        auto r = record(i);
-        r.setValue("position", QVariant(i - 1));
-        setRecord(i, r);
-    }
-
-    submitAll();
+    updateRecordsInRange(position, rowCount(), true, [](int row, QSqlRecord &record) {
+        record.setValue("position", QVariant(row - 1));
+    });
 }
 
 void BookModelTable::insert(const QString author, const QString title, const int totalPages, const int position)
@@ -115,11 +106,19 @@ void BookModelTable::insert(const QString author, const QString title, const int
 
     if (!insertRecord(position, r)) { qDebug() << lastError(); }
 
-    for (int i = position + 1; i < rowCount(); i++) {
-        auto r = record(i);
-        r.setValue("position", QVariant(i));
-        setRecord(i, r);
+    updateRecordsInRange(position + 1, rowCount(), true, [](int row, QSqlRecord &record) {
+        record.setValue("position", QVariant(row));
+    });
+}
+
+template<typename F> inline
+void BookModelTable::updateRecordsInRange(const int start, const int end, const bool executeSubmitAll, F &&lambda)
+{
+    for (int row = start; row < end; row++) {
+        auto r = record(row);
+        lambda(row, r);
+        setRecord(row, r);
     }
 
-    submitAll();
+    if (executeSubmitAll) { submitAll(); }
 }

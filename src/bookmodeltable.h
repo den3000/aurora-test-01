@@ -31,6 +31,10 @@ public:
 
 signals:
 
+private:
+    template<typename F>
+    inline void updateRecordsInRange(const int start, const int end, const bool executeSubmitAll, F && lambda);
+
 };
 
 #endif // BOOKMODELTABLE_H
