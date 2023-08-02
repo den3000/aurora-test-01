@@ -63,6 +63,7 @@ HEADERS += \
     src/bookslistmodelvm.h \
     src/bookslistqueryvm.h \
     src/customcppclasses.h \
+    src/idbprovider.h \
     src/mainvm.h \
     src/pagepaths.h \
     src/rootcoordinator.h \
