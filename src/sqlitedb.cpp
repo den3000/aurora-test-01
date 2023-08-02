@@ -36,3 +36,14 @@ void SQLiteDb::closeDb()
     }
     QSqlDatabase::removeDatabase( QSqlDatabase::defaultConnection );
 }
+
+
+BookModelTable *SQLiteDb::booksModelTable()
+{
+    return new BookModelTable();
+}
+
+BookQueryTable *SQLiteDb::booksQueryTable()
+{
+    return new BookQueryTable();
+}
