@@ -8,7 +8,6 @@
 #include "aboutvm.h"
 #include "bookslistqueryvm.h"
 #include "bookslistmodelvm.h"
-#include "bookquerytable.h"
 #include "sqlitedb.h"
 
 class RootCoordinator : public QObject
@@ -24,7 +23,6 @@ private:
     QSharedPointer<QQuickView> rootView;
     QSharedPointer<QQuickItem> qmlCoordinatorInstance;
     QSharedPointer<SQLiteDb> sqliteDb;
-    QSharedPointer<BookQueryTable> bookQueryTable;
 
 public slots:
     void showAboutPage();

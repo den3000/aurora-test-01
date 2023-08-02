@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-#include "bookquerytable.h"
+#include "sqlitedb.h"
 
 class BooksListModelVM : public QObject
 {
@@ -12,14 +12,14 @@ class BooksListModelVM : public QObject
 
 public:
     explicit BooksListModelVM(QObject *parent = nullptr) : QObject(parent) { };
-    explicit BooksListModelVM(BookQueryTable * bookTable, QObject *parent = nullptr);
+    explicit BooksListModelVM(IBooksModelTableProvider * tableProvider, QObject *parent = nullptr);
     ~BooksListModelVM();
 
     Q_INVOKABLE BookModelTable* tableModel();
 signals:
 
 private: 
-    BookQueryTable *bookQueryTable;
+    IBooksModelTableProvider * tableProvider;
     BookModelTable *bookModelTable;
 };
 

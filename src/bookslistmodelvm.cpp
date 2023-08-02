@@ -1,11 +1,11 @@
 #include "bookslistmodelvm.h"
 
-BooksListModelVM::BooksListModelVM(BookQueryTable *bookTable, QObject *parent) : QObject(parent)
+BooksListModelVM::BooksListModelVM(IBooksModelTableProvider * tableProvider, QObject *parent) : QObject(parent)
 {
-    bookQueryTable = bookTable;
-//    bookQueryTable->openDb();
-
-    bookModelTable = bookQueryTable->tableModel(this);
+    qDebug() << "Created";
+    this->tableProvider = tableProvider;
+    this->tableProvider->openDb();
+    this->bookModelTable = this->tableProvider->booksModelTable();
 }
 
 BooksListModelVM::~BooksListModelVM()
@@ -14,7 +14,7 @@ BooksListModelVM::~BooksListModelVM()
     // should be explicitly responsible for all DB stuff
     delete bookModelTable;
 //    bookQueryTable->closeDb();
-    qDebug() << "released";
+    qDebug() << "Released";
 }
 
 BookModelTable* BooksListModelVM::tableModel()
