@@ -8,15 +8,17 @@
 
 BookModelTable::BookModelTable(QObject *parent, QSqlDatabase db) : QSqlTableModel(parent, db)
 {
-   setTable("books");
-   setSort(4, Qt::SortOrder::AscendingOrder);
-   setEditStrategy(QSqlTableModel::OnManualSubmit);
-   select();
+    qDebug() << "Created";
+
+    setTable("books");
+    setSort(4, Qt::SortOrder::AscendingOrder);
+    setEditStrategy(QSqlTableModel::OnManualSubmit);
+    select();
 }
 
 BookModelTable::~BookModelTable()
 {
-    qDebug() << "released";
+    qDebug() << "Released";
 }
 
 QVariant BookModelTable::data(const QModelIndex &index, int role) const

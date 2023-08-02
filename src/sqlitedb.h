@@ -19,7 +19,7 @@ public:
 
     // IBooksModelTableProvider interface
 public:
-    BookModelTable *booksModelTable();
+    BookModelTable *booksModelTable(QObject *parent = nullptr);
 
     // IBooksQueryTableProvider interface
 public:

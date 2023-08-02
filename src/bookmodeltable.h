@@ -10,7 +10,7 @@ class BookModelTable;
 
 class IBooksModelTableProvider: public IDbProvider {
 public:
-    virtual BookModelTable * booksModelTable() = 0;
+    virtual BookModelTable * booksModelTable(QObject *parent = nullptr) = 0;
 };
 
 class BookModelTable : public QSqlTableModel

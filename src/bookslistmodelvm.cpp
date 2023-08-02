@@ -5,7 +5,7 @@ BooksListModelVM::BooksListModelVM(IBooksModelTableProvider * tableProvider, QOb
     qDebug() << "Created";
     this->tableProvider = tableProvider;
     this->tableProvider->openDb();
-    this->bookModelTable = this->tableProvider->booksModelTable();
+    this->bookModelTable = this->tableProvider->booksModelTable(this);
 }
 
 BooksListModelVM::~BooksListModelVM()
@@ -13,7 +13,7 @@ BooksListModelVM::~BooksListModelVM()
     // TODO: This should be improved, probably BookQueryModel
     // should be explicitly responsible for all DB stuff
     delete bookModelTable;
-//    bookQueryTable->closeDb();
+    tableProvider->closeDb();
     qDebug() << "Released";
 }
 

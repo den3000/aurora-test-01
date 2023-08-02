@@ -4,6 +4,7 @@
 
 BooksListQueryVM::BooksListQueryVM(IBooksQueryTableProvider * tableProvider, QObject *parent): QAbstractListModel(parent)
 {
+    qDebug() << "Created";
     // TODO:
     // 3. Use https://doc.qt.io/qt-5/model-view-programming.html
 
@@ -24,6 +25,8 @@ BooksListQueryVM::~BooksListQueryVM()
 {
     delete bookQueryTable;
     tableProvider->closeDb();
+
+    qDebug() << "Released";
 }
 
 QVariant BooksListQueryVM::data(const QModelIndex &index, int role) const

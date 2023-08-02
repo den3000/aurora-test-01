@@ -38,9 +38,9 @@ void SQLiteDb::closeDb()
 }
 
 
-BookModelTable *SQLiteDb::booksModelTable()
+BookModelTable *SQLiteDb::booksModelTable(QObject *parent)
 {
-    return new BookModelTable();
+    return new BookModelTable(parent);
 }
 
 BookQueryTable *SQLiteDb::booksQueryTable()
