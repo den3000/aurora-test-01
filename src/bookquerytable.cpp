@@ -3,23 +3,6 @@
 BookQueryTable::BookQueryTable()
 {
     qDebug() << "Created";
-}
-
-BookQueryTable::~BookQueryTable()
-{
-     qDebug() << "Released";
-}
-
-void BookQueryTable::openDb()
-{
-    auto db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("db.sqlite");
-
-    if (!db.open()) {
-       qDebug() << "Error: connection with database failed";
-    } else {
-       qDebug() << "Database: connection ok";
-    }
 
     QSqlQuery query;
     query.prepare("CREATE TABLE IF NOT EXISTS books ("
@@ -29,8 +12,13 @@ void BookQueryTable::openDb()
         "tp INTEGER NOT NULL,"
         "position INTEGER NOT NULL);"
     );
-    
+
     if (!query.exec()) { qDebug() << "Create table error:" << query.lastError(); }
+}
+
+BookQueryTable::~BookQueryTable()
+{
+     qDebug() << "Released";
 }
 
 QList<BookDao> BookQueryTable::getAllBooks()
@@ -138,18 +126,6 @@ void BookQueryTable::update(const int id, const QString author, const QString ti
     query.addBindValue(totalPages);
     query.addBindValue(id);
     if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
-}
-
-void BookQueryTable::closeDb()
-{
-    {
-        // this additional scope is necessary, because allows
-        // to release db object after it was closed but before
-        // removeDatabase will be called
-        auto db = QSqlDatabase::database();
-        db.close();
-    }
-    QSqlDatabase::removeDatabase( QSqlDatabase::defaultConnection );
 }
 
 BookModelTable* BookQueryTable::tableModel(QObject * parent)

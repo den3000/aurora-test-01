@@ -10,6 +10,9 @@
 
 RootCoordinator::RootCoordinator(QObject *parent) : QObject(parent)
 {
+
+    sqliteDb = QSharedPointer<SQLiteDb>(new SQLiteDb());
+
     bookQueryTable = QSharedPointer<BookQueryTable>(new BookQueryTable());
 
     rootView = QSharedPointer<QQuickView>(Aurora::Application::createView());
@@ -74,7 +77,7 @@ void RootCoordinator::showAboutPageWithModel(CustomModel value)
 
 void RootCoordinator::showSqliteCpp()
 {
-    auto vm = new BooksListQueryVM(bookQueryTable.data(), nullptr);
+    auto vm = new BooksListQueryVM(sqliteDb.data(), nullptr);
 
     Smoozy::pushNamedPage(qmlCoordinatorInstance.data(), Aurora::Application::pathTo(PagePaths::sqliteCppPage), Smoozy::wrapInProperties(vm));
 }

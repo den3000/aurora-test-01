@@ -2,13 +2,15 @@
 
 #include <QString>
 
-BooksListQueryVM::BooksListQueryVM(BookQueryTable * bookQueryTable, QObject *parent): QAbstractListModel(parent)
+BooksListQueryVM::BooksListQueryVM(IBooksQueryTableProvider * tableProvider, QObject *parent): QAbstractListModel(parent)
 {
     // TODO:
     // 3. Use https://doc.qt.io/qt-5/model-view-programming.html
-    this->bookQueryTable = bookQueryTable;
 
-    this->bookQueryTable->openDb();
+    this->tableProvider = tableProvider;
+    this->tableProvider->openDb();
+    this->bookQueryTable = this->tableProvider->booksQueryTable();
+
     books = this->bookQueryTable->getAllBooks();
     qDebug() << "Loaded books count: " << books.size();
 
@@ -20,7 +22,8 @@ BooksListQueryVM::BooksListQueryVM(BookQueryTable * bookQueryTable, QObject *par
 
 BooksListQueryVM::~BooksListQueryVM()
 {
-    bookQueryTable->closeDb();
+    delete bookQueryTable;
+    tableProvider->closeDb();
 }
 
 QVariant BooksListQueryVM::data(const QModelIndex &index, int role) const

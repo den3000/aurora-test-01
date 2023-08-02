@@ -2,8 +2,9 @@
 #define BOOKSLISTQUERYVM_H
 
 #include <QAbstractListModel>
-#include "bookquerytable.h"
 #include "functional"
+
+#include "sqlitedb.h"
 
 class BooksListQueryVM : public QAbstractListModel
 {
@@ -21,7 +22,7 @@ public:
     Q_ENUM(BookModelRoles)
 
     explicit BooksListQueryVM(QObject *parent = nullptr) : QAbstractListModel(parent) { };
-    explicit BooksListQueryVM(BookQueryTable * bookQueryTable, QObject *parent = nullptr);
+    explicit BooksListQueryVM(IBooksQueryTableProvider * bookQueryTable, QObject *parent = nullptr);
     ~BooksListQueryVM();
 
     virtual int rowCount(const QModelIndex&) const { return books.size(); }
@@ -37,6 +38,7 @@ signals:
 
 private: 
     QList<BookDao> books;
+    IBooksQueryTableProvider * tableProvider;
     BookQueryTable *bookQueryTable;
 
     template<typename F>

@@ -3,7 +3,7 @@
 BooksListModelVM::BooksListModelVM(BookQueryTable *bookTable, QObject *parent) : QObject(parent)
 {
     bookQueryTable = bookTable;
-    bookQueryTable->openDb();
+//    bookQueryTable->openDb();
 
     bookModelTable = bookQueryTable->tableModel(this);
 }
@@ -13,7 +13,7 @@ BooksListModelVM::~BooksListModelVM()
     // TODO: This should be improved, probably BookQueryModel
     // should be explicitly responsible for all DB stuff
     delete bookModelTable;
-    bookQueryTable->closeDb();
+//    bookQueryTable->closeDb();
     qDebug() << "released";
 }
 
