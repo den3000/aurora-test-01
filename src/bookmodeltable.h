@@ -4,6 +4,15 @@
 #include <QObject>
 #include <QSqlTableModel>
 
+#include "idbprovider.h"
+
+class BookModelTable;
+
+class IBooksModelTableProvider: public IDbProvider {
+public:
+    virtual BookModelTable * booksModelTable() = 0;
+};
+
 class BookModelTable : public QSqlTableModel
 {
     Q_OBJECT

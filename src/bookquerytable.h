@@ -6,6 +6,13 @@
 #include "bookdao.h"
 #include "bookmodeltable.h"
 
+class BookQueryTable;
+
+class IBooksQueryTableProvider: public IDbProvider {
+public:
+    virtual BookQueryTable * booksQueryTable() = 0;
+};
+
 class BookQueryTable
 {
 public:
