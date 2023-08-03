@@ -10,6 +10,8 @@ BookModelTable::BookModelTable(QObject *parent, QSqlDatabase db) : QSqlTableMode
 {
     qDebug() << "Created";
 
+    // TODO: define table here
+    
     setTable("books");
     setSort(4, Qt::SortOrder::AscendingOrder);
     setEditStrategy(QSqlTableModel::OnManualSubmit);
