@@ -169,37 +169,37 @@
 <context>
     <name>SqlQueryModelPage</name>
     <message>
-        <location filename="../qml/pages/SqlQueryModelPage.qml" line="14"/>
+        <location filename="../qml/pages/SqlQueryModelPage.qml" line="24"/>
         <source>Sql Query Model</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SqlQueryModelPage.qml" line="20"/>
+        <location filename="../qml/pages/SqlQueryModelPage.qml" line="30"/>
         <source>Add new here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SqlQueryModelPage.qml" line="24"/>
+        <location filename="../qml/pages/SqlQueryModelPage.qml" line="34"/>
         <source>Add new below</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SqlQueryModelPage.qml" line="28"/>
+        <location filename="../qml/pages/SqlQueryModelPage.qml" line="38"/>
         <source>Remove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SqlQueryModelPage.qml" line="33"/>
+        <location filename="../qml/pages/SqlQueryModelPage.qml" line="43"/>
         <source>Move to top</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SqlQueryModelPage.qml" line="56"/>
+        <location filename="../qml/pages/SqlQueryModelPage.qml" line="66"/>
         <source>Create new item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SqlQueryModelPage.qml" line="69"/>
+        <location filename="../qml/pages/SqlQueryModelPage.qml" line="79"/>
         <source>Edit existing item</source>
         <translation type="unfinished"></translation>
     </message>

@@ -4,7 +4,17 @@ import CustomCppClasses.Module 1.0
 
 Page {
     property BooksListModelVM viewModel
-    onViewModelChanged: viewModel.parent = this
+    property BookModelTable tableModel
+
+    onViewModelChanged: {
+        viewModel.parent = this
+        // while this is done for convinience in qml it is important 
+        // to say, that this will be required in case if this object 
+        // on c++ side was initialized without a parent, otherwise it 
+        // will be released immedeately after first access
+        tableModel = viewModel.tableModel()
+    }
+
     objectName: "sqliteCppPage"
     allowedOrientations: Orientation.All
 
@@ -26,12 +36,12 @@ Page {
                 }
                 MenuItem {
                     text: qsTr("Remove")
-                    onClicked: viewModel.tableModel().remove(index)
+                    onClicked: tableModel.remove(index)
 
                 }
                 MenuItem {
                     text: qsTr("Move to top")
-                    onClicked: viewModel.tableModel().moveToTop(index)
+                    onClicked: tableModel.moveToTop(index)
                 }
             }
             Label {
@@ -48,14 +58,14 @@ Page {
             onClicked: showEditItemDialog(model, index)
         }
 
-        model: viewModel.tableModel()
+        model: tableModel
     }
 
     function showCreateItemDialog(position) {
         var dialog = pageStack.push(Qt.resolvedUrl("AddItemDialog.qml"))
         dialog.dialogTitle = qsTr("Create new item")
         dialog.accepted.connect(function() {
-            viewModel.tableModel().insert(dialog.bookAuthor, dialog.bookTitle, dialog.bookTotalPages, position)
+            tableModel.insert(dialog.bookAuthor, dialog.bookTitle, dialog.bookTotalPages, position)
         })
     }
 
