@@ -128,7 +128,3 @@ void BookQueryTable::update(const int id, const QString author, const QString ti
     if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
 }
 
-BookModelTable* BookQueryTable::tableModel(QObject * parent)
-{
-    return new BookModelTable(parent);
-}

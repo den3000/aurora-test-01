@@ -4,7 +4,7 @@
 #include <QtSql>
 
 #include "bookdao.h"
-#include "bookmodeltable.h"
+#include "idbprovider.h"
 
 class BookQueryTable;
 
@@ -24,7 +24,6 @@ public:
     void remove(const int id, const int position);
     void moveToTop(const int id, const int position);
     void update(const int id, const QString author, const QString title, const int totalPages);
-    BookModelTable* tableModel(QObject * parent);
 };
 
 #endif // BOOKQUERYTABLE_H
