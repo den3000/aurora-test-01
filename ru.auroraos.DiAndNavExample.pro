@@ -72,10 +72,10 @@ HEADERS += \
 
 DISTFILES += \
     qml/RootCoordinatorQml.qml \
-    qml/pages/Dao.qml \
-    qml/pages/SQLiteCppPage.qml \
-    qml/pages/SQLiteQmlPage.qml \
-    qml/pages/SqlQueryModelPage.qml \
+    qml/pages/BooksListModelPage.qml \
+    qml/pages/BooksListQmlPage.qml \
+    qml/pages/BooksListQmlTable.qml \
+    qml/pages/BooksListQueryPage.qml \
     rpm/ru.auroraos.DiAndNavExample.spec \
     AUTHORS.md \
     CODE_OF_CONDUCT.md \

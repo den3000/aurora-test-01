@@ -135,7 +135,7 @@ Page {
         Button {
             anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
             text: "SQLite QML"
-            onClicked: pageStack.push(Qt.resolvedUrl("SQLiteQmlPage.qml"))
+            onClicked: pageStack.push(Qt.resolvedUrl("BooksListQmlPage.qml"))
         }
 
         Button {

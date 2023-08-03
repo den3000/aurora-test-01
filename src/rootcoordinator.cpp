@@ -77,12 +77,12 @@ void RootCoordinator::showSqliteCpp()
 {
     auto vm = new BooksListQueryVM(sqliteDb.data(), nullptr);
 
-    Smoozy::pushNamedPage(qmlCoordinatorInstance.data(), Aurora::Application::pathTo(PagePaths::sqliteCppPage), Smoozy::wrapInProperties(vm));
+    Smoozy::pushNamedPage(qmlCoordinatorInstance.data(), Aurora::Application::pathTo(PagePaths::booksListQueryPage), Smoozy::wrapInProperties(vm));
 }
 
 void RootCoordinator::showSqliteQueryModelCpp()
 {
     auto vm = new BooksListModelVM(sqliteDb.data(), nullptr);
 
-    Smoozy::pushNamedPage(qmlCoordinatorInstance.data(), Aurora::Application::pathTo(PagePaths::sqlQueryModelPage), Smoozy::wrapInProperties(vm));
+    Smoozy::pushNamedPage(qmlCoordinatorInstance.data(), Aurora::Application::pathTo(PagePaths::booksListModelPage), Smoozy::wrapInProperties(vm));
 }
