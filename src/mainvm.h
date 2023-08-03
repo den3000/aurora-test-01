@@ -34,6 +34,7 @@ signals:
     void gotoAboutPageWithModel(CustomModel model);
     void gotoSqliteCpp();
     void gotoSqliteQueryModelCpp();
+    void gotoCppToQmlMemoryTest();
 
 private:
     QList<CustomModel> models;

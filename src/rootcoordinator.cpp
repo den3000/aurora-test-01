@@ -37,6 +37,7 @@ void RootCoordinator::start() {
     QObject::connect(vm, &MainVM::gotoAboutPageWithModel, this, &RootCoordinator::showAboutPageWithModel);
     QObject::connect(vm, &MainVM::gotoSqliteCpp, this, &RootCoordinator::showSqliteCpp);
     QObject::connect(vm, &MainVM::gotoSqliteQueryModelCpp, this, &RootCoordinator::showSqliteQueryModelCpp);
+    QObject::connect(vm, &MainVM::gotoCppToQmlMemoryTest, this, &RootCoordinator::showCppToQmlMemoryTest);
 
     Smoozy::pushNamedPage(qmlCoordinatorInstance.data(), Aurora::Application::pathTo(PagePaths::mainPage), Smoozy::wrapInProperties(vm));
 }
@@ -85,4 +86,11 @@ void RootCoordinator::showSqliteQueryModelCpp()
     auto vm = new BooksListModelVM(sqliteDb.data(), nullptr);
 
     Smoozy::pushNamedPage(qmlCoordinatorInstance.data(), Aurora::Application::pathTo(PagePaths::booksListModelPage), Smoozy::wrapInProperties(vm));
+}
+
+void RootCoordinator::showCppToQmlMemoryTest()
+{
+    auto vm = new CppToQmlMemoryTestVM();
+
+    Smoozy::pushNamedPage(qmlCoordinatorInstance.data(), Aurora::Application::pathTo(PagePaths::cppToQmlMemoryTestPage), Smoozy::wrapInProperties(vm));
 }

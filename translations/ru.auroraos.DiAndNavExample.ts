@@ -189,6 +189,14 @@
     </message>
 </context>
 <context>
+    <name>CppToQmlMemoryTestPage</name>
+    <message>
+        <location filename="../qml/pages/CppToQmlMemoryTestPage.qml" line="11"/>
+        <source>Cpp To Qml Memory Test Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DefaultCoverPage</name>
     <message>
         <location filename="../qml/cover/DefaultCoverPage.qml" line="46"/>
