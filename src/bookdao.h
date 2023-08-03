@@ -1,28 +1,17 @@
 #ifndef BOOKDAO_H
 #define BOOKDAO_H
 
-#include <QtSql>
+#include <QString>
 
-struct BookModel;
-
-class BookDao
+struct BookDao
 {
-public:
-    BookDao();
-    ~BookDao();
-    
-    void openDb();
-    QList<BookModel> getAllBooks();
-    int insert(BookModel book);
-    void remove(const int id, const int position);
-    void moveToTop(const int id, const int position);
-    void update(const int id, const QString author, const QString title, const int totalPages);
-    void closeDb();
-};
-
-struct BookModel
-{
-    explicit BookModel(const int id, const QString author, const QString title, const int totalPages, const int position);
+    explicit BookDao(const int id, const QString author, const QString title, const int totalPages, const int position){
+        this->id = id;
+        this->author = author;
+        this->title = title;
+        this->totalPages = totalPages;
+        this->position = position;
+    };
 
     int id;
     QString author;

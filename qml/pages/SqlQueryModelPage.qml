@@ -3,15 +3,25 @@ import Sailfish.Silica 1.0
 import CustomCppClasses.Module 1.0
 
 Page {
-    property BooksListQueryVM viewModel
-    onViewModelChanged: viewModel.parent = this
+    property BooksListModelVM viewModel
+    property BookModelTable tableModel
+
+    onViewModelChanged: {
+        viewModel.parent = this
+        // while this is done for convinience in qml it is important 
+        // to say, that this will be required in case if this object 
+        // on c++ side was initialized without a parent, otherwise it 
+        // will be released immedeately after first access
+        tableModel = viewModel.tableModel()
+    }
+
     objectName: "sqliteCppPage"
     allowedOrientations: Orientation.All
 
     SilicaListView {
         anchors.fill: parent
         header: PageHeader {
-            title: qsTr("SQLite CPP DB")
+            title: qsTr("Sql Query Model")
         }
 
         delegate: ListItem {
@@ -26,12 +36,12 @@ Page {
                 }
                 MenuItem {
                     text: qsTr("Remove")
-                    onClicked: viewModel.remove(model.id, index)
+                    onClicked: tableModel.remove(index)
 
                 }
                 MenuItem {
                     text: qsTr("Move to top")
-                    onClicked: viewModel.moveToTop(model.id, index)
+                    onClicked: tableModel.moveToTop(index)
                 }
             }
             Label {
@@ -42,20 +52,20 @@ Page {
                 rightPadding: 8
                 truncationMode: TruncationMode.Elide
                 maximumLineCount: 1
-                text: "#" + model.position + " id:" + model.id + " " + model.title + " by " + model.author + ", " + model.totalPages + " pages"
+                text: "#" + model.position + " id:" + model.id + " " + model.title + " by " + model.author + ", " + model.tp + " pages"
             }
 
             onClicked: showEditItemDialog(model, index)
         }
 
-        model: viewModel
+        model: tableModel
     }
 
     function showCreateItemDialog(position) {
         var dialog = pageStack.push(Qt.resolvedUrl("AddItemDialog.qml"))
         dialog.dialogTitle = qsTr("Create new item")
         dialog.accepted.connect(function() {
-            viewModel.insert(dialog.bookAuthor, dialog.bookTitle, dialog.bookTotalPages, position)
+            tableModel.insert(dialog.bookAuthor, dialog.bookTitle, dialog.bookTotalPages, position)
         })
     }
 
@@ -64,11 +74,13 @@ Page {
 
         dialog.bookAuthor = model.author
         dialog.bookTitle = model.title
-        dialog.bookTotalPages = model.totalPages
+        dialog.bookTotalPages = model.tp
 
         dialog.dialogTitle = qsTr("Edit existing item")
         dialog.accepted.connect(function() {
-            viewModel.update(model.id, dialog.bookAuthor, dialog.bookTitle, dialog.bookTotalPages, position)
+            model.author = dialog.bookAuthor
+            model.title = dialog.bookTitle
+            model.tp = dialog.bookTotalPages
         })
     }
 

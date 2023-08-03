@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <QString>
+#include <QDebug>
+
 
 class CustomModel
 {
@@ -24,13 +26,14 @@ public:
     ~MainVM();
     Q_INVOKABLE void foo() const;
     Q_INVOKABLE void openAboutPageWithModel(int idx);
-
+    
 signals:
     void gotoAboutPage();
     void gotoAboutPageWithInt(int value);
     void gotoAboutPageWithString(QString value);
     void gotoAboutPageWithModel(CustomModel model);
     void gotoSqliteCpp();
+    void gotoSqliteQueryModelCpp();
 
 private:
     QList<CustomModel> models;

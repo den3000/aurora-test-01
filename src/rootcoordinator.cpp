@@ -10,7 +10,8 @@
 
 RootCoordinator::RootCoordinator(QObject *parent) : QObject(parent)
 {
-    bookDao = QSharedPointer<BookDao>(new BookDao());
+
+    sqliteDb = QSharedPointer<SQLiteDb>(new SQLiteDb());
 
     rootView = QSharedPointer<QQuickView>(Aurora::Application::createView());
     rootView->setSource(Aurora::Application::pathTo("qml/DiAndNavExample.qml"));
@@ -35,6 +36,7 @@ void RootCoordinator::start() {
     QObject::connect(vm, &MainVM::gotoAboutPageWithString, this, &RootCoordinator::showAboutPageWithString);
     QObject::connect(vm, &MainVM::gotoAboutPageWithModel, this, &RootCoordinator::showAboutPageWithModel);
     QObject::connect(vm, &MainVM::gotoSqliteCpp, this, &RootCoordinator::showSqliteCpp);
+    QObject::connect(vm, &MainVM::gotoSqliteQueryModelCpp, this, &RootCoordinator::showSqliteQueryModelCpp);
 
     Smoozy::pushNamedPage(qmlCoordinatorInstance.data(), Aurora::Application::pathTo(PagePaths::mainPage), Smoozy::wrapInProperties(vm));
 }
@@ -73,8 +75,14 @@ void RootCoordinator::showAboutPageWithModel(CustomModel value)
 
 void RootCoordinator::showSqliteCpp()
 {
-    auto vm = new SQLiteCppVM(bookDao.data(), nullptr);
-    // QObject::connect(vm, &AboutVM::bar, this, [=]() { qDebug() << "lambda bar"; });
+    auto vm = new BooksListQueryVM(sqliteDb.data(), nullptr);
 
     Smoozy::pushNamedPage(qmlCoordinatorInstance.data(), Aurora::Application::pathTo(PagePaths::sqliteCppPage), Smoozy::wrapInProperties(vm));
+}
+
+void RootCoordinator::showSqliteQueryModelCpp()
+{
+    auto vm = new BooksListModelVM(sqliteDb.data(), nullptr);
+
+    Smoozy::pushNamedPage(qmlCoordinatorInstance.data(), Aurora::Application::pathTo(PagePaths::sqlQueryModelPage), Smoozy::wrapInProperties(vm));
 }

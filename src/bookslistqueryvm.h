@@ -1,11 +1,12 @@
-#ifndef SQLITECPPVM_H
-#define SQLITECPPVM_H
+#ifndef BOOKSLISTQUERYVM_H
+#define BOOKSLISTQUERYVM_H
 
 #include <QAbstractListModel>
-#include "bookdao.h"
 #include "functional"
 
-class SQLiteCppVM : public QAbstractListModel
+#include "sqlitedb.h"
+
+class BooksListQueryVM : public QAbstractListModel
 {
     Q_OBJECT
     Q_PROPERTY(QObject * parent READ parent WRITE setParent)
@@ -20,9 +21,9 @@ public:
     };
     Q_ENUM(BookModelRoles)
 
-    explicit SQLiteCppVM(QObject *parent = nullptr) : QAbstractListModel(parent) { };
-    explicit SQLiteCppVM(BookDao * bookDao, QObject *parent = nullptr);
-    ~SQLiteCppVM();
+    explicit BooksListQueryVM(QObject *parent = nullptr) : QAbstractListModel(parent) { };
+    explicit BooksListQueryVM(IBooksQueryTableProvider * tableProvider, QObject *parent = nullptr);
+    ~BooksListQueryVM();
 
     virtual int rowCount(const QModelIndex&) const { return books.size(); }
     virtual QVariant data(const QModelIndex &index, int role) const;
@@ -36,8 +37,9 @@ public:
 signals:
 
 private: 
-    QList<BookModel> books;
-    BookDao *dao;
+    QList<BookDao> books;
+    IBooksQueryTableProvider * tableProvider;
+    BookQueryTable *bookQueryTable;
 
     template<typename F>
     inline void updateData(const int start, const int end, F && lambda);
@@ -47,6 +49,6 @@ private:
     // related to move semantics and unique ptr sharing or something
     // like that
     // #include "functional" is required to use this
-    inline void updateDataAlt(const int start, const int end, std::function<void(int, BookModel &)> && lambda);
+    inline void updateDataAlt(const int start, const int end, std::function<void(int, BookDao &)> && lambda);
 };
-#endif // SQLITECPPVM_H
+#endif // BOOKSLISTQUERYVM_H

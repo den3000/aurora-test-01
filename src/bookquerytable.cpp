@@ -1,25 +1,8 @@
-#include "bookdao.h"
+#include "bookquerytable.h"
 
-BookDao::BookDao()
+BookQueryTable::BookQueryTable()
 {
     qDebug() << "Created";
-}
-
-BookDao::~BookDao()
-{
-     qDebug() << "Released";
-}
-
-void BookDao::openDb()
-{
-    auto db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("db.sqlite");
-
-    if (!db.open()) {
-       qDebug() << "Error: connection with database failed";
-    } else {
-       qDebug() << "Database: connection ok";
-    }
 
     QSqlQuery query;
     query.prepare("CREATE TABLE IF NOT EXISTS books ("
@@ -29,11 +12,16 @@ void BookDao::openDb()
         "tp INTEGER NOT NULL,"
         "position INTEGER NOT NULL);"
     );
-    
+
     if (!query.exec()) { qDebug() << "Create table error:" << query.lastError(); }
 }
 
-QList<BookModel> BookDao::getAllBooks()
+BookQueryTable::~BookQueryTable()
+{
+     qDebug() << "Released";
+}
+
+QList<BookDao> BookQueryTable::getAllBooks()
 {
     QSqlQuery query;
     query.prepare("SELECT * FROM books ORDER BY position ASC;");
@@ -46,7 +34,7 @@ QList<BookModel> BookDao::getAllBooks()
     int idxTp = query.record().indexOf("tp");
     int idxPosition = query.record().indexOf("position");
 
-    auto result = QList<BookModel>();
+    auto result = QList<BookDao>();
 
     while (query.next()) 
     {
@@ -56,13 +44,13 @@ QList<BookModel> BookDao::getAllBooks()
         auto tp = query.value(idxTp).toInt();
         auto position = query.value(idxPosition).toInt();
 
-        result.append(BookModel(id, author, title, tp, position));
+        result.append(BookDao(id, author, title, tp, position));
     }
     
     return result;
 }
 
-int BookDao::insert(BookModel book)
+int BookQueryTable::insert(BookDao book)
 {
     QSqlQuery query;
 
@@ -88,7 +76,7 @@ int BookDao::insert(BookModel book)
     return query.lastInsertId().toInt();
 }
 
-void BookDao::remove(const int id, const int position)
+void BookQueryTable::remove(const int id, const int position)
 {
     QSqlQuery query;
     query.prepare(
@@ -104,7 +92,7 @@ void BookDao::remove(const int id, const int position)
     if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
 }
 
-void BookDao::moveToTop(const int id, const int position)
+void BookQueryTable::moveToTop(const int id, const int position)
 {
     QSqlQuery query;
     query.prepare(
@@ -124,7 +112,7 @@ void BookDao::moveToTop(const int id, const int position)
     if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
 }
 
-void BookDao::update(const int id, const QString author, const QString title, const int totalPages)
+void BookQueryTable::update(const int id, const QString author, const QString title, const int totalPages)
 {
     QSqlQuery query;
 
@@ -140,22 +128,3 @@ void BookDao::update(const int id, const QString author, const QString title, co
     if (!query.exec()) { qDebug() << "Failed: " << query.lastError(); }
 }
 
-void BookDao::closeDb()
-{
-    {
-        // this additional scope is necessary, because allows
-        // to release db object after it was closed but before
-        // removeDatabase will be called
-        auto db = QSqlDatabase::database();
-        db.close();
-    }
-    QSqlDatabase::removeDatabase( QSqlDatabase::defaultConnection );
-}
-
-BookModel::BookModel(const int id, const QString author, const QString title, const int totalPages, const int position) {
-    this->id = id;
-    this->author = author;
-    this->title = title;
-    this->totalPages = totalPages;
-    this->position = position;
-}

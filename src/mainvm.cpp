@@ -26,3 +26,5 @@ void MainVM::openAboutPageWithModel(int idx)
 {
     emit gotoAboutPageWithModel(models[idx]);
 }
+
+

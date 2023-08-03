@@ -6,8 +6,9 @@
 
 #include "mainvm.h"
 #include "aboutvm.h"
-#include "sqlitecppvm.h"
-#include "bookdao.h"
+#include "bookslistqueryvm.h"
+#include "bookslistmodelvm.h"
+#include "sqlitedb.h"
 
 class RootCoordinator : public QObject
 {
@@ -21,7 +22,7 @@ public:
 private:
     QSharedPointer<QQuickView> rootView;
     QSharedPointer<QQuickItem> qmlCoordinatorInstance;
-    QSharedPointer<BookDao> bookDao;
+    QSharedPointer<SQLiteDb> sqliteDb;
 
 public slots:
     void showAboutPage();
@@ -29,6 +30,7 @@ public slots:
     void showAboutPageWithString(QString value);
     void showAboutPageWithModel(CustomModel value);
     void showSqliteCpp();
+    void showSqliteQueryModelCpp();
 };
 
 #endif // ROOTCOORDINATOR_H

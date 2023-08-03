@@ -45,28 +45,37 @@ CONFIG += \
 PKGCONFIG += \
 
 SOURCES += \
-    src/bookdao.cpp \
-    src/sqlitecppvm.cpp \
+    src/bookmodeltable.cpp \
+    src/bookquerytable.cpp \
     src/aboutvm.cpp \
+    src/bookslistmodelvm.cpp \
+    src/bookslistqueryvm.cpp \
     src/mainvm.cpp \
     src/main.cpp \
-    src/rootcoordinator.cpp
+    src/rootcoordinator.cpp \
+    src/sqlitedb.cpp
 
 HEADERS += \
     src/bookdao.h \
-    src/sqlitecppvm.h \
+    src/bookmodeltable.h \
+    src/bookquerytable.h \
     src/aboutvm.h \
+    src/bookslistmodelvm.h \
+    src/bookslistqueryvm.h \
     src/customcppclasses.h \
+    src/idbprovider.h \
     src/mainvm.h \
     src/pagepaths.h \
     src/rootcoordinator.h \
-    src/smoozyutils.h
+    src/smoozyutils.h \
+    src/sqlitedb.h
 
 DISTFILES += \
     qml/RootCoordinatorQml.qml \
     qml/pages/Dao.qml \
     qml/pages/SQLiteCppPage.qml \
     qml/pages/SQLiteQmlPage.qml \
+    qml/pages/SqlQueryModelPage.qml \
     rpm/ru.auroraos.DiAndNavExample.spec \
     AUTHORS.md \
     CODE_OF_CONDUCT.md \

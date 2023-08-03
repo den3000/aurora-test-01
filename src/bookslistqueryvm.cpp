@@ -1,29 +1,35 @@
-#include "sqlitecppvm.h"
+#include "bookslistqueryvm.h"
 
 #include <QString>
 
-SQLiteCppVM::SQLiteCppVM(BookDao * bookDao, QObject *parent): QAbstractListModel(parent)
+BooksListQueryVM::BooksListQueryVM(IBooksQueryTableProvider * tableProvider, QObject *parent): QAbstractListModel(parent)
 {
+    qDebug() << "Created";
     // TODO:
     // 3. Use https://doc.qt.io/qt-5/model-view-programming.html
-    dao = bookDao;
 
-    dao->openDb();
-    books = dao->getAllBooks();
+    this->tableProvider = tableProvider;
+    this->tableProvider->openDb();
+    this->bookQueryTable = this->tableProvider->booksQueryTable();
+
+    books = this->bookQueryTable->getAllBooks();
     qDebug() << "Loaded books count: " << books.size();
 
     if (books.size() == 0) {
-        dao->insert(BookModel(0, "Leo Tolstoy", "Anna Karenina", 1300, 0));
+        this->bookQueryTable->insert(BookDao(0, "Leo Tolstoy", "Anna Karenina", 1300, 0));
         qDebug() << "Default book inserted";
     }
 }
 
-SQLiteCppVM::~SQLiteCppVM()
+BooksListQueryVM::~BooksListQueryVM()
 {
-    dao->closeDb();
+    delete bookQueryTable;
+    tableProvider->closeDb();
+
+    qDebug() << "Released";
 }
 
-QVariant SQLiteCppVM::data(const QModelIndex &index, int role) const
+QVariant BooksListQueryVM::data(const QModelIndex &index, int role) const
 {
     // Default roleNames: https://doc.qt.io/qt-5/qabstractitemmodel.html#roleNames
 
@@ -39,7 +45,7 @@ QVariant SQLiteCppVM::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-QHash<int, QByteArray> SQLiteCppVM::roleNames() const
+QHash<int, QByteArray> BooksListQueryVM::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[Id] = "id";
@@ -50,51 +56,51 @@ QHash<int, QByteArray> SQLiteCppVM::roleNames() const
     return roles;
 }
 
-void SQLiteCppVM::insert(const QString author, const QString title, const int totalPages, const int position)
+void BooksListQueryVM::insert(const QString author, const QString title, const int totalPages, const int position)
 {
-    auto book = BookModel(0, author, title, totalPages, position);
-    book.id = dao->insert(book);
+    auto book = BookDao(0, author, title, totalPages, position);
+    book.id = bookQueryTable->insert(book);
 
     beginInsertRows(QModelIndex(), position, position);
     books.insert(position, book);
     endInsertRows();
 
-    updateData(position + 1, books.size(), [](int idx, BookModel &book) {
+    updateData(position + 1, books.size(), [](int idx, BookDao &book) {
         book.position = idx;
     });
 }
 
-void SQLiteCppVM::remove(const int id, const int position)
+void BooksListQueryVM::remove(const int id, const int position)
 {
-    dao->remove(id, position);
+    bookQueryTable->remove(id, position);
 
     beginRemoveRows(QModelIndex(), position, position);
     books.erase(books.begin() + position);
     endRemoveRows();
 
-    updateData(position, books.size(), [](int idx, BookModel &book) {
+    updateData(position, books.size(), [](int idx, BookDao &book) {
         book.position = idx;
     });
 }
 
-void SQLiteCppVM::moveToTop(const int id, const int position)
+void BooksListQueryVM::moveToTop(const int id, const int position)
 {
-    dao->moveToTop(id, position);
+    bookQueryTable->moveToTop(id, position);
 
     beginMoveRows(QModelIndex(), position, position, QModelIndex(), 0);
     books.move(position, 0);
     endMoveRows();
 
-    updateData(0, position+1, [](int idx, BookModel &book) {
+    updateData(0, position+1, [](int idx, BookDao &book) {
         book.position = idx;
     });
 }
 
-void SQLiteCppVM::update(const int id, const QString author, const QString title, const int totalPages, const int position)
+void BooksListQueryVM::update(const int id, const QString author, const QString title, const int totalPages, const int position)
 {
-    dao->update(id, author, title, totalPages);
+    bookQueryTable->update(id, author, title, totalPages);
 
-    updateData(position, position+1, [author, title, totalPages](int idx, BookModel &book) {
+    updateData(position, position+1, [author, title, totalPages](int idx, BookDao &book) {
         Q_UNUSED(idx)
         book.author = author;
         book.title = title;
@@ -103,7 +109,7 @@ void SQLiteCppVM::update(const int id, const QString author, const QString title
 }
 
 template<typename F> inline
-void SQLiteCppVM::updateData(const int start, const int end, F && lambda) {
+void BooksListQueryVM::updateData(const int start, const int end, F && lambda) {
     for (int i = start; i < end; i++) {
         lambda(i, books[i]);
     }
@@ -113,7 +119,7 @@ void SQLiteCppVM::updateData(const int start, const int end, F && lambda) {
 }
 
 inline
-void SQLiteCppVM::updateDataAlt(const int start, const int end, std::function<void(int, BookModel &)> && lambda)
+void BooksListQueryVM::updateDataAlt(const int start, const int end, std::function<void(int, BookDao &)> && lambda)
 {
     for (int i = start; i < end; i++) {
         lambda(i, books[i]);
