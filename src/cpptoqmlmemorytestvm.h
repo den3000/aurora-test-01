@@ -2,6 +2,20 @@
 #define CPPTOQMLMEMORYTESTVM_H
 
 #include <QObject>
+#include <QString>
+#include <QDebug>
+
+class CppToQmlMemoryTestModel : public QObject
+{
+    Q_OBJECT
+public:    
+    explicit CppToQmlMemoryTestModel(QObject *parent = nullptr);
+    explicit CppToQmlMemoryTestModel(QString tag, QObject *parent = nullptr);
+    ~CppToQmlMemoryTestModel();
+
+private: 
+    QString tag;
+};
 
 class CppToQmlMemoryTestVM : public QObject
 {

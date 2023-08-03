@@ -19,6 +19,7 @@ public:
         qmlRegisterType<BookModelTable>("CustomCppClasses.Module", 1, 0, "BookModelTable");
 
         qmlRegisterType<CppToQmlMemoryTestVM>("CustomCppClasses.Module", 1, 0, "CppToQmlMemoryTestVM");
+        qmlRegisterType<CppToQmlMemoryTestModel>("CustomCppClasses.Module", 1, 0, "CppToQmlMemoryTestModel");
     }
 };
 
