@@ -8,6 +8,7 @@ namespace PagePaths {
     QString const mainPage = "qml/pages/MainPage.qml";
     QString const booksListQueryPage = "qml/pages/BooksListQueryPage.qml";
     QString const booksListModelPage = "qml/pages/BooksListModelPage.qml";
+    QString const cppToQmlMemoryTestPage = "qml/pages/CppToQmlMemoryTestPage.qml";
 }
 
 #endif // PAGEPATHS_H

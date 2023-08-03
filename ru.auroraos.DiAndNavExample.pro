@@ -50,6 +50,7 @@ SOURCES += \
     src/aboutvm.cpp \
     src/bookslistmodelvm.cpp \
     src/bookslistqueryvm.cpp \
+    src/cpptoqmlmemorytestvm.cpp \
     src/mainvm.cpp \
     src/main.cpp \
     src/rootcoordinator.cpp \
@@ -62,6 +63,7 @@ HEADERS += \
     src/aboutvm.h \
     src/bookslistmodelvm.h \
     src/bookslistqueryvm.h \
+    src/cpptoqmlmemorytestvm.h \
     src/customcppclasses.h \
     src/idbprovider.h \
     src/mainvm.h \
@@ -76,6 +78,7 @@ DISTFILES += \
     qml/pages/BooksListQmlPage.qml \
     qml/pages/BooksListQmlTable.qml \
     qml/pages/BooksListQueryPage.qml \
+    qml/pages/CppToQmlMemoryTestPage.qml \
     rpm/ru.auroraos.DiAndNavExample.spec \
     AUTHORS.md \
     CODE_OF_CONDUCT.md \
