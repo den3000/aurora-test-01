@@ -4,20 +4,6 @@
 #include <QObject>
 #include <QString>
 #include <QDebug>
-#include "bookmodeltable.h"
-
-class Foo1 {
-public:
-    explicit Foo1() { qDebug() << "Created"; };
-    ~Foo1() { qDebug() << "Released"; };
-};
-
-class Foo2 : public QObject {
-    Q_OBJECT
-public:
-    explicit Foo2(QObject *parent = nullptr) : QObject(parent) { qDebug() << "Created"; };
-    ~Foo2() { qDebug() << "Released"; };
-};
 
 
 class CustomModel
@@ -40,8 +26,7 @@ public:
     ~MainVM();
     Q_INVOKABLE void foo() const;
     Q_INVOKABLE void openAboutPageWithModel(int idx);
-    Q_INVOKABLE void memTest();
-
+    
 signals:
     void gotoAboutPage();
     void gotoAboutPageWithInt(int value);
@@ -52,9 +37,6 @@ signals:
 
 private:
     QList<CustomModel> models;
-
-    BookModelTable * t1;
-    BookModelTable * t2;
 };
 
 #endif // MAINVM_H

@@ -27,16 +27,4 @@ void MainVM::openAboutPageWithModel(int idx)
     emit gotoAboutPageWithModel(models[idx]);
 }
 
-void MainVM::memTest()
-{
-    auto f1 = new Foo1();
-    auto f21 = new Foo2();
-    auto f22 = new Foo2(this);
 
-    delete f1;
-    delete f21;
-
-    t1 = new BookModelTable();
-    t2 = new BookModelTable(this);
-
-}
