@@ -24,7 +24,18 @@ class CppToQmlMemoryTestVM : public QObject
     Q_OBJECT
     Q_PROPERTY(QObject * parent READ parent WRITE setParent)
 
+    CppToQmlMemoryTestModel * modelNoParent;
+    CppToQmlMemoryTestModel * modelWithParent;
+    QSharedPointer<CppToQmlMemoryTestModel> spModelNoParent;
+    QSharedPointer<CppToQmlMemoryTestModel> spModelWithParent;
+    
+    Q_PROPERTY(CppToQmlMemoryTestModel * modelNoParent READ getModelNoParent)
+    Q_PROPERTY(CppToQmlMemoryTestModel * modelWithParent READ getModelWithParent)
+    Q_PROPERTY(CppToQmlMemoryTestModel * spModelNoParent READ getModelNoParentFromSp)
+    Q_PROPERTY(CppToQmlMemoryTestModel * spModelWithParent READ getModelWithParentFromSp)
+
 public:
+
     explicit CppToQmlMemoryTestVM(QObject *parent = nullptr) : QObject(parent) {
         qDebug() << "Created";
         modelNoParent = new CppToQmlMemoryTestModel("modelNoParent", nullptr);
@@ -35,30 +46,14 @@ public:
     
     ~CppToQmlMemoryTestVM() { qDebug() << "Released"; };
 
-    Q_INVOKABLE CppToQmlMemoryTestModel * getModelNoParent() {
-        return modelNoParent;
-    };
-
-    Q_INVOKABLE CppToQmlMemoryTestModel * getModelWithParent() {
-        return modelWithParent;
-    };
-
-    Q_INVOKABLE CppToQmlMemoryTestModel * getModelNoParentFromSp() {
-        return spModelNoParent.data();
-    };
-
-    Q_INVOKABLE CppToQmlMemoryTestModel * getModelWithParentFromSp() {
-        return spModelWithParent.data();
-    };
+    CppToQmlMemoryTestModel * getModelNoParent() { return modelNoParent; };
+    CppToQmlMemoryTestModel * getModelWithParent() { return modelWithParent; };
+    CppToQmlMemoryTestModel * getModelNoParentFromSp() { return spModelNoParent.data(); };
+    CppToQmlMemoryTestModel * getModelWithParentFromSp() { return spModelWithParent.data(); };
 
 signals:
 
 private:
-    CppToQmlMemoryTestModel * modelNoParent;
-    CppToQmlMemoryTestModel * modelWithParent;
-
-    QSharedPointer<CppToQmlMemoryTestModel> spModelNoParent;
-    QSharedPointer<CppToQmlMemoryTestModel> spModelWithParent;
 };
 
 // TODO: we also need some abstract item model

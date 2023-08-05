@@ -7,10 +7,10 @@ Page {
     onViewModelChanged: {
         viewModel.parent = this
 
-        var v1 = viewModel.getModelNoParent().foo()
-        var v2 = viewModel.getModelWithParent().foo()
-        var v3 = viewModel.getModelNoParentFromSp().foo()
-        var v4 = viewModel.getModelWithParentFromSp().foo()
+        var v1 = viewModel.modelNoParent.foo()
+        var v2 = viewModel.modelWithParent.foo()
+        var v3 = viewModel.spModelNoParent.foo()
+        var v4 = viewModel.spModelWithParent.foo()
     }
     allowedOrientations: Orientation.All
 
@@ -28,10 +28,10 @@ Page {
             anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
             text: "Execute foo()"
             onClicked: {
-                var v1 = viewModel.getModelNoParent().foo()
-                var v2 = viewModel.getModelWithParent().foo()
-                var v3 = viewModel.getModelNoParentFromSp().foo()
-                var v4 = viewModel.getModelWithParentFromSp().foo()
+                var v1 = viewModel.modelNoParent.foo()
+                var v2 = viewModel.modelWithParent.foo()
+                var v3 = viewModel.spModelNoParent.foo()
+                var v4 = viewModel.spModelWithParent.foo()
             }
         }
     }
