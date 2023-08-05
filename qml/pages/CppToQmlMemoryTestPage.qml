@@ -34,6 +34,37 @@ Page {
                 var v4 = viewModel.spModelWithParent.foo()
             }
         }
-    }
 
+        SilicaListView {
+            model: viewModel.alModelNoParent
+        }
+
+        SilicaListView {
+            model: viewModel.alModelWithParent
+        }
+
+        SilicaListView {
+            model: viewModel.spAlModelNoParent
+        }
+
+        SilicaListView {
+            model: viewModel.spAlModelWithParent
+        }
+
+        SilicaListView {
+            model: viewModel.getAlModelNoParent()
+        }
+
+        SilicaListView {
+            model: viewModel.getAlModelWithParent()
+        }
+
+        SilicaListView {
+            model: viewModel.getAlModelNoParentFromSp()
+        }
+
+        SilicaListView {
+            model: viewModel.getAlModelWithParentFromSp()
+        }
+    }
 }
