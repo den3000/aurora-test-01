@@ -50,6 +50,7 @@ SOURCES += \
     src/aboutvm.cpp \
     src/bookslistmodelvm.cpp \
     src/bookslistqueryvm.cpp \
+    src/cpptoqmlmemorytestmodel.cpp \
     src/cpptoqmlmemorytestvm.cpp \
     src/mainvm.cpp \
     src/main.cpp \
@@ -63,6 +64,7 @@ HEADERS += \
     src/aboutvm.h \
     src/bookslistmodelvm.h \
     src/bookslistqueryvm.h \
+    src/cpptoqmlmemorytestmodel.h \
     src/cpptoqmlmemorytestvm.h \
     src/customcppclasses.h \
     src/idbprovider.h \

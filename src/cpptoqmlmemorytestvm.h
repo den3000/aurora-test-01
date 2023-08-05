@@ -7,38 +7,16 @@
 #include <QSharedPointer>
 
 /*
-    Declaration in header, implementation in source vs both in header
+    declaration in header, implementation in source
+        vs
+    declaration and implementation in header
+
     I will be using both in header here as an example, but in general
     this is a separate topic with some pros and cons that should be
     considered separately
 */
 
-class CppToQmlMemoryTestModel : public QObject
-{
-    Q_OBJECT
-
-public:    
-    explicit CppToQmlMemoryTestModel(QObject *parent = nullptr) : QObject(parent) {
-        tag = "default";
-        qDebug() << tag << " created";
-    };
-
-    explicit CppToQmlMemoryTestModel(QString tag, QObject *parent = nullptr) : QObject(parent) {
-        this->tag = tag;
-        qDebug() << tag << " created";
-    };
-
-    ~CppToQmlMemoryTestModel() {
-        qDebug() << tag << " released";
-    };
-
-    Q_INVOKABLE void foo() {
-        qDebug() << tag;
-    };
-
-private: 
-    QString tag;
-};
+#include "cpptoqmlmemorytestmodel.h"
 
 class CppToQmlMemoryTestVM : public QObject
 {
