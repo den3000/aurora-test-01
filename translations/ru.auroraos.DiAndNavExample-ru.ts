@@ -191,7 +191,7 @@
 <context>
     <name>CppToQmlMemoryTestPage</name>
     <message>
-        <location filename="../qml/pages/CppToQmlMemoryTestPage.qml" line="19"/>
+        <location filename="../qml/pages/CppToQmlMemoryTestPage.qml" line="18"/>
         <source>Cpp To Qml Memory Test Page</source>
         <translation type="unfinished"></translation>
     </message>
