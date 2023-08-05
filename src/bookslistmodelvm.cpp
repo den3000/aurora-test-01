@@ -23,8 +23,6 @@ BooksListModelVM::BooksListModelVM(IBooksModelTableProvider * tableProvider, QOb
 
 BooksListModelVM::~BooksListModelVM()
 {
-    // TODO: This should be improved, probably BookQueryModel
-    // should be explicitly responsible for all DB stuff
     delete bookModelTable;
     tableProvider->closeDb();
     qDebug() << "Released";
