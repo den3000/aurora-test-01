@@ -20,6 +20,7 @@ public:
 
         qmlRegisterType<CppToQmlMemoryTestVM>("CustomCppClasses.Module", 1, 0, "CppToQmlMemoryTestVM");
         qmlRegisterType<CppToQmlMemoryTestModel>("CustomCppClasses.Module", 1, 0, "CppToQmlMemoryTestModel");
+        qmlRegisterType<CppToQmlMemoryTestAbstractListModel>("CustomCppClasses.Module", 1, 0, "CppToQmlMemoryTestAbstractListModel");
     }
 };
 

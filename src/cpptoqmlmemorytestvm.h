@@ -17,6 +17,7 @@
 */
 
 #include "cpptoqmlmemorytestmodel.h"
+#include "cpptoqmlmemorytestabstractlistmodel.h"
 
 class CppToQmlMemoryTestVM : public QObject
 {

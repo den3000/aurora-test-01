@@ -45,6 +45,7 @@ CONFIG += \
 PKGCONFIG += \
 
 SOURCES += \
+    src/cpptoqmlmemorytestabstractlistmodel.cpp \
     src/bookmodeltable.cpp \
     src/bookquerytable.cpp \
     src/aboutvm.cpp \
@@ -58,6 +59,7 @@ SOURCES += \
     src/sqlitedb.cpp
 
 HEADERS += \
+    src/cpptoqmlmemorytestabstractlistmodel.h \
     src/bookdao.h \
     src/bookmodeltable.h \
     src/bookquerytable.h \
