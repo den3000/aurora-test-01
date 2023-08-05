@@ -4,7 +4,14 @@ import CustomCppClasses.Module 1.0
 
 Page {
     property CppToQmlMemoryTestVM viewModel
-    onViewModelChanged: viewModel.parent = this
+    onViewModelChanged: {
+        viewModel.parent = this
+
+        var v1 = viewModel.getModelNoParent().foo()
+        var v2 = viewModel.getModelWithParent().foo()
+        var v3 = viewModel.getModelNoParentFromSp().foo()
+        var v4 = viewModel.getModelWithParentFromSp().foo()
+    }
     allowedOrientations: Orientation.All
 
     PageHeader {
@@ -19,10 +26,14 @@ Page {
 
         Button {
             anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
-            text: "PAM"
-//            onClicked: viewModel.gotoAboutPageWithInt(100)
+            text: "Execute foo()"
+            onClicked: {
+                var v1 = viewModel.getModelNoParent().foo()
+                var v2 = viewModel.getModelWithParent().foo()
+                var v3 = viewModel.getModelNoParentFromSp().foo()
+                var v4 = viewModel.getModelWithParentFromSp().foo()
+            }
         }
     }
-
 
 }
