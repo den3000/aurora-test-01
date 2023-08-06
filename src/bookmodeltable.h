@@ -4,6 +4,9 @@
 #include <QObject>
 #include <QSqlTableModel>
 
+// this include is required to access QSqlRecord type
+#include <QSqlRecord>
+
 #include "idbprovider.h"
 
 class BookModelTable;
@@ -41,7 +44,15 @@ signals:
 
 private:
     template<typename F>
-    inline void updateRecordsInRange(const int start, const int end, const bool executeSubmitAll, F && lambda);
+    void updateRecordsInRange(const int start, const int end, const bool executeSubmitAll, F && lambda) {
+        for (int row = start; row < end; row++) {
+            auto r = record(row);
+            lambda(row, r);
+            setRecord(row, r);
+        }
+
+        if (executeSubmitAll) { submitAll(); }
+    };
 
 };
 

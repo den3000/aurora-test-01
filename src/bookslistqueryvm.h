@@ -42,13 +42,25 @@ private:
     BookQueryTable *bookQueryTable;
 
     template<typename F>
-    inline void updateData(const int start, const int end, F && lambda);
+    void updateData(const int start, const int end, F && lambda) {
+        for (int i = start; i < end; i++) {
+            lambda(i, books[i]);
+        }
+        // interesting that index value might be out of
+        // data range and this will not break anything
+        emit dataChanged(createIndex(start, 0), createIndex(end, 0));
+    };
 
     // alternative lambda useage for a case when function
     // can't be defined in a header. Potential problems here
     // related to move semantics and unique ptr sharing or something
     // like that
     // #include "functional" is required to use this
-    inline void updateDataAlt(const int start, const int end, std::function<void(int, BookDao &)> && lambda);
+    inline void updateDataAlt(const int start, const int end, std::function<void(int, BookDao &)> && lambda) {
+        for (int i = start; i < end; i++) {
+            lambda(i, books[i]);
+        }
+        emit dataChanged(createIndex(start, 0), createIndex(end, 0));
+    };
 };
 #endif // BOOKSLISTQUERYVM_H
