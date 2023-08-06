@@ -8,9 +8,8 @@
 
 class BookModelTable;
 
-class IBooksModelTableProvider: public IDbProvider {
-public:
-    virtual BookModelTable * booksModelTable(QObject *parent = nullptr) = 0;
+struct IBooksModelTableProvider: IDbProvider {
+    virtual BookModelTable * booksModelTable(QObject *parent = nullptr) const = 0;
 };
 
 class BookModelTable : public QSqlTableModel
@@ -30,7 +29,7 @@ public:
     explicit BookModelTable(QObject *parent = nullptr, QSqlDatabase db = QSqlDatabase());
     ~BookModelTable();
 
-    virtual QVariant data(const QModelIndex &index, int role) const override;
+    QVariant data(const QModelIndex &index, int role) const override;
     QHash<int, QByteArray> roleNames() const override;
     bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
 

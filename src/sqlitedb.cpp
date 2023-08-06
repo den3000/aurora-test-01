@@ -38,12 +38,12 @@ void SQLiteDb::closeDb()
 }
 
 
-BookModelTable *SQLiteDb::booksModelTable(QObject *parent)
+BookModelTable *SQLiteDb::booksModelTable(QObject *parent) const
 {
     return new BookModelTable(parent);
 }
 
-BookQueryTable *SQLiteDb::booksQueryTable()
+BookQueryTable *SQLiteDb::booksQueryTable() const
 {
     return new BookQueryTable();
 }

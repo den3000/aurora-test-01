@@ -12,18 +12,16 @@ public:
     SQLiteDb();
     ~SQLiteDb();
 
-    // IDbProvider interface
 public:
-    void openDb();
-    void closeDb();
+    // IDbProvider interface
+    void openDb() override;
+    void closeDb() override;
 
     // IBooksModelTableProvider interface
-public:
-    BookModelTable *booksModelTable(QObject *parent = nullptr);
+    BookModelTable *booksModelTable(QObject *parent = nullptr) const override;
 
     // IBooksQueryTableProvider interface
-public:
-    BookQueryTable *booksQueryTable();
+    BookQueryTable *booksQueryTable() const override;
 };
 
 #endif // SQLITEDB_H

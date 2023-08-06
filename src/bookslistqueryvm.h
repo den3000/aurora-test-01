@@ -25,9 +25,9 @@ public:
     explicit BooksListQueryVM(IBooksQueryTableProvider * tableProvider, QObject *parent = nullptr);
     ~BooksListQueryVM();
 
-    virtual int rowCount(const QModelIndex&) const { return books.size(); }
-    virtual QVariant data(const QModelIndex &index, int role) const;
-    QHash<int, QByteArray> roleNames() const;
+    int rowCount(const QModelIndex&) const override { return books.size(); }
+    QVariant data(const QModelIndex &index, int role) const override;
+    QHash<int, QByteArray> roleNames() const override;
     
     Q_INVOKABLE void insert(const QString author, const QString title, const int totalPages, const int position);
     Q_INVOKABLE void remove(const int id, const int position);

@@ -8,9 +8,8 @@
 
 class BookQueryTable;
 
-class IBooksQueryTableProvider: public IDbProvider {
-public:
-    virtual BookQueryTable * booksQueryTable() = 0;
+struct IBooksQueryTableProvider: IDbProvider {
+    virtual BookQueryTable * booksQueryTable() const = 0;
 };
 
 class BookQueryTable
