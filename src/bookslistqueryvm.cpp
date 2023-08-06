@@ -9,7 +9,6 @@ BooksListQueryVM::BooksListQueryVM(IBooksQueryTableProvider * tableProvider, QOb
     // 3. Use https://doc.qt.io/qt-5/model-view-programming.html
 
     this->tableProvider = tableProvider;
-    this->tableProvider->openDb();
     this->bookQueryTable = this->tableProvider->booksQueryTable();
 
     books = this->bookQueryTable->getAllBooks();
@@ -24,8 +23,6 @@ BooksListQueryVM::BooksListQueryVM(IBooksQueryTableProvider * tableProvider, QOb
 BooksListQueryVM::~BooksListQueryVM()
 {
     delete bookQueryTable;
-    tableProvider->closeDb();
-
     qDebug() << "Released";
 }
 

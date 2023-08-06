@@ -13,7 +13,7 @@ SQLiteDb::~SQLiteDb()
     qDebug() << "Released";
 }
 
-void SQLiteDb::openDb()
+void SQLiteDb::connectToDBs()
 {
     auto db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName("db.sqlite");
@@ -25,7 +25,7 @@ void SQLiteDb::openDb()
     }
 }
 
-void SQLiteDb::closeDb()
+void SQLiteDb::disconnectFromDBs()
 {
     {
         // this additional scope is necessary, because allows
@@ -40,6 +40,8 @@ void SQLiteDb::closeDb()
 
 BookModelTable *SQLiteDb::booksModelTable(QObject *parent) const
 {
+    // Here you can pass ad DB defined by connectionName
+    // which is different from default one
     return new BookModelTable(parent);
 }
 

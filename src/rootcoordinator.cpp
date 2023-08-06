@@ -12,6 +12,7 @@ RootCoordinator::RootCoordinator(QObject *parent) : QObject(parent)
 {
 
     sqliteDb = QSharedPointer<SQLiteDb>(new SQLiteDb());
+    sqliteDb->connectToDBs();
 
     rootView = QSharedPointer<QQuickView>(Aurora::Application::createView());
     rootView->setSource(Aurora::Application::pathTo("qml/DiAndNavExample.qml"));
@@ -25,7 +26,10 @@ RootCoordinator::RootCoordinator(QObject *parent) : QObject(parent)
     qmlCoordinatorInstance = QSharedPointer<QQuickItem>(Smoozy::findQuickViewChildByObjectName(rootView.data(), "rootCoordinatorQml"));
 }
 
-RootCoordinator::~RootCoordinator() { qDebug() << "RootCoordinator destroyed"; }
+RootCoordinator::~RootCoordinator() {
+    sqliteDb->disconnectFromDBs();
+    qDebug() << "RootCoordinator destroyed";
+}
 
 void RootCoordinator::start() {
     rootView->show();

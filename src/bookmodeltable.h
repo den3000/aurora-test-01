@@ -7,11 +7,9 @@
 // this include is required to access QSqlRecord type
 #include <QSqlRecord>
 
-#include "idbprovider.h"
-
 class BookModelTable;
 
-struct IBooksModelTableProvider: IDbProvider {
+struct IBooksModelTableProvider {
     virtual BookModelTable * booksModelTable(QObject *parent = nullptr) const = 0;
 };
 

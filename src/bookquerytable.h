@@ -4,11 +4,10 @@
 #include <QtSql>
 
 #include "bookdao.h"
-#include "idbprovider.h"
 
 class BookQueryTable;
 
-struct IBooksQueryTableProvider: IDbProvider {
+struct IBooksQueryTableProvider {
     virtual BookQueryTable * booksQueryTable() const = 0;
 };
 

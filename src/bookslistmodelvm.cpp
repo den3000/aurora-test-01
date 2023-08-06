@@ -4,27 +4,22 @@ BooksListModelVM::BooksListModelVM(IBooksModelTableProvider * tableProvider, QOb
 {
     qDebug() << "Created";
     this->tableProvider = tableProvider;
-    this->tableProvider->openDb();
-
+    // TODO: finish this explanation / example taking into account
+    // Q_INVOKABLE vs Q_PROPERTY edge case
     // 1. We assigning parent here because bookModelTable is a QObject
     // child and will be exposed to QMl. QObject without a parent is
     // immedialy released when exposed to qml, unless it is assigned
     // to some qml property
-    // this->bookModelTable = this->tableProvider->booksModelTable(this);
+    this->bookModelTable = this->tableProvider->booksModelTable(this);
 
     // 2. We can set parent to nullptr, but then this need to be assigned
     // to designated property in qml in `onViewModelChanged` or right after
     // first access, in other way it will be released immediately 
-    this->bookModelTable = this->tableProvider->booksModelTable(nullptr);
-
-    // Scenario 2 is used as a demo because object is saved on qml side
-    // in designated property
+    // this->bookModelTable = this->tableProvider->booksModelTable(nullptr);
 }
 
 BooksListModelVM::~BooksListModelVM()
 {
-    delete bookModelTable;
-    tableProvider->closeDb();
     qDebug() << "Released";
 }
 
