@@ -8,6 +8,7 @@
 #include "bookslistmodelvm.h"
 #include "bookmodeltable.h"
 #include "cpptoqmlmemorytestvm.h"
+#include "cpprefsandptrstestvm.h"
 
 class CustomCppClasses {
 public:
@@ -21,6 +22,7 @@ public:
         qmlRegisterType<CppToQmlMemoryTestVM>("CustomCppClasses.Module", 1, 0, "CppToQmlMemoryTestVM");
         qmlRegisterType<CppToQmlMemoryTestModel>("CustomCppClasses.Module", 1, 0, "CppToQmlMemoryTestModel");
         qmlRegisterType<CppToQmlMemoryTestAbstractListModel>("CustomCppClasses.Module", 1, 0, "CppToQmlMemoryTestAbstractListModel");
+        qmlRegisterType<CppRefsAndPtrsTestVM>("CustomCppClasses.Module", 1, 0, "CppRefsAndPtrsTestVM");
     }
 };
 

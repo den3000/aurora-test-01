@@ -10,6 +10,7 @@
 #include "bookslistmodelvm.h"
 #include "sqlitedb.h"
 #include "cpptoqmlmemorytestvm.h"
+#include "cpprefsandptrstestvm.h"
 
 class RootCoordinator : public QObject
 {
@@ -33,6 +34,7 @@ public slots:
     void showSqliteCpp();
     void showSqliteQueryModelCpp();
     void showCppToQmlMemoryTest();
+    void showCppRefsAndPtrsTest();
 };
 
 #endif // ROOTCOORDINATOR_H

@@ -74,6 +74,12 @@ Page {
 
         Button {
             anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
+            text: "Cpp Refs and Ptrs test"
+            onClicked: viewModel.gotoCppRefsAndPtrsTest()
+        }
+
+        Button {
+            anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
             text: "Create AboutVM from QML"
             onClicked: {
                 // Use this to push page directly, for example

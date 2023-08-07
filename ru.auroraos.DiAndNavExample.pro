@@ -45,6 +45,7 @@ CONFIG += \
 PKGCONFIG += \
 
 SOURCES += \
+    src/cpprefsandptrstestvm.cpp \
     src/cpptoqmlmemorytestabstractlistmodel.cpp \
     src/bookmodeltable.cpp \
     src/bookquerytable.cpp \
@@ -59,6 +60,7 @@ SOURCES += \
     src/sqlitedb.cpp
 
 HEADERS += \
+    src/cpprefsandptrstestvm.h \
     src/cpptoqmlmemorytestabstractlistmodel.h \
     src/bookdao.h \
     src/bookmodeltable.h \
@@ -82,6 +84,7 @@ DISTFILES += \
     qml/pages/BooksListQmlPage.qml \
     qml/pages/BooksListQmlTable.qml \
     qml/pages/BooksListQueryPage.qml \
+    qml/pages/CppRefsAndPtrsTestPage.qml \
     qml/pages/CppToQmlMemoryTestPage.qml \
     rpm/ru.auroraos.DiAndNavExample.spec \
     AUTHORS.md \
