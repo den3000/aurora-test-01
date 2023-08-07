@@ -3,8 +3,28 @@
 
 #include <QObject>
 #include <QDebug>
+#include <QString>
 
-class Model {};
+class Model {
+public:
+    QString tag;
+    // We need constructor without argumanets
+    // to allow `Model m` statements for variable
+    // declaration on stack, but not 100% sure
+    explicit Model(): tag {"default"} { qDebug() << "Created " << this->tag; };
+
+    // Why can't use QString& and forced to use QString&&?
+    explicit Model(QString tag): tag {tag} { qDebug() << "Created " << this->tag; };
+
+    // Trivial copy-constructor
+    // TODO: some kind of && and swap will be better probably?
+    Model(const Model& other): tag(other.tag + " copy") {
+//        tag = tag ;
+        qDebug() << "Copy " << this->tag;
+    };
+
+    ~Model() { qDebug() << "Released " << this->tag; };
+};
 
 class Klazz {
     Model modelVal;
@@ -61,15 +81,7 @@ public:
         : QObject(parent) {
         qDebug() << "Created";
 
-        // // declaring a variable by creating model on stack
-        // Model ms1 = Model(); //Q_UNUSED(ms1)
-
-        // // declaring ref to model on stack
-        // Model& rms1 = ms1; Q_UNUSED(rms1)
-
-        // // declaring ptr to model on stack
-        // //  by taking the address of that model
-        // Model * pms1 = &ms1; // Q_UNUSED(pms1)
+        createModelOnStack();
 
         // // declaring a variable by dereferecing ptr
         // //  to model on stack
@@ -106,6 +118,45 @@ public:
     };
 
     ~CppRefsAndPtrsTestVM() { qDebug() << "Released"; };
+
+    void createModelOnStack() {
+        qDebug() << "============================";
+        // declaring a variable by creating model on stack
+        Model ms1 = Model("model1 on stack"); //Q_UNUSED(ms1)
+
+        // declaring ref to model on stack
+        Model& rms1 = ms1; Q_UNUSED(rms1)
+
+        // declaring ptr to model on stack
+        // by taking the address of that model
+        Model * pms1 = &ms1; // Q_UNUSED(pms1)
+
+        // declaring a ref by dereferecing ptr
+        // to model on stack
+        Model& rdpms1 = *(pms1); Q_UNUSED(rdpms1)
+
+        // declaring a variable by dereferecing ptr
+        // to model on stack
+        // Will implicitly use copy constructor
+        // and actually create new variable on stack
+        Model dpms2 = *(pms1); Q_UNUSED(dpms2)
+
+        // declaring a variable by creating model on stack
+        Model ms2("model2 on stack");
+        // reassgning value of this variable by direct
+        // assignment from another variable on stack.
+        // No copy constructor called
+        ms2 = ms1;
+
+        // reassgning value of this variable by
+        // dereferencing ptr to previous variable
+        // on stack. No copy constructor called
+        ms2 = *(pms1);
+
+        // declaring a variable by assignemnt from
+        // another variable on stack. Copy constructor called
+        Model ms3 = ms1;
+    };
 
 signals:
 
