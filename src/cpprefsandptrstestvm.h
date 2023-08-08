@@ -10,7 +10,7 @@ public:
     QString tag;
     // We need constructor without argumanets
     // to allow `Model m` statements for variable
-    // declaration on stack, but not 100% sure
+    // declaration on stack
     explicit Model(): tag {"default"} { qDebug() << "Created " << this->tag; };
 
     // Why can't use QString& and forced to use QString&&?
@@ -19,7 +19,6 @@ public:
     // Trivial copy-constructor
     // TODO: some kind of && and swap will be better probably?
     Model(const Model& other): tag(other.tag + " copy") {
-//        tag = tag ;
         qDebug() << "Copy " << this->tag;
     };
 
@@ -82,39 +81,7 @@ public:
         qDebug() << "Created";
 
         createModelOnStack();
-
-        // // declaring a variable by dereferecing ptr
-        // //  to model on stack
-        // Model dms1 = *(pms1); Q_UNUSED(dms1)
-
-        // // declaring a variable by creating model on heap
-        // Model* pmh1 = new Model();
-
-        // // declaring a variable by dereferecing a pointer
-        // //  model on heap
-        // Model mh1 = *(pmh1); Q_UNUSED(mh1) // pmh1.deref()
-        // Model mh2 = *(new Model());
-        // delete &mh2;
-
-        // // declaring a ref by dereferecing a pointer
-        // //  model on heap
-        // Model& rpmh1 = *(pmh1); // pmh1.deref()
-
-
-        // Q_UNUSED(rpmh1)
-        // Q_UNUSED(ms1)
-
-        // Model m1 = Model();
-        // Model m2 = Model();
-        // Klazz k = Klazz(m1, m2);
-        // Model ms = k.createModelOnStackRetByVal();
-        // Model* pmh = k.createModelOnHeapRetByPtr();
-        // Model& rmh = k.createModelOnHeapRetByRef();
-
-
-            // error: non-const lvalue reference to type 'Model'
-            // cannot bind to a temporary of type 'Model *'
-        // Model& rmh = k.createModelOnHeapRetByPtr();
+        createModelOnHeap();
     };
 
     ~CppRefsAndPtrsTestVM() { qDebug() << "Released"; };
@@ -158,6 +125,63 @@ public:
         Model ms3 = ms1;
     };
 
+    void createModelOnHeap() {
+        qDebug() << "============================";
+        //! error: no viable conversion from 'Model *' to 'Model'
+        // You can't create variable on stack using value semantics
+        // Model mh = new Model("model1 on heap");
+
+        // declaring a pointer to value by creating model1 on heap
+        Model *pmh1 = new Model("model1 on heap");
+        delete pmh1;
+
+        // declaring a pointer to value by creating model2 on heap
+        Model *pmh2 = new Model("model2 on heap");
+
+        //! error: non-const lvalue reference to type 'Model' cannot bind to a value of unrelated type 'Model *'
+        // you can't assign pointer to reference directly
+        // as they are not replaceable during initilization
+        // Reference should be initilized with value, not with
+        // pointer to value
+        // Model &rpmh2 = pmh2;
+
+        // But you can declare a reference to a value
+        // on heap by dereferencing a ptr to that value
+        Model &rpmh2 = *(pmh2); Q_UNUSED(rpmh2)
+
+        // Now you have a pointer to value and reference to value
+        // And you can free memory using
+        //          delete pmh2;
+        // or
+        delete &rpmh2;
+        // because new and delete only working with addresses
+
+        // Since reference should always be initialized, comparing
+        // to pointers which might point to nothing (nullptr)
+        // such approach is highly not recommended.
+        // So references in general should be used to access and
+        // interact with objects outside of object creation or
+        // object ownership.
+
+        // declaring a reference by dereferecing
+        // a pointer to model on heap, not recommended
+        Model& mh3 = *(new Model("model3 on heap"));
+        delete &mh3;
+        // 1. Object is created on heap
+        // 2. Model& mh3 - is a declaration of reference
+        // 3. Allocated objected assigned to reference
+        // 4. delete &mh3 will free memory on stack
+        // 5. Such approach is not recommended
+
+        // declaring a variable by dereferecing
+        // a pointer to model on heap, not recommended
+        Model mh4 = *(new Model("model4 on heap"));
+        // 1. Object is created on heap
+        // 2. Model mh4 - is a declaration of variable on stack
+        // 3. On assignment copy constructor will be called
+        // 4. delete &mh4 will crash the app, because this is an address on stack
+        // 5. Memory originally allocated on heap will leak.
+    };
 signals:
 
 };
