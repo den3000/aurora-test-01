@@ -5,6 +5,79 @@
 #include <QDebug>
 #include <QString>
 
+class ModelOnlyWithCopy {
+public:
+    QString tag;
+    explicit ModelOnlyWithCopy(QString tag): tag {tag} { qDebug() << "Created " << this->tag; };
+    ~ModelOnlyWithCopy() { qDebug() << "Released " << this->tag; };
+};
+
+class ModelByRef{
+public:
+    QString tag;
+    explicit ModelByRef(QString& tag): tag {tag} { qDebug() << "Created " << this->tag; };
+    ~ModelByRef() { qDebug() << "Released " << this->tag; };
+};
+
+class ModelByConstRef {
+public:
+    QString tag;
+    explicit ModelByConstRef(QString const & tag): tag {tag} { qDebug() << "Created " << this->tag; };
+    ~ModelByConstRef() { qDebug() << "Released " << this->tag; };
+};
+
+class ModelByRvalRef {
+public:
+    QString tag;
+    // tag {std::move(tag)} used to avoid call for QString-copy
+    // when instantiating tag variable for ModelByRvalRef
+    explicit ModelByRvalRef(QString&& tag): tag {std::move(tag)} { qDebug() << "Created " << this->tag; };
+    ~ModelByRvalRef() { qDebug() << "Released " << this->tag; };
+};
+
+class ModelByConstRvalRef {
+public:
+    QString tag;
+    // tag {std::move(tag)} used to avoid call for QString-copy
+    // when instantiating tag variable for ModelByConstRvalRef
+    // but actually this is pretty dangeruous, and might fail
+    // on different compilers, because T const && is a constant
+    // and should not be moved
+    explicit ModelByConstRvalRef(QString const && tag): tag {std::move(tag)} { qDebug() << "Created " << this->tag; };
+    ~ModelByConstRvalRef() { qDebug() << "Released " << this->tag; };
+};
+
+class ModelTest {
+public:
+    explicit ModelTest() {
+        qDebug() << "Created: NO ARG";
+    };
+
+    explicit ModelTest(ModelTest const & other) {
+        Q_UNUSED(other)
+        qDebug() << "Created: const-ref ARG";
+    };
+
+    explicit ModelTest(ModelTest && other) {
+        Q_UNUSED(other)
+        qDebug() << "Created: rvalue-ref ARG";
+    };
+
+    ModelTest & operator=(ModelTest const & other) {
+        Q_UNUSED(other)
+        qDebug() << "=: const-ref ARG";
+        return *this;
+    };
+
+    ModelTest & operator=(ModelTest && other) {
+        Q_UNUSED(other)
+        qDebug() << "=: rvalue-ref ARG";
+        return *this;
+    };
+
+    ~ModelTest() { qDebug() << "Released"; };
+};
+
 class Model {
 public:
     QString tag;
@@ -19,7 +92,7 @@ public:
     // Trivial copy-constructor
     // TODO: some kind of && and swap will be better probably?
     Model(const Model& other): tag(other.tag + " copy") {
-        qDebug() << "Copy " << this->tag;
+        qDebug() << "Created as copy " << this->tag;
     };
 
     ~Model() { qDebug() << "Released " << this->tag; };
@@ -80,11 +153,73 @@ public:
         : QObject(parent) {
         qDebug() << "Created";
 
+        createModels();
         createModelOnStack();
         createModelOnHeap();
     };
 
     ~CppRefsAndPtrsTestVM() { qDebug() << "Released"; };
+
+    void createModels() {
+        qDebug() << "============================";
+
+        //      Model m(...)
+        // is equivalent to
+        //      Model m = Model(...)
+
+        ModelOnlyWithCopy mowc0("model0 only with copy");
+        QString movc1tag = "model1 only with copy";
+        ModelOnlyWithCopy mowc1(movc1tag);
+
+        QString mbr2tag = "model2 by ref";
+        ModelByRef mbr2(mbr2tag);
+
+        //! error:
+        // no matching constructor for initialization of 'ModelByRef'
+        // candidate constructor (the implicit copy constructor) not viable: no known conversion from 'QString' to 'const ModelByRef' for 1st argument
+        // candidate constructor not viable: expects an l-value for 1st argument
+//        ModelByRef mbr2(QString("model2 by ref"));
+
+        //! error:
+        // no matching constructor for initialization of 'ModelByRef'
+        // candidate constructor (the implicit copy constructor) not viable: no known conversion from 'const char [14]' to 'const ModelByRef' for 1st argument
+        // candidate constructor not viable: no known conversion from 'const char [14]' to 'QString &' for 1st argument
+//        ModelByRef mbr2("model2 by ref");
+
+
+        ModelByConstRef mbr3("model3 by const ref");
+        QString mbr4tag = "model4 by const ref";
+        ModelByConstRef mbr4(mbr4tag);
+        ModelByConstRef mbr5(QString("model5 by const ref"));
+
+        ModelByRvalRef mbrvr6("model6 by rvalue ref");
+        QString mbrvr7tag = "model7 by rvalue ref";
+        qDebug() << "before move mbrvr7tag.len = " << mbrvr7tag.length();
+        ModelByRvalRef mbrvr7(std::move(mbrvr7tag));
+        qDebug() << "after move mbrvr7tag.len = " << mbrvr7tag.length();
+        // no matching constructor for initialization of 'ModelByRvalRef'
+        // candidate constructor (the implicit copy constructor) not viable: no known conversion from 'QString' to 'const ModelByRvalRef' for 1st argument
+        // candidate constructor not viable: no known conversion from 'QString' to 'QString &&' for 1st argument
+//        ModelByRvalRef mbrvr7(mbrvr7tag);
+
+        ModelByConstRvalRef mbcrvr7("model7 by const rvalue ref");
+        QString mbrvr8tag = "model8 by const rvalue ref";
+        ModelByRvalRef mbrvr8(std::move(mbrvr8tag));
+        // error: no matching constructor for initialization of 'ModelByRvalRef'
+        // note: candidate constructor (the implicit copy constructor) not viable: no known conversion from 'QString' to 'const ModelByRvalRef' for 1st argument
+        // note: candidate constructor not viable: no known conversion from 'QString' to 'QString &&' for 1st argument
+//        ModelByRvalRef mbrvr8(mbrvr8tag);
+
+        ModelTest mtest1;
+        ModelTest mtest2(mtest1);            // const-ref constructor
+        ModelTest mtest3(std::move(mtest1)); // rvalue-ref constructor
+
+        ModelTest mtest4;
+        mtest4 = mtest1;             // const-ref assignment
+
+        ModelTest mtest5;
+        mtest5 = std::move(mtest1); // rvalue-ref assignment
+    };
 
     void createModelOnStack() {
         qDebug() << "============================";
