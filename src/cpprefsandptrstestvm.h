@@ -78,6 +78,54 @@ public:
     ~ModelTest() { qDebug() << "Released"; };
 };
 
+class ModelOptMove {
+public:
+    QString m_tag;
+    QString m_cnstr;
+
+    explicit ModelOptMove()
+    : m_tag {"default"} 
+    , m_cnstr {"no args"}
+    { 
+        qDebug() << "DEF cnstr " << this->m_tag;
+    };
+
+    explicit ModelOptMove(QString tag)
+    : m_tag { std::move(tag) } 
+    , m_cnstr {"with arg"}
+    { 
+        qDebug() << "ARG cnstr " << this->m_tag;
+    };
+
+    // if explicit then won't compile on arg passing
+    ModelOptMove(ModelOptMove const & other)
+    : m_tag { std::move(other.m_tag) }
+    , m_cnstr {"copy"}
+    {
+        qDebug() << "COPY cnstr " << this->m_tag;
+    }
+
+    ModelOptMove(ModelOptMove && other)
+    : m_tag { std::move(other.m_tag) }
+    , m_cnstr {"move"}
+    {
+        qDebug() << "MOVE cnstr " << this->m_tag;
+    }
+
+    ~ModelOptMove() { 
+        qDebug() << "Dsstr" << this->m_tag << " details: " << this->m_cnstr;
+    };
+
+    QString details(QString && topic) {
+        return topic
+                .append(" tag: ")
+                .append(m_tag)
+                .append(" cnstr: ")
+                .append(m_cnstr);
+    }
+};
+
+
 class Model {
 public:
     QString tag;
@@ -156,6 +204,8 @@ public:
         createModels();
         createModelOnStack();
         createModelOnHeap();
+
+        testCreationWithOptMove();
     };
 
     ~CppRefsAndPtrsTestVM() { qDebug() << "Released"; };
@@ -317,6 +367,33 @@ public:
         // 4. delete &mh4 will crash the app, because this is an address on stack
         // 5. Memory originally allocated on heap will leak.
     };
+
+    void testCreationWithOptMove() {
+        ModelOptMove mt1("mt1");
+        // "mt1" is rvalue, which is moved inside
+        // constructor, so no copy at all
+
+        QString mt2tag("mt2");
+        ModelOptMove mt2(mt2tag);
+        // mt2tag is lvalue, which is passed by value
+        // to constructor, so one copy on passing and
+        // then one move inside constructor
+
+        QString mt3tag("mt3");
+        ModelOptMove mt3(std::move(mt3tag));
+        // mt3tag is lvalue, but transformed to rvalue
+        // using std::move when passed into constructor,
+        // so no copy on passing and, only one move and
+        // then one move inside constructor
+
+        QString mt4tag("mt4");
+        QString & mt4tagRef = mt4tag;
+        ModelOptMove mt4(mt4tagRef);
+        // or
+        // ModelOptMove mt4(std::move(mt4tagRef));
+        // TODO: explanation
+    };
+
 signals:
 
 };
