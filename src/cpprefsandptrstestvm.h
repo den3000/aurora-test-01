@@ -86,15 +86,15 @@ public:
     explicit ModelOptMove()
     : m_tag {"default"} 
     , m_cnstr {"no args"}
-    { 
-        qDebug() << "DEF cnstr " << this->m_tag;
+    {
+        qDebug() << details("DEF cnstr");
     };
 
     explicit ModelOptMove(QString tag)
     : m_tag { std::move(tag) } 
     , m_cnstr {"with arg"}
-    { 
-        qDebug() << "ARG cnstr " << this->m_tag;
+    {
+        qDebug() << details("ARG cnstr");
     };
 
     // if explicit then won't compile on arg passing
@@ -102,18 +102,18 @@ public:
     : m_tag { std::move(other.m_tag) }
     , m_cnstr {"copy"}
     {
-        qDebug() << "COPY cnstr " << this->m_tag;
+        qDebug() << details("COPY cnstr");
     }
 
     ModelOptMove(ModelOptMove && other)
     : m_tag { std::move(other.m_tag) }
     , m_cnstr {"move"}
     {
-        qDebug() << "MOVE cnstr " << this->m_tag;
+        qDebug() << details("MOVE cnstr");
     }
 
     ~ModelOptMove() { 
-        qDebug() << "Dsstr" << this->m_tag << " details: " << this->m_cnstr;
+        qDebug() << details("Dsstr");
     };
 
     QString details(QString && topic) {
@@ -206,6 +206,7 @@ public:
         createModelOnHeap();
 
         testCreationWithOptMove();
+        testMoveOptCalls();
     };
 
     ~CppRefsAndPtrsTestVM() { qDebug() << "Released"; };
@@ -389,10 +390,72 @@ public:
         QString mt4tag("mt4");
         QString & mt4tagRef = mt4tag;
         ModelOptMove mt4(mt4tagRef);
-        // or
+        // seems like same as by value
+
         // ModelOptMove mt4(std::move(mt4tagRef));
-        // TODO: explanation
+        // seems like same as by moved value
     };
+
+    void testMoveOptCalls() {
+        qDebug() << "\n";
+        fooMoveOpt(ModelOptMove("mt0"));
+        // Only one cnstr called, since it is temp object
+        // it will be directly created in function scope
+
+        qDebug() << "\n";
+        ModelOptMove mt1("mt1");
+        qDebug() << "mt1 addr: " << &mt1;
+        qDebug() << mt1.details("mt1 after being created");
+
+        qDebug() << "\n";
+        fooMoveOpt(mt1);
+        // Copy cnstr called, not the best solution
+        // but might be desired behaviour
+        qDebug() << mt1.details("mt1 after pass by copy");
+
+        qDebug() << "\n";
+        ModelOptMove & mt1ref = mt1;
+        fooMoveOpt(mt1ref);
+        // Same as for pass by value
+        qDebug() << mt1.details("mt1 after pass by ref");
+
+
+        // fooMoveOpt(&mt1);
+        // won't compile, instead of pass by ref
+        // use std::move below, not optimal, but possible
+
+        qDebug() << "\n";
+        fooMoveOpt(std::move(mt1));
+        // Move cnstr called, better then using copy
+        // cnstr, but not as optimal as passing by ref
+
+        // fooMoveOpt(std::move(mt1ref));
+        // same as just move variable
+        qDebug() << mt1.details("mt1 after pass by move");
+
+        // We can define on caller side what behaviour
+        // we exactly want, because after move has been
+        // used moved object is not valid anymore
+    }
+
+    void fooMoveOpt(ModelOptMove m){
+        qDebug() << "arg addr: " << &m;
+        qDebug() << m.details("fooOptMoveCalls");
+
+        /*
+            // use the following if you want to
+            // pass m further with minimal losses
+                auto am = std::move(m);
+                // ... do what is necessary
+                footMoveOpt2(am);
+
+            // but technically you can just do
+                footMoveOpt2(m);
+            // if copy is fine
+        */
+    };
+
+    void footMoveOpt2(ModelOptMove m){ Q_UNUSED(m) };
 
 signals:
 
