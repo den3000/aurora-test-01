@@ -125,7 +125,6 @@ public:
     }
 };
 
-
 class Model {
 public:
     QString tag;
@@ -371,16 +370,19 @@ public:
     };
 
     void testCreationWithOptMove() {
+        // 1
         ModelOptMove mt1("mt1");
         // "mt1" is rvalue, which is moved inside
         // constructor, so no copy at all
 
+        // 2
         QString mt2tag("mt2");
         ModelOptMove mt2(mt2tag);
         // mt2tag is lvalue, which is passed by value
         // to constructor, so one copy on passing and
         // then one move inside constructor
 
+        // 3
         QString mt3tag("mt3");
         ModelOptMove mt3(std::move(mt3tag));
         // mt3tag is lvalue, but transformed to rvalue
@@ -388,11 +390,13 @@ public:
         // so no copy on passing and, only one move and
         // then one move inside constructor
 
+        // 4
         QString mt4tag("mt4");
         QString & mt4tagRef = mt4tag;
         ModelOptMove mt4(mt4tagRef);
         // seems like same as by value
 
+        // 4.1
         // ModelOptMove mt4(std::move(mt4tagRef));
         // seems like same as by moved value
     };
@@ -423,16 +427,11 @@ public:
         // Same as for pass by value
         qDebug() << mt1.details("mt1 after pass by ref");
 
-        // 3.1
-        // fooMoveOpt(&mt1);
-        // won't compile, instead of pass by ref
-        // use std::move below, not optimal, but possible
-
         // 4
         qDebug() << "\n";
         fooMoveOpt(std::move(mt1));
         // Move cnstr called, better then using copy
-        // cnstr, but not as optimal as passing by ref
+        // cnstr, but not as optimal as passing by ref or PF
 
         // 4.1
         // fooMoveOpt(std::move(mt1ref));
@@ -474,14 +473,9 @@ public:
         qDebug() << "mt1 addr: " << &mt1;
         qDebug() << mt1.details("mt1 after being created");
 
-        // 1.1
+        //
         // fooMoveOnly(mt1);
         // won't compile, because only rvalue is acceptable
-
-        // 1.2
-        // fooMoveOnly(&mt1);
-        // won't compile, instead of pass by ref
-        // use std::move below
 
         // 2
         qDebug() << "\n";
@@ -506,6 +500,58 @@ public:
     };
 
     void fooMoveOnly2(ModelOptMove && m){ Q_UNUSED(m) };
+
+    void testRefCalls() {
+        //
+        qDebug() << "\n";
+        // fooRef(ModelOptMove("mt0"));
+        // won't compile, since temp object
+        // can't be passed by ref
+
+        qDebug() << "\n";
+        ModelOptMove mt1("mt1");
+        qDebug() << "mt1 addr: " << &mt1;
+        qDebug() << mt1.details("mt1 after being created");
+
+        // 1
+        qDebug() << "\n";
+        fooRef(mt1);
+        // Copy cnstr called, not the best solution
+        // but might be desired behaviour
+        qDebug() << mt1.details("mt1 after pass by copy");
+
+        // 2
+        qDebug() << "\n";
+        ModelOptMove & mt1ref = mt1;
+        fooRef(mt1ref);
+        // Same as for pass by value
+        qDebug() << mt1.details("mt1 after pass by ref");
+
+        //
+        qDebug() << "\n";
+        // fooRef(std::move(mt1));
+        // won't compile: non-const lvalue reference to type 'ModelOptMove' cannot bind to a temporary of type 'typename std::remove_reference<ModelOptMove &>::type' (aka 'ModelOptMove')
+
+        //
+        // fooRef(std::move(mt1ref));
+        // won't compile: non-const lvalue reference to type 'ModelOptMove' cannot bind to a temporary of type 'typename std::remove_reference<ModelOptMove &>::type' (aka 'ModelOptMove')
+    }
+
+    void fooRef(ModelOptMove & m){
+        qDebug() << "arg addr: " << &m;
+        qDebug() << m.details("fooOptMoveCalls");
+
+        /*
+            // use the following if you want to
+            // pass m further with minimal losses
+                // ... do what is necessary
+                fooRef2(m);
+        */
+
+        fooRef2(m);
+    };
+
+    void fooRef2(ModelOptMove & m){ Q_UNUSED(m) };
 
 signals:
 
