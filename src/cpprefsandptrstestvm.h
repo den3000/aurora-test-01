@@ -207,6 +207,7 @@ public:
 
         testCreationWithOptMove();
         testMoveOptCalls();
+        testMoveOnlyCalls();
     };
 
     ~CppRefsAndPtrsTestVM() { qDebug() << "Released"; };
@@ -397,6 +398,7 @@ public:
     };
 
     void testMoveOptCalls() {
+        // 1
         qDebug() << "\n";
         fooMoveOpt(ModelOptMove("mt0"));
         // Only one cnstr called, since it is temp object
@@ -407,28 +409,32 @@ public:
         qDebug() << "mt1 addr: " << &mt1;
         qDebug() << mt1.details("mt1 after being created");
 
+        // 2
         qDebug() << "\n";
         fooMoveOpt(mt1);
         // Copy cnstr called, not the best solution
         // but might be desired behaviour
         qDebug() << mt1.details("mt1 after pass by copy");
 
+        // 3
         qDebug() << "\n";
         ModelOptMove & mt1ref = mt1;
         fooMoveOpt(mt1ref);
         // Same as for pass by value
         qDebug() << mt1.details("mt1 after pass by ref");
 
-
+        // 3.1
         // fooMoveOpt(&mt1);
         // won't compile, instead of pass by ref
         // use std::move below, not optimal, but possible
 
+        // 4
         qDebug() << "\n";
         fooMoveOpt(std::move(mt1));
         // Move cnstr called, better then using copy
         // cnstr, but not as optimal as passing by ref
 
+        // 4.1
         // fooMoveOpt(std::move(mt1ref));
         // same as just move variable
         qDebug() << mt1.details("mt1 after pass by move");
@@ -456,6 +462,50 @@ public:
     };
 
     void footMoveOpt2(ModelOptMove m){ Q_UNUSED(m) };
+
+    void testMoveOnlyCalls() {
+        // 1
+        qDebug() << "\n";
+        fooMoveOnly(ModelOptMove("mt0"));
+        // no copy, just perfect forwarding
+
+        qDebug() << "\n";
+        ModelOptMove mt1("mt1");
+        qDebug() << "mt1 addr: " << &mt1;
+        qDebug() << mt1.details("mt1 after being created");
+
+        // 1.1
+        // fooMoveOnly(mt1);
+        // won't compile, because only rvalue is acceptable
+
+        // 1.2
+        // fooMoveOnly(&mt1);
+        // won't compile, instead of pass by ref
+        // use std::move below
+
+        // 2
+        qDebug() << "\n";
+        fooMoveOnly(std::move(mt1));
+        // no copy, just perfect forwarding
+        qDebug() << mt1.details("mt1 after pass by move");
+    }
+
+    void fooMoveOnly(ModelOptMove && m){
+        qDebug() << "arg addr: " << &m;
+        qDebug() << m.details("fooOptMoveCalls");
+
+        /*
+            // use the following if you want to
+            // pass m further with minimal losses
+            fooMoveOnly2(std::move(m));
+
+            // but you can't just use the following
+                fooMoveOnly2(m);
+            // because m is lvalue, not rvalue
+        */
+    };
+
+    void fooMoveOnly2(ModelOptMove && m){ Q_UNUSED(m) };
 
 signals:
 
