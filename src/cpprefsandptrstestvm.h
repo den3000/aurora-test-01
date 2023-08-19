@@ -84,7 +84,7 @@ public:
     QString m_cnstr;
 
     explicit ModelOptMove()
-    : m_tag {"default"} 
+    : m_tag {"default"}
     , m_cnstr {"no args"}
     {
         qDebug() << details("DEF cnstr");
@@ -212,7 +212,7 @@ public:
        testByRvalRefCalls();
        testByConstRvalRefCalls();
 
-       testAllCalls();
+       testRvoNrvo();
     };
 
     ~CppRefsAndPtrsTestVM() { qDebug() << "Released"; };
@@ -688,6 +688,93 @@ public:
         // fooByRvalRef(mtRef3);
         fooByRvalRef(std::move(mt3));
         fooByRvalRef(std::move(mtRef3));
+    };
+
+    // rvo / nrvo
+    void testRvoNrvo(){
+        qDebug() << "\n";
+        ModelOptMove mRvo1 = fooRvo1();
+        ModelOptMove mRvo2 = fooRvo2(2);
+        ModelOptMove mNrvo1 = fooNrvo1();
+        ModelOptMove mNrvo2 = fooNrvo2(2);
+
+        ModelOptMove mNrvoFail1 = fooNrvoFail1(2);
+        ModelOptMove mNrvoFail2_2 = fooNrvoFail2(2);
+        ModelOptMove mNrvoFail2_3 = fooNrvoFail2(3);
+    };
+
+    ModelOptMove fooRvo1() {
+        qDebug() << "\n";
+        return ModelOptMove("rvo1");
+    };
+
+    ModelOptMove fooRvo2(int i) {
+        qDebug() << "\n";
+        switch (i) {
+        case 1: return ModelOptMove("rvo2_1");
+        case 2: return ModelOptMove("rvo2_2");
+        case 3: return ModelOptMove("rvo2_3");
+        default: return ModelOptMove("rvo2_def");
+        }
+    };
+
+    ModelOptMove fooNrvo1() {
+        qDebug() << "\n";
+        ModelOptMove m("nrvo1");
+        return m;
+    };
+
+    ModelOptMove fooNrvo2(int i) {
+        qDebug() << "\n";
+
+        ModelOptMove m;
+        switch (i) {
+        case 1: m.m_tag = "nrvo2_1"; break;
+        case 2: m.m_tag = "nrvo2_2"; break;
+        case 3: m.m_tag = "nrvo2_3"; break;
+        default: m.m_tag = "nrvo2_def"; break;
+        }
+
+        return m;
+    };
+
+    ModelOptMove fooNrvoFail1(int i) {
+        qDebug() << "\n";
+
+        switch (i) {
+        case 1: {
+            ModelOptMove m("nrvofail1_1");
+            return m; // move constructor used
+        }
+        case 2: {
+            ModelOptMove m("nrvofail1_2");
+            return m; // move constructor used
+        }
+        case 3: {
+            ModelOptMove m("nrvofail1_3");
+            return m; // move constructor used
+        }
+        default: {
+            ModelOptMove m("nrvofail1_def");
+            return m; // move constructor used
+        }
+        }
+    };
+
+    ModelOptMove fooNrvoFail2(int i) {
+        qDebug() << "\n";
+        if (i == 2) {
+            return ModelOptMove("nrvofail1_2"); // rvo used
+        }
+
+        ModelOptMove m;
+        switch (i) {
+        case 1: m.m_tag = "nrvofail1_1"; break; // move constructor used
+        case 3: m.m_tag = "nrvofail1_3"; break; // move constructor used
+        default: m.m_tag = "nrvofail1_def"; break; // move constructor used
+        }
+
+        return m;
     };
 
 signals:
