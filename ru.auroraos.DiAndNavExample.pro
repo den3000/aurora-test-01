@@ -40,7 +40,8 @@ TARGET = ru.auroraos.DiAndNavExample
 QT += sql
 
 CONFIG += \
-    auroraapp
+    auroraapp \
+    c++1z
 
 PKGCONFIG += \
 

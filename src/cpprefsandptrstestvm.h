@@ -5,6 +5,8 @@
 #include <QDebug>
 #include <QString>
 
+#include "memory"
+
 class ModelOnlyWithCopy {
 public:
     QString tag;
@@ -116,7 +118,7 @@ public:
         qDebug() << details("Dsstr");
     };
 
-    QString details(QString && topic) const {
+    QString details(QString && topic = "") const {
         return topic
                 .append(" tag: ")
                 .append(m_tag)
@@ -213,6 +215,8 @@ public:
        testByConstRvalRefCalls();
 
        testRvoNrvo();
+
+       testPassSmartPointers();
     };
 
     ~CppRefsAndPtrsTestVM() { qDebug() << "Released"; };
@@ -776,6 +780,57 @@ public:
 
         return m;
     };
+
+    // smart pointers
+    void testPassSmartPointers(){
+        // shared
+        qDebug() << "\n";
+        auto spm1 = std::make_shared<ModelOptMove>("spm1");
+        auto spm2 = std::shared_ptr<ModelOptMove>(new ModelOptMove("spm2"));
+        std::shared_ptr<ModelOptMove> spm3(new ModelOptMove("spm3"));
+
+        qDebug() << "\n";
+        qDebug() << "spm1.useCount = " << spm1.use_count();
+        fooSharedPtrTest(spm1);
+        qDebug() << "spm1.useCount = " << spm1.use_count();
+
+        // weak
+        qDebug() << "\n";
+        auto spm4 = std::make_shared<ModelOptMove>("spm4");
+        std::weak_ptr<ModelOptMove> wpm4(spm4);
+
+        qDebug() << "spm4.useCount = " << spm1.use_count();
+        qDebug() << "wpm4.useCount = " << wpm4.use_count();
+        fooWeakPtrTest(wpm4);
+
+        // unique
+        qDebug() << "\n";
+        auto upm1 = std::make_unique<ModelOptMove>("upm1");
+        auto upm2 = std::unique_ptr<ModelOptMove>(new ModelOptMove("upm2"));
+        std::unique_ptr<ModelOptMove> upm3(new ModelOptMove("upm3"));
+
+        qDebug() << upm1.get()->details("unique before fooUniquePtrTest");
+        fooUniquePtrTest(std::move(upm1));
+        // will cause crash, unique ptr should not be accesed after move
+        // qDebug() << upm1.get()->details("unique after fooUniquePtrTest");
+    };
+
+    void fooSharedPtrTest(std::shared_ptr<ModelOptMove> spm) {
+        qDebug() << "spm.useCount = " << spm.use_count();
+        auto details = spm.get()->details("shared");
+        qDebug() << details;
+    }
+
+    void fooWeakPtrTest(std::weak_ptr<ModelOptMove> wpm) {
+        qDebug() << "wpm.useCount = " << wpm.use_count();
+        qDebug() << wpm.lock().get()->details("weak");
+    }
+
+    void fooUniquePtrTest(std::unique_ptr<ModelOptMove> upm) {
+        auto details = upm.get()->details("unique");
+        qDebug() << details;
+    }
+
 
 signals:
 
