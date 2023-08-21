@@ -197,26 +197,29 @@ class CppRefsAndPtrsTestVM : public QObject
     Q_OBJECT
     Q_PROPERTY(QObject * parent READ parent WRITE setParent)
 
+    std::shared_ptr<ModelOptMove> m_spm;
+
 public:
     explicit CppRefsAndPtrsTestVM(QObject *parent = nullptr)
         : QObject(parent) {
         qDebug() << "Created";
+        m_spm = std::shared_ptr<ModelOptMove>(new ModelOptMove("m_spm"));
+//       createModels();
+//       createModelOnStack();
+//       createModelOnHeap();
 
-       createModels();
-       createModelOnStack();
-       createModelOnHeap();
+//       testCreationWithOptMove();
 
-       testCreationWithOptMove();
+//       testByValCalls();
+//       testByRefCalls();
+//       testByConstRefCalls();
+//       testByRvalRefCalls();
+//       testByConstRvalRefCalls();
 
-       testByValCalls();
-       testByRefCalls();
-       testByConstRefCalls();
-       testByRvalRefCalls();
-       testByConstRvalRefCalls();
+//       testRvoNrvo();
 
-       testRvoNrvo();
-
-       testPassSmartPointers();
+//       testPassSmartPointers();
+       testReturnSmartPtrs();
     };
 
     ~CppRefsAndPtrsTestVM() { qDebug() << "Released"; };
@@ -831,6 +834,33 @@ public:
         qDebug() << details;
     }
 
+    void testReturnSmartPtrs() {
+        auto spm = fooReturnSharedPtr();
+        auto wpm1 = fooReturnWeakPtr1();
+        qDebug() << wpm1.expired();
+        auto wpm2 = fooReturnWeakPtr2();
+        qDebug() << wpm2.expired();
+        auto upm = fooReturnUniquePtr();
+    };
+
+    std::shared_ptr<ModelOptMove> fooReturnSharedPtr() {
+        return std::make_shared<ModelOptMove>("spm1");
+    }
+
+    std::weak_ptr<ModelOptMove> fooReturnWeakPtr1() {
+        std::weak_ptr<ModelOptMove> wpm(m_spm);
+        return wpm;
+    }
+
+    std::weak_ptr<ModelOptMove> fooReturnWeakPtr2() {
+        auto spm = std::make_shared<ModelOptMove>("spm2");
+        std::weak_ptr<ModelOptMove> wpm(spm);
+        return wpm;
+    }
+
+    std::unique_ptr<ModelOptMove> fooReturnUniquePtr() {
+        return std::make_unique<ModelOptMove>("upm");
+    }
 
 signals:
 
