@@ -1,7 +1,5 @@
 #include "bookmodeltable.h"
 
-// this include is required to access QSqlRecord type
-#include <QSqlRecord>
 #include <QSqlError>
 #include <QDebug>
 #include <QSqlField>
@@ -115,14 +113,4 @@ void BookModelTable::insert(const QString author, const QString title, const int
     });
 }
 
-template<typename F> inline
-void BookModelTable::updateRecordsInRange(const int start, const int end, const bool executeSubmitAll, F &&lambda)
-{
-    for (int row = start; row < end; row++) {
-        auto r = record(row);
-        lambda(row, r);
-        setRecord(row, r);
-    }
 
-    if (executeSubmitAll) { submitAll(); }
-}

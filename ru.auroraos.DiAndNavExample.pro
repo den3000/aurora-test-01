@@ -40,28 +40,37 @@ TARGET = ru.auroraos.DiAndNavExample
 QT += sql
 
 CONFIG += \
-    auroraapp
+    auroraapp \
+    c++1z
 
 PKGCONFIG += \
 
 SOURCES += \
+    src/cpprefsandptrstestvm.cpp \
+    src/cpptoqmlmemorytestabstractlistmodel.cpp \
     src/bookmodeltable.cpp \
     src/bookquerytable.cpp \
     src/aboutvm.cpp \
     src/bookslistmodelvm.cpp \
     src/bookslistqueryvm.cpp \
+    src/cpptoqmlmemorytestmodel.cpp \
+    src/cpptoqmlmemorytestvm.cpp \
     src/mainvm.cpp \
     src/main.cpp \
     src/rootcoordinator.cpp \
     src/sqlitedb.cpp
 
 HEADERS += \
+    src/cpprefsandptrstestvm.h \
+    src/cpptoqmlmemorytestabstractlistmodel.h \
     src/bookdao.h \
     src/bookmodeltable.h \
     src/bookquerytable.h \
     src/aboutvm.h \
     src/bookslistmodelvm.h \
     src/bookslistqueryvm.h \
+    src/cpptoqmlmemorytestmodel.h \
+    src/cpptoqmlmemorytestvm.h \
     src/customcppclasses.h \
     src/idbprovider.h \
     src/mainvm.h \
@@ -72,10 +81,12 @@ HEADERS += \
 
 DISTFILES += \
     qml/RootCoordinatorQml.qml \
-    qml/pages/Dao.qml \
-    qml/pages/SQLiteCppPage.qml \
-    qml/pages/SQLiteQmlPage.qml \
-    qml/pages/SqlQueryModelPage.qml \
+    qml/pages/BooksListModelPage.qml \
+    qml/pages/BooksListQmlPage.qml \
+    qml/pages/BooksListQmlTable.qml \
+    qml/pages/BooksListQueryPage.qml \
+    qml/pages/CppRefsAndPtrsTestPage.qml \
+    qml/pages/CppToQmlMemoryTestPage.qml \
     rpm/ru.auroraos.DiAndNavExample.spec \
     AUTHORS.md \
     CODE_OF_CONDUCT.md \

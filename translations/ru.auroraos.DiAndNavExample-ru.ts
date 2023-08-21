@@ -70,6 +70,141 @@
     </message>
 </context>
 <context>
+    <name>BooksListModelPage</name>
+    <message>
+        <location filename="../qml/pages/BooksListModelPage.qml" line="24"/>
+        <source>Sql Query Model</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BooksListModelPage.qml" line="30"/>
+        <source>Add new here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BooksListModelPage.qml" line="34"/>
+        <source>Add new below</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BooksListModelPage.qml" line="38"/>
+        <source>Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BooksListModelPage.qml" line="43"/>
+        <source>Move to top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BooksListModelPage.qml" line="66"/>
+        <source>Create new item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BooksListModelPage.qml" line="79"/>
+        <source>Edit existing item</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>BooksListQmlPage</name>
+    <message>
+        <location filename="../qml/pages/BooksListQmlPage.qml" line="10"/>
+        <source>SQLite QML DB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BooksListQmlPage.qml" line="16"/>
+        <source>Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BooksListQmlPage.qml" line="20"/>
+        <source>Add new here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BooksListQmlPage.qml" line="24"/>
+        <source>Add new below</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BooksListQmlPage.qml" line="28"/>
+        <source>Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BooksListQmlPage.qml" line="36"/>
+        <source>Move to top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BooksListQmlPage.qml" line="62"/>
+        <source>Create new item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BooksListQmlPage.qml" line="93"/>
+        <source>Edit existing item</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>BooksListQueryPage</name>
+    <message>
+        <location filename="../qml/pages/BooksListQueryPage.qml" line="14"/>
+        <source>SQLite CPP DB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BooksListQueryPage.qml" line="20"/>
+        <source>Add new here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BooksListQueryPage.qml" line="24"/>
+        <source>Add new below</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BooksListQueryPage.qml" line="28"/>
+        <source>Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BooksListQueryPage.qml" line="33"/>
+        <source>Move to top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BooksListQueryPage.qml" line="56"/>
+        <source>Create new item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BooksListQueryPage.qml" line="69"/>
+        <source>Edit existing item</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CppRefsAndPtrsTestPage</name>
+    <message>
+        <location filename="../qml/pages/CppRefsAndPtrsTestPage.qml" line="11"/>
+        <source>Cpp To Qml Memory Test Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CppToQmlMemoryTestPage</name>
+    <message>
+        <location filename="../qml/pages/CppToQmlMemoryTestPage.qml" line="18"/>
+        <source>Cpp To Qml Memory Test Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DefaultCoverPage</name>
     <message>
         <location filename="../qml/cover/DefaultCoverPage.qml" line="46"/>
@@ -83,125 +218,6 @@
         <location filename="../qml/pages/MainPage.qml" line="51"/>
         <source>DI and Navigation example</source>
         <translation type="unfinished">Пример DI и навигации</translation>
-    </message>
-</context>
-<context>
-    <name>SQLiteCppPage</name>
-    <message>
-        <location filename="../qml/pages/SQLiteCppPage.qml" line="14"/>
-        <source>SQLite CPP DB</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/SQLiteCppPage.qml" line="20"/>
-        <source>Add new here</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/SQLiteCppPage.qml" line="24"/>
-        <source>Add new below</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/SQLiteCppPage.qml" line="28"/>
-        <source>Remove</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/SQLiteCppPage.qml" line="33"/>
-        <source>Move to top</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/SQLiteCppPage.qml" line="56"/>
-        <source>Create new item</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/SQLiteCppPage.qml" line="69"/>
-        <source>Edit existing item</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>SQLiteQmlPage</name>
-    <message>
-        <location filename="../qml/pages/SQLiteQmlPage.qml" line="10"/>
-        <source>SQLite QML DB</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/SQLiteQmlPage.qml" line="28"/>
-        <source>Remove</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/SQLiteQmlPage.qml" line="20"/>
-        <source>Add new here</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/SQLiteQmlPage.qml" line="16"/>
-        <source>Edit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/SQLiteQmlPage.qml" line="24"/>
-        <source>Add new below</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/SQLiteQmlPage.qml" line="36"/>
-        <source>Move to top</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/SQLiteQmlPage.qml" line="62"/>
-        <source>Create new item</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/SQLiteQmlPage.qml" line="93"/>
-        <source>Edit existing item</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>SqlQueryModelPage</name>
-    <message>
-        <location filename="../qml/pages/SqlQueryModelPage.qml" line="24"/>
-        <source>Sql Query Model</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/SqlQueryModelPage.qml" line="30"/>
-        <source>Add new here</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/SqlQueryModelPage.qml" line="34"/>
-        <source>Add new below</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/SqlQueryModelPage.qml" line="38"/>
-        <source>Remove</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/SqlQueryModelPage.qml" line="43"/>
-        <source>Move to top</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/SqlQueryModelPage.qml" line="66"/>
-        <source>Create new item</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/SqlQueryModelPage.qml" line="79"/>
-        <source>Edit existing item</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

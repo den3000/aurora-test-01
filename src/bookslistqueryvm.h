@@ -25,9 +25,9 @@ public:
     explicit BooksListQueryVM(IBooksQueryTableProvider * tableProvider, QObject *parent = nullptr);
     ~BooksListQueryVM();
 
-    virtual int rowCount(const QModelIndex&) const { return books.size(); }
-    virtual QVariant data(const QModelIndex &index, int role) const;
-    QHash<int, QByteArray> roleNames() const;
+    int rowCount(const QModelIndex&) const override { return books.size(); }
+    QVariant data(const QModelIndex &index, int role) const override;
+    QHash<int, QByteArray> roleNames() const override;
     
     Q_INVOKABLE void insert(const QString author, const QString title, const int totalPages, const int position);
     Q_INVOKABLE void remove(const int id, const int position);
@@ -42,13 +42,25 @@ private:
     BookQueryTable *bookQueryTable;
 
     template<typename F>
-    inline void updateData(const int start, const int end, F && lambda);
+    void updateData(const int start, const int end, F && lambda) {
+        for (int i = start; i < end; i++) {
+            lambda(i, books[i]);
+        }
+        // interesting that index value might be out of
+        // data range and this will not break anything
+        emit dataChanged(createIndex(start, 0), createIndex(end, 0));
+    };
 
     // alternative lambda useage for a case when function
     // can't be defined in a header. Potential problems here
     // related to move semantics and unique ptr sharing or something
     // like that
     // #include "functional" is required to use this
-    inline void updateDataAlt(const int start, const int end, std::function<void(int, BookDao &)> && lambda);
+    inline void updateDataAlt(const int start, const int end, std::function<void(int, BookDao &)> && lambda) {
+        for (int i = start; i < end; i++) {
+            lambda(i, books[i]);
+        }
+        emit dataChanged(createIndex(start, 0), createIndex(end, 0));
+    };
 };
 #endif // BOOKSLISTQUERYVM_H

@@ -2,7 +2,7 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 
 Page {
-    Dao { id: dao }
+    BooksListQmlTable { id: table }
 
     SilicaListView {
         anchors.fill: parent
@@ -27,7 +27,7 @@ Page {
                 MenuItem {
                     text: qsTr("Remove")
                     onClicked: {
-                        dao.deleteBook(id)
+                        table.deleteBook(id)
                         booksListModel.remove(index)
                     }
 
@@ -35,7 +35,7 @@ Page {
                 MenuItem {
                     text: qsTr("Move to top")
                     onClicked: {
-                        dao.moveToTop(model.id, index)
+                        table.moveToTop(model.id, index)
 
                         var from = index
                         booksListModel.move(from, 0, 1)
@@ -61,7 +61,7 @@ Page {
         var dialog = pageStack.push(Qt.resolvedUrl("AddItemDialog.qml"))
         dialog.dialogTitle = qsTr("Create new item")
         dialog.accepted.connect(function() {
-            dao.insertBook(dialog.bookAuthor, dialog.bookTitle, dialog.bookTotalPages, position,
+            table.insertBook(dialog.bookAuthor, dialog.bookTitle, dialog.bookTotalPages, position,
                function(insertId) {
                    console.log("InsertId = " + insertId)
 
@@ -92,7 +92,7 @@ Page {
 
         dialog.dialogTitle = qsTr("Edit existing item")
         dialog.accepted.connect(function() {
-            dao.updateBook(model.id, dialog.bookAuthor, dialog.bookTitle, dialog.bookTotalPages)
+            table.updateBook(model.id, dialog.bookAuthor, dialog.bookTitle, dialog.bookTotalPages)
 
             booksListModel.set(position, {
                                    id: model.id,
@@ -105,7 +105,7 @@ Page {
 
     function reloadAllBooks() {
         booksListModel.clear()
-        dao.retrieveBooks(function (books) {
+        table.retrieveBooks(function (books) {
             for (var i = 0; i < books.length; i++) {
                 var book = books.item(i)
                 booksListModel.append({

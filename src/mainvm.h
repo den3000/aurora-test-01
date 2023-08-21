@@ -5,7 +5,6 @@
 #include <QString>
 #include <QDebug>
 
-
 class CustomModel
 {
 public:
@@ -34,6 +33,8 @@ signals:
     void gotoAboutPageWithModel(CustomModel model);
     void gotoSqliteCpp();
     void gotoSqliteQueryModelCpp();
+    void gotoCppToQmlMemoryTest();
+    void gotoCppRefsAndPtrsTest();
 
 private:
     QList<CustomModel> models;

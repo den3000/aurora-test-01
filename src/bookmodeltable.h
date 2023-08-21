@@ -4,13 +4,13 @@
 #include <QObject>
 #include <QSqlTableModel>
 
-#include "idbprovider.h"
+// this include is required to access QSqlRecord type
+#include <QSqlRecord>
 
 class BookModelTable;
 
-class IBooksModelTableProvider: public IDbProvider {
-public:
-    virtual BookModelTable * booksModelTable(QObject *parent = nullptr) = 0;
+struct IBooksModelTableProvider {
+    virtual BookModelTable * booksModelTable(QObject *parent = nullptr) const = 0;
 };
 
 class BookModelTable : public QSqlTableModel
@@ -30,7 +30,7 @@ public:
     explicit BookModelTable(QObject *parent = nullptr, QSqlDatabase db = QSqlDatabase());
     ~BookModelTable();
 
-    virtual QVariant data(const QModelIndex &index, int role) const override;
+    QVariant data(const QModelIndex &index, int role) const override;
     QHash<int, QByteArray> roleNames() const override;
     bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
 
@@ -42,7 +42,15 @@ signals:
 
 private:
     template<typename F>
-    inline void updateRecordsInRange(const int start, const int end, const bool executeSubmitAll, F && lambda);
+    void updateRecordsInRange(const int start, const int end, const bool executeSubmitAll, F && lambda) {
+        for (int row = start; row < end; row++) {
+            auto r = record(row);
+            lambda(row, r);
+            setRecord(row, r);
+        }
+
+        if (executeSubmitAll) { submitAll(); }
+    };
 
 };
 

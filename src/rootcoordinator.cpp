@@ -12,6 +12,7 @@ RootCoordinator::RootCoordinator(QObject *parent) : QObject(parent)
 {
 
     sqliteDb = QSharedPointer<SQLiteDb>(new SQLiteDb());
+    sqliteDb->connectToDBs();
 
     rootView = QSharedPointer<QQuickView>(Aurora::Application::createView());
     rootView->setSource(Aurora::Application::pathTo("qml/DiAndNavExample.qml"));
@@ -25,7 +26,10 @@ RootCoordinator::RootCoordinator(QObject *parent) : QObject(parent)
     qmlCoordinatorInstance = QSharedPointer<QQuickItem>(Smoozy::findQuickViewChildByObjectName(rootView.data(), "rootCoordinatorQml"));
 }
 
-RootCoordinator::~RootCoordinator() { qDebug() << "RootCoordinator destroyed"; }
+RootCoordinator::~RootCoordinator() {
+    sqliteDb->disconnectFromDBs();
+    qDebug() << "RootCoordinator destroyed";
+}
 
 void RootCoordinator::start() {
     rootView->show();
@@ -37,6 +41,8 @@ void RootCoordinator::start() {
     QObject::connect(vm, &MainVM::gotoAboutPageWithModel, this, &RootCoordinator::showAboutPageWithModel);
     QObject::connect(vm, &MainVM::gotoSqliteCpp, this, &RootCoordinator::showSqliteCpp);
     QObject::connect(vm, &MainVM::gotoSqliteQueryModelCpp, this, &RootCoordinator::showSqliteQueryModelCpp);
+    QObject::connect(vm, &MainVM::gotoCppToQmlMemoryTest, this, &RootCoordinator::showCppToQmlMemoryTest);
+    QObject::connect(vm, &MainVM::gotoCppRefsAndPtrsTest, this, &RootCoordinator::showCppRefsAndPtrsTest);
 
     Smoozy::pushNamedPage(qmlCoordinatorInstance.data(), Aurora::Application::pathTo(PagePaths::mainPage), Smoozy::wrapInProperties(vm));
 }
@@ -77,12 +83,26 @@ void RootCoordinator::showSqliteCpp()
 {
     auto vm = new BooksListQueryVM(sqliteDb.data(), nullptr);
 
-    Smoozy::pushNamedPage(qmlCoordinatorInstance.data(), Aurora::Application::pathTo(PagePaths::sqliteCppPage), Smoozy::wrapInProperties(vm));
+    Smoozy::pushNamedPage(qmlCoordinatorInstance.data(), Aurora::Application::pathTo(PagePaths::booksListQueryPage), Smoozy::wrapInProperties(vm));
 }
 
 void RootCoordinator::showSqliteQueryModelCpp()
 {
     auto vm = new BooksListModelVM(sqliteDb.data(), nullptr);
 
-    Smoozy::pushNamedPage(qmlCoordinatorInstance.data(), Aurora::Application::pathTo(PagePaths::sqlQueryModelPage), Smoozy::wrapInProperties(vm));
+    Smoozy::pushNamedPage(qmlCoordinatorInstance.data(), Aurora::Application::pathTo(PagePaths::booksListModelPage), Smoozy::wrapInProperties(vm));
+}
+
+void RootCoordinator::showCppToQmlMemoryTest()
+{
+    auto vm = new CppToQmlMemoryTestVM();
+
+    Smoozy::pushNamedPage(qmlCoordinatorInstance.data(), Aurora::Application::pathTo(PagePaths::cppToQmlMemoryTestPage), Smoozy::wrapInProperties(vm));
+}
+
+void RootCoordinator::showCppRefsAndPtrsTest()
+{
+    auto vm = new CppRefsAndPtrsTestVM();
+
+    Smoozy::pushNamedPage(qmlCoordinatorInstance.data(), Aurora::Application::pathTo(PagePaths::cppRefsAndPtrsTestPage), Smoozy::wrapInProperties(vm));
 }

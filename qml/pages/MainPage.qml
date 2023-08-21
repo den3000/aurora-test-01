@@ -68,6 +68,18 @@ Page {
 
         Button {
             anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
+            text: "Cpp to Qml memory test"
+            onClicked: viewModel.gotoCppToQmlMemoryTest()
+        }
+
+        Button {
+            anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
+            text: "Cpp Refs and Ptrs test"
+            onClicked: viewModel.gotoCppRefsAndPtrsTest()
+        }
+
+        Button {
+            anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
             text: "Create AboutVM from QML"
             onClicked: {
                 // Use this to push page directly, for example
@@ -135,7 +147,7 @@ Page {
         Button {
             anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
             text: "SQLite QML"
-            onClicked: pageStack.push(Qt.resolvedUrl("SQLiteQmlPage.qml"))
+            onClicked: pageStack.push(Qt.resolvedUrl("BooksListQmlPage.qml"))
         }
 
         Button {

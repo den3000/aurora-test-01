@@ -7,6 +7,8 @@
 #include "bookslistqueryvm.h"
 #include "bookslistmodelvm.h"
 #include "bookmodeltable.h"
+#include "cpptoqmlmemorytestvm.h"
+#include "cpprefsandptrstestvm.h"
 
 class CustomCppClasses {
 public:
@@ -16,6 +18,11 @@ public:
         qmlRegisterType<BooksListQueryVM>("CustomCppClasses.Module", 1, 0, "BooksListQueryVM");
         qmlRegisterType<BooksListModelVM>("CustomCppClasses.Module", 1, 0, "BooksListModelVM");
         qmlRegisterType<BookModelTable>("CustomCppClasses.Module", 1, 0, "BookModelTable");
+
+        qmlRegisterType<CppToQmlMemoryTestVM>("CustomCppClasses.Module", 1, 0, "CppToQmlMemoryTestVM");
+        qmlRegisterType<CppToQmlMemoryTestModel>("CustomCppClasses.Module", 1, 0, "CppToQmlMemoryTestModel");
+        qmlRegisterType<CppToQmlMemoryTestAbstractListModel>("CustomCppClasses.Module", 1, 0, "CppToQmlMemoryTestAbstractListModel");
+        qmlRegisterType<CppRefsAndPtrsTestVM>("CustomCppClasses.Module", 1, 0, "CppRefsAndPtrsTestVM");
     }
 };
 
