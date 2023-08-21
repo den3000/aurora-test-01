@@ -37,8 +37,16 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import CustomCppClasses.Module 1.0
 
 Page {
+    // Declaring AboutVM property and then reparating
+    // it to make sure that VM will be deleted when page
+    // is closed since VM might be created and injected
+    // before page creation (from qml or c++)
+    property AboutVM viewModel
+    onViewModelChanged: viewModel.parent = this
+
     objectName: "aboutPage"
     allowedOrientations: Orientation.All
 
@@ -51,10 +59,30 @@ Page {
             id: layout
             objectName: "layout"
             width: parent.width
+            spacing: 16
 
             PageHeader {
                 objectName: "pageHeader"
                 title: qsTr("About Application")
+            }
+
+            Button {
+                id: btInvoke
+                anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
+                text: "Foo"
+                onClicked: viewModel.foo()
+            }
+
+            Button {
+                id: btEmit
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                    leftMargin: Theme.horizontalPageMargin
+                    rightMargin: Theme.horizontalPageMargin
+                }
+                text: "Emit"
+                onClicked: viewModel.bar()
             }
 
             Label {

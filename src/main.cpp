@@ -37,16 +37,22 @@
 
 #include <auroraapp.h>
 #include <QtQuick>
+#include "customcppclasses.h"
+#include "rootcoordinator.h"
+
+// https://www.freecodecamp.org/news/gitignore-what-is-it-and-how-to-add-to-repo/
+// https://github.com/github/gitignore/blob/main/Qt.gitignore
 
 int main(int argc, char *argv[])
 {
+    CustomCppClasses::registerModuleInQml();
+
     QScopedPointer<QGuiApplication> application(Aurora::Application::application(argc, argv));
     application->setOrganizationName(QStringLiteral("ru.auroraos"));
     application->setApplicationName(QStringLiteral("DiAndNavExample"));
 
-    QScopedPointer<QQuickView> view(Aurora::Application::createView());
-    view->setSource(Aurora::Application::pathTo(QStringLiteral("qml/DiAndNavExample.qml")));
-    view->show();
+    QScopedPointer<RootCoordinator> rootCoordinator(new RootCoordinator());
+    rootCoordinator->start();
 
     return application->exec();
 }
